@@ -1416,6 +1416,12 @@ We can google these since there are so many developers who have published packag
 
 Once these are downloaded using `pip`, we can import them like any other module.
 
+**Syntax for downloading a package**:
+
+- Type `pip install <modulename>` in the terminal (Ex: `pip install python-docx`
+- To install package for a specific python version use `<pythonversion> -m pip install <modulename>`.
+  - Ex: `python3.7 -m pip install python-docx`
+
 ## Object oriented python
 
 - Define classes with the **`class`** keyword
