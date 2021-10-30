@@ -2,7 +2,34 @@
 
 [Course link: FCC Youtube Video](https://www.youtube.com/watch?v=rfscVS0vtbw)
 
-[toc]
+# Table of contents
+
+- [Python tutorial](#python-tutorial)
+  - [Intro](#intro)
+  - [First Python code](#first-python-code)
+  - [Variables and Data Types](#variables-and-data-types)
+  - [Strings in Python](#strings-in-python)
+  - [Numbers in Python](#numbers-in-python)
+  - [Getting input from users](#getting-input-from-users)
+  - [Lists](#lists)
+  - [Tuples](#tuples)
+  - [Functions](#functions)
+  - [If construct](#if-construct)
+  - [Logical operators](#logical-operators)
+  - [Relational operators](#relational-operators)
+  - [Assignment shorthands](#assignment-shorthands)
+  - [Dictionary](#dictionary)
+  - [While loops](#while-loops)
+  - [For loops](#for-loops)
+  - [Exponent function](#exponent-function)
+  - [2D lists and nested loops](#2d-lists-and-nested-loops)
+  - [Comments](#comments)
+  - [Try and except](#try-and-except)
+  - [Reading from and writing to files](#reading-from-and-writing-to-files)
+  - [Modules](#modules)
+  - [Pip](#pip)
+  - [Object oriented python](#object-oriented-python)
+  - [Python interpreter](#python-interpreter)
 
 ## Intro
 
