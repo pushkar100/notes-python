@@ -47,6 +47,12 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Check if two lists are the same](#check-if-two-lists-are-the-same)
       - [Creating immutable lists aka Tuples](#creating-immutable-lists-aka-tuples)
       - [Looping through items in a list](#looping-through-items-in-a-list)
+    + [Generate a series of integers](#generate-a-series-of-integers)
+      - [Skipping values while generating a series of integers](#skipping-values-while-generating-a-series-of-integers)
+      - [Creating a list from a range of integers](#creating-a-list-from-a-range-of-integers)
+      - [Looping through a series of integers](#looping-through-a-series-of-integers)
+      - [Using list comprehension to combine list creation with generating a range of integers](#using-list-comprehension-to-combine-list-creation-with-generating-a-range-of-integers)
+      - [Simple statistics with a list of numbers](#simple-statistics-with-a-list-of-numbers)
 
 ## Basics
 
