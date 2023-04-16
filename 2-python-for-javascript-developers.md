@@ -24,7 +24,7 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
 
 There are many more advanced types. 
 
-**Comparison with JavaScript**
+Comparison with JavaScript:
 - In python too, `int`, `float`, etc are internal representations of a **Number or numeric** type - same as in JavaScript
 - In JavaScript, the boolean values `true` and `false` are **not** capitalized
 - **Dictionary** is what we call as an **object** in JavaScript
@@ -41,7 +41,7 @@ There are many more advanced types.
 
 Other data types have similar functions
 
-**Comparison with JavaScript**
+Comparison with JavaScript:
 - Converting a number: `Number()`
 - Parsing a string as an integer: `parseInt()`
 - Parsing a string as a float: `parseFloat()`
@@ -60,7 +60,7 @@ Example:
 my_name = 'Pushkar'
 ```
 
-**Comparison with JavaScript**
+Comparison with JavaScript:
 - JavaScript variable declarations are prefixed with a scope identifier like `var`, `const`, `let`
 
 #### Data type of a variable
@@ -72,7 +72,7 @@ my_name = 'Pushkar' # string
 my_name = 20 # integer
 ```
 
-**Comparison with JavaScript**
+Comparison with JavaScript:
 - JavaScript is also dynamically typed
 
 #### Default value of a variable
@@ -85,7 +85,7 @@ foo # NameError: name 'foo' is not defined
 foo = 'bar' # ✓
 ```
 
-**Comparison with JavaScript**
+Comparison with JavaScript:
 - In JavaScript, it is possible to have variable declarations that are unassigned
 - The value in such a case will be `undefined`
 
@@ -98,7 +98,7 @@ foo = 5
 foo = 'bar' # ✓
 ```
 
-**Comparison with JavaScript**
+Comparison with JavaScript:
 - In JavaScript, only `var` and `let` can be re-assigned.
 - However, `const` cannot be re-assigned (In fact, it has to be assigned a value at the time of declaration)
 
@@ -120,7 +120,7 @@ my_1_name # ✓
 with # ✕ (Python keyword)
 ```
 
-**Comparison with JavaScript**
+Comparison with JavaScript:
 - These rules apply to JavaScript as well but with one difference: `$`
 - `$` is allowed in JavaScript variable names and can even begin with it
 - Every other rule is the same
@@ -136,6 +136,6 @@ foo_bar
 
 Only class names use `PascalCase`.
 
-**Comparison with JavaScript**
+Comparison with JavaScript:
 - The convention in JavaScript is to use `camelCase` for variables, functions, etc
 - Classes use the `PascalCase`
