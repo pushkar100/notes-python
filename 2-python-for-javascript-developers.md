@@ -1,4 +1,4 @@
-# Python for JavaScript Developers Notes
+# Python notes for JavaScript developers
 
 Learning Python as a JavaScript developer by comparing the syntax and constructs of each language with the other.
 
