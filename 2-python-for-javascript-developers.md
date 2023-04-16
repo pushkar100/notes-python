@@ -444,3 +444,286 @@ Comparison with JavaScript:
 - However, the two values are represented in lower case (`true` and `false`)
 - Explicit typecasting can be done with `Boolean()` but also there is a concept of **Truthy** and **Falsy** values
 
+### Lists 
+
+Lists are arrays (collection of items in an order) in which we can add items of different types.
+
+The indices start from `0` like most other languages, including JavaScript.
+
+#### Defining a list
+
+Use square brackets (`[]`)
+
+```python
+cities = ['Delhi', 'Bangalore', 'London']
+print(cities) # ['Delhi', 'Bangalore', 'London']
+```
+
+We can have mixed items in the list
+
+```python
+foo = [10, 'bar', { 'a': 1 }]
+print(foo) # [10, 'bar', {'a': 1}]
+```
+
+Comparison with JavaScript:
+- Same
+
+#### Accessing a list item
+
+1. Accessing a list item using the index inside square brackets (`[]`)
+```python
+foo = [10, 'bar', { 'a': 1 }]
+foo[1] # 'bar'
+```
+
+2. Accessing the last item of a list
+
+We can access it by the ending index or by using `-1` as the index.
+```python
+foo = [10, 'bar', { 'a': 1 }]
+foo[2] # {'a': 1} (2 is the last index)
+foo[-1] # {'a': 1} (-1 refers to the first element from the end of the list)
+
+# Can access more elements from the end of the list
+foo[-2] # 'bar' (second last element)
+```
+
+3. Accessing the first item of a list using `0` index
+```python
+foo = [10, 'bar', { 'a': 1 }]
+foo[0] # 10
+```
+
+Comparison with JavaScript:
+- Almost the same!
+- However, we do **not** have **negative indices** (Ex: `-1`) to access the elements of a list starting backwards from the end of it
+
+#### Modifying a list item
+
+Use the square bracket notation to access the item and assign it using `=`
+```python
+foo = [10, 'bar', { 'a': 1 }]
+foo[0] = 'blah'
+foo[0] # 'blah'
+```
+
+Comparison with JavaScript:
+- Same
+
+#### Appending an item to a list
+
+Use the `.append()` method
+```python
+foo = [10, 'bar', { 'a': 1 }]
+foo.append(20)
+foo # [10, 'bar', {'a': 1}, 20]
+```
+
+`.append()` method allows us to dynamically build a list.
+
+Comparison with JavaScript:
+- In JavaScript, we use the `.push()` method
+
+#### Inserting an item to a list
+
+Use the `.insert()` method
+- It takes two arguments: An index and a value
+- The value is insert at the index
+- The earlier set of items starting from that index is shifted to the right
+```python
+foo = [10, 'bar', { 'a': 1 }]
+foo.insert(1, 20)
+foo # [10, 20, 'bar', {'a': 1}, 20]
+```
+
+Comparison with JavaScript:
+- There is a method called `.splice()`
+- `.splice()` has a different syntax. It takes at least 3: 
+  - Index
+  - Number of existing elements to delete from index
+  - The elements to insert at index (can be one or many comma separated values)
+- Other ways to do it:
+  - Use rest & spread `...`operators (Immutable way) `[...existing elements, new element, ...remaing elements]`
+
+#### Deleting an item from a list
+
+1. Removing an item from anywhere in a list using the index
+- Use the `del` operator
+- Use the `.pop(index)` method to remove an element from the given index
+  - The method returns the removed top element for post-processing
+```python
+foo = [10, 'bar', { 'a': 1 }]
+del foo[1]
+foo # [10, {'a': 1}]
+
+foo = [10, 'bar', { 'a': 1 }]
+foo.pop(1) # 'bar'
+foo # [10, {'a': 1}]
+```
+
+Comparison with JavaScript:
+- There is no `del` operator
+- Again, you can use the `.splice()` method without inserting any elements but only removing them
+- The `.pop()` method in JavaScript is used to remove **only** the last element
+
+2. Removing an item from the end of a list
+- Use the `.pop()` method (i.e without `index` argument)
+- The method returns the removed top element for post-processing
+```python
+foo = [10, 'bar', { 'a': 1 }]
+foo.pop() # { 'a': 1 }
+foo # [10, 'bar']
+```
+
+Comparison with JavaScript:
+- Same. There is a `.pop()` method in JavaScript arrays too. 
+- It too returns the removed top element
+
+3. Removing an item by value from the beginning of a list
+- Again, use the `del` operator
+```python
+foo = [10, 'bar', { 'a': 1 }]
+del foo[0]
+foo # ['bar', { 'a': 1 }]
+```
+
+Comparison with JavaScript:
+- Use the `.shift()` method. It also returns the removed first element
+
+4. Removing an item by value from a list
+- Use the `.remove()` method
+- This method removes only the **first matching element** of a list
+```python
+foo = [10, 'bar', { 'a': 1 }]
+foo.remove('bar')
+foo # [10, {'a': 1}]
+```
+
+Note: 
+- To remove the second matching value, run the `.remove()` method a second time, and so on.
+- To remove all occurrences, use a while loop
+
+Comparison with JavaScript:
+- No method like `.remove()` in JS
+- Use `Array.filter(filterMethod)` (functional programming) (OR) 
+- Use `.indexOf(value)` to find the first index of an item and then `.splice()` to remove it
+
+#### Searching for an item in a list
+
+1. Searching for an item in a list
+- Use an `in` expression (Returns `True` or `False` based on existence of the value)
+- Use a `.count()` method. It returns the number of occurrences of that value in the list.
+```python
+10 in foo # True
+'google' in foo # False
+
+foo = [10, 'bar', { 'a': 1 }]
+foo.count('bar') # 1
+foo.count('google') # 0
+```
+
+Comparison with JavaScript:
+- Use the `.includes(value)` method
+
+2. Fetching the index of an item in a list
+- Use `.index()` method. It returns an index if first occurrence is found else raises a `ValueError` exception
+```python
+foo = [10, 'bar', { 'a': 1 }]
+foo.index('bar') # 1
+
+foo.index('baz') # ✕ (ValueError)
+```
+
+Comparison with JavaScript:
+- Use the `.indexOf(value)` method to get the index of the first occurrence of the value
+- Use the `.lastIndexOf(value)` method to get the index of the last occurrence of the value
+
+#### Sorting a list
+
+- Use the `.sort()` method to alphabetically sort it (But, it fails for mixed elements' list) (Mutable)
+- To temporarily sort it (immutably), use the built-in `sorted()` function
+```python
+foo = ['aa', 'b', 'aba', 'c', 'coo', 'bi']
+foo.sort()
+foo # ['aa', 'aba', 'b', 'bi', 'c', 'coo']
+```
+
+```python
+foo = ['aa', 'b', 'aba', 'c', 'coo', 'bi']
+sorted(foo) # ['aa', 'aba', 'b', 'bi', 'c', 'coo']
+foo # ['aa', 'b', 'aba', 'c', 'coo', 'bi']
+```
+
+Note:
+- Both `.sort()` and `sorted()` can take a keyword argument `reverse=True` to reverse sort
+```python
+foo = ['aa', 'b', 'aba', 'c', 'coo', 'bi']
+sorted(foo, reverse=True) # ['coo', 'c', 'bi', 'b', 'aba', 'aa']
+foo # ['aa', 'b', 'aba', 'c', 'coo', 'bi']
+```
+```python
+foo = ['aa', 'b', 'aba', 'c', 'coo', 'bi']
+foo.sort(reverse=True)
+foo # ['coo', 'c', 'bi', 'b', 'aba', 'aa']
+```
+- Both `.sort()` and `sorted()` take a `key` argument that is a function (takes one argument) to define the custom sorting technique
+```python
+def sort_fn(b):
+  return len(b)
+
+foo = ['aa', 'b', 'aba', 'c', 'coo', 'bi']
+foo.sort(key=sort_fn)
+foo # ['b', 'c', 'aa', 'bi', 'aba', 'coo']
+```
+
+Comparison with JavaScript:
+- There is a `.sort()` method. Sorts it alphabetically by default
+- It can take a custom sorting functio (takes two arguments) as an argument but it does not have a `reverse` option
+- Your sorting method must manually reverse it if needed
+- There is no built-in `sorted()` function
+
+#### Reversing a list 
+
+Reversing is not equal to reverse sorting. This is completely different.
+
+- Use the `.reverse()` method. This mutates the list
+```python
+foo = ['aa', 'b', 'aba', 'c', 'coo', 'bi']
+foo.reverse()
+foo # ['bi', 'coo', 'c', 'aba', 'b', 'aa']
+```
+
+Comparison with JavaScript:
+- Same. The `.reverse()` method mutates the array too.
+
+#### Length of a list
+
+Use the `len` function
+```python
+foo = ['aa', 'b', 'aba', 'c', 'coo', 'bi']
+len(foo) # 6
+```
+
+Comparison with JavaScript:
+- We need to use an array method called `.length()`. Ex: `foo.length()`
+
+#### Index error when selecting a list item 
+
+When requesting an item at an index that does not exist for a list.
+- Python throws an `IndexError`
+```python
+foo = ['aa', 'b', 'aba', 'c', 'coo', 'bi']
+foo[6] # ✕ (IndexError: list index out of range)
+
+foo[-1] # 'bi'
+
+foo[-6] # 'aa'
+
+foo[-7] # ✕ (IndexError: list index out of range)
+```
+
+Comparison with JavaScript:
+- JavaScript simply returns an `undefined` value for out-of-bounds indices i.e No error
+- However, if you search for an out-of-bounds index item and try to process it, then you may get an error depending on the operation.
+- JavaScript does not have negative index search from the end of a list but even a negative out-of-bounds item check returns `undefined`
