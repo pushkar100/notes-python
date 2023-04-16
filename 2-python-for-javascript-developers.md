@@ -876,3 +876,41 @@ record # 10
 _Comparison with JavaScript:_
 - Tuples do not exist in JavaScript!
 - Typecheckers like **TypeScript** and **Flow** can enforce this new type. However, executable JS can never contain it
+
+#### Looping through items in a list
+
+**1. Loop through items using a for (`for-in`) loop**
+- Can choose any name for the temporary variable in the loop (Ex: `for temporary_variable in list_to_loop:`)
+- Do not forget the trailing colon `:` of the `for` statement
+- The body of the for loop must be indented by one additional tab from the left (Python is meant to be easy to read)
+```python
+foo = [10, 15, 4, 20, 69, 30, 4.1]
+
+for num in foo:
+  print(num)
+
+# 10
+# 15
+# 4
+# 20
+# 69
+# 30
+# 4.1
+```
+
+**2. Using the loop variable outside the loop**
+- The loop variable is accessible outside of the for loop! 
+- It will contain the last value of the list after the for loop has!
+```python
+foo = [10, 15, 4, 20, 69, 30, 4.1]
+
+for num in foo:
+  print(num)
+
+num # 4.1
+```
+
+_Comparison with JavaScript:_
+- In JavaScript, only the `var` keyword loop variable is available outside the loop since it is function scoped. 
+- It will also contain the last item value.
+- `let` loop variable is block scoped, so it will not be available outside the loop (Trying to access it will throw an error)
