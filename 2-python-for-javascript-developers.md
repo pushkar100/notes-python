@@ -139,3 +139,105 @@ Only class names use `PascalCase`.
 Comparison with JavaScript:
 - The convention in JavaScript is to use `camelCase` for variables, functions, etc
 - Classes use the `PascalCase`
+
+### Strings
+
+#### Defining a string
+
+Use `''` or `""` (Single or double quotes)
+
+Comparison with JavaScript:
+- Same in JavaScript but you can also use the ` `` ` for strings with interpolation
+
+#### Changing the case of strings
+
+1. Capitalize a string using `.capitalize()`
+
+Only updates the first letter to be upper case in the string (instead of every word in the string)
+
+```python
+x = 'pushkar dk'
+x.capitalize() # 'Pushkar dk'
+```
+Does not affect the original string variable (immutable)
+
+2. Title-ify a string using `.title()`
+
+```python
+x = 'pushkar dk'
+x.title() # 'Pushkar Dk'
+```
+Does not affect the original string variable (immutable)
+
+3. Change to upper case using `.upper()`
+
+```python
+x = 'pushkar dk'
+x.upper() # 'PUSHKAR DK'
+```
+Does not affect the original string variable (immutable)
+
+4. Change to upper case using `.lower()`
+
+```python
+x = 'pushkar dk'
+x.lower() # 'pushkar dk'
+```
+Does not affect the original string variable (immutable)
+
+Comparison with JavaScript:
+- The corresponding string method for uppercasing is: `.toUpperCase()`
+- The corresponding string method for lowercasing is: `.toLowerCase()`
+- There is not built-in method to title-ify or capitalize every word in a string in JavaScript
+
+#### Concatenating strings
+
+In python, we use the `+` symbol to concatenate strings.
+However, in order to concatenate non-string values with strings (Ex: integers), we must typecast them first (Ex: `str()`)
+```python
+'my ' + 'name is ' + 'Pushkar' + ' and I am ' + 15 + ' years old' # ✕
+'my ' + 'name is ' + 'Pushkar' + ' and I am ' + str(15) + ' years old' # ✓
+```
+
+Comparison with JavaScript:
+- In JavaScript, you can use the same `+` operator to concatenate strings
+- However, **sometimes** we do not have to explicitly convert numbers. JS will try type coerce them into a string
+  - Ex: `'My age is' + 15 // 'My age is 15'`
+- There is another way to build strings in JS: Interpolation. 
+  - Ex: `age = 15; x = `My age is ${age}`;`
+
+#### Escaping characters in a string
+
+1. Escape newlines with `\n`
+2. Escape tabs with `\t`
+3. Escape characters with a backslash. Ex: `\"` and `\'`
+
+Comparison with JavaScript:
+- Same
+
+#### Stripping whitespaces from strings
+
+1. Remove whitespace from the right of a string with `.rstrip()`
+
+```python
+name = '  pushkar  '
+name.rstrip() # '  pushkar'
+```
+
+2. Remove whitespace from the left of a string with `.lstrip()`
+
+```python
+name = '  pushkar  '
+name.lstrip() # 'pushkar  '
+```
+
+3. Remove all leading and trailing spaces with `.strip()`
+
+```python
+name = '  pushkar  '
+name.strip() # 'pushkar'
+```
+
+Comparison with JavaScript:
+- In JavaScript, we originally only had a `.trim()` method to trim all leading and trailing spaces (Like `.strip()`)
+- In later versions. [`.trimEnd()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimEnd) and [`.trimStart()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimStart) have been added with good browser support
