@@ -742,3 +742,105 @@ _Comparison with JavaScript:_
 - JavaScript simply returns an `undefined` value for out-of-bounds indices i.e No error
 - However, if you search for an out-of-bounds index item and try to process it, then you may get an error depending on the operation.
 - JavaScript does not have negative index search from the end of a list but even a negative out-of-bounds item check returns `undefined`
+
+#### Slicing a list to work with a part of it
+
+**1. Slice a list to create a subset (immutable)**
+- Use the `list[start:end]` syntax
+- It includes the start index item but not the end index one
+```python
+foo = [10, 'bar', { 'a': 1 }, 20, 30, 4.1, True]
+foo[2:5] # [{'a': 1}, 20, 30]
+
+foo # [10, 'bar', {'a': 1}, 20, 30, 4.1, True]
+```
+
+**2. Slice a list from the beginning of a list (immutable)**
+- Omit the start index: `list[:end]`
+```python
+foo = [10, 'bar', { 'a': 1 }, 20, 30, 4.1, True]
+foo[:4] # [10, 'bar', {'a': 1}, 20]
+
+foo # [10, 'bar', {'a': 1}, 20, 30, 4.1, True]
+```
+
+**3. Slice a list that includes the end of a list (immutable)**
+- Omit the end index: `list[start:]`
+```python
+foo = [10, 'bar', { 'a': 1 }, 20, 30, 4.1, True]
+foo[4:] # [30, 4.1, True]
+
+foo # [10, 'bar', {'a': 1}, 20, 30, 4.1, True]
+```
+
+**4. Slice the last few items from a list (immutable)**
+- Use a negative index for the start and omit the end: `list[-start:]`
+```python
+foo = [10, 'bar', { 'a': 1 }, 20, 30, 4.1, True]
+foo[-3:] # [30, 4.1, True]
+
+foo # [10, 'bar', {'a': 1}, 20, 30, 4.1, True]
+```
+
+**5. Using a sliced subset in a for loop**
+- Use a `for` loop (i.e `for-in`) on the sliced list
+```python
+foo = [10, 'bar', { 'a': 1 }, 20, 30, 4.1, True]
+for item in foo[3:5]:
+  print(item)
+
+# 20
+# 30
+```
+
+_Comparison with JavaScript:_
+- Use the spread (`...`) operator to generate new arrays (immutably) (or)
+- Use the `.slice()` method for generating a subset (immutably)
+
+#### Copying a list
+
+Use `list[:]` to copy a list
+- This is useful when you want to pass by value instead of by reference so that the original list is not tampered with
+```python
+foo = [10, 'bar', { 'a': 1 }, 20, 30, 4.1, True]
+x = foo[:]
+
+x # [10, 'bar', {'a': 1}, 20, 30, 4.1, True]
+
+x[1] = 'changed'
+x # [10, 'changed', {'a': 1}, 20, 30, 4.1, True]
+foo # [10, 'bar', {'a': 1}, 20, 30, 4.1, True]
+```
+
+Note: To hold the reference simply assign the original list to a variable or pass it by name to a function
+
+_Comparison with JavaScript:_
+- Use the spread (`...`) operator to generate new arrays (immutably) (or)
+- Use the `.slice()` method for generating a subset (immutably)
+
+#### Check if two lists are the same
+
+- The `==` operator on lists match the lists **by value**! 
+- In order to match lists by reference, use the `is` expression! (i.e check if the variables point to the same list in memory)
+```python
+foo = [10, 'bar', { 'a': 1 }, 20, 30, 4.1, True]
+
+# Copied list
+x = foo[:]
+x == foo # True (Matches by value)
+x is foo # False (Matches by reference)
+
+# Same reference
+x = foo
+x == foo # True (Matches by value)
+x is foo # True (Matches by reference)
+```
+
+_Comparison with JavaScript:_
+- In JavaScript, both equality (`==`) and strict equality (`===`, types must match too!) match **by reference**!
+- In order to compare two lists by value in JS,
+  - Try looping through them and matching individual items (OR)
+  - Use a `JSON.stringify()` method and then compare (OR)
+  - Use the `.toString()` return value and then compare (OR)
+  - Use `.every()` to match the value at the index of current array with the value at the index of the other array
+
