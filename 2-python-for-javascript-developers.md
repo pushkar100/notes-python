@@ -4,6 +4,7 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
 
 - [Python for JavaScript Developers Notes](#python-for-javascript-developers-notes)
   * [Basics](#basics)
+    + [Opening a REPL](#opening-a-repl)
     + [Data types](#data-types)
     + [Type casting](#type-casting)
     + [Variables](#variables)
@@ -13,12 +14,19 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Re-assigning variables](#re-assigning-variables)
       - [Variable naming rules](#variable-naming-rules)
       - [Variable naming conventions](#variable-naming-conventions)
+    + [Printing to console](#printing-to-console)
     + [Strings](#strings)
       - [Defining a string](#defining-a-string)
       - [Changing the case of strings](#changing-the-case-of-strings)
       - [Concatenating strings](#concatenating-strings)
       - [Escaping characters in a string](#escaping-characters-in-a-string)
       - [Stripping whitespaces from strings](#stripping-whitespaces-from-strings)
+      - [Casting a value into a string](#casting-a-value-into-a-string)
+    + [Numbers](#numbers)
+      - [Arithmetic operations on integers](#arithmetic-operations-on-integers)
+      - [Floating point numbers](#floating-point-numbers)
+      - [Casting a value into a number](#casting-a-value-into-a-number)
+    + [Boolean values](#boolean-values)
 
 ## Basics
 
@@ -299,3 +307,102 @@ str(True) # 'True'
 
 Comparison with JavaScript:
 - In JavaScript, we use the `String()` function or just type coerce by `''` or `""` or ` `${}` `
+
+### Numbers
+
+#### Arithmetic operations on integers
+
+Operators: `+` (Add), `-` (Subtract), `*` (Multiply), `/` (Divide), `//` (Integer division), `**` (Exponent), `%` (Modulo)
+
+```python
+2 + 3 # 5
+3 - 2 # 1
+3.2 / 5 # 0.64
+14 // 5 # 2 (Divides and returns only the integer quotient)
+2 ** 5 # 32
+15 % 4 # 3 (Returns the remainder)
+```
+
+Note involving division in Python2:
+- Division causes integer division by default.
+- `3 / 2 # 1`. To avoid this, make sure at least one of the values is a `float`
+- `3 / float(2) # 1.5`
+
+#### Floating point numbers
+
+Use the decimal point (`.`) to represent floating point numbers
+```python
+0.245
+```
+
+Floating point numbers have a precision problem.
+```python
+0.2 + 0.1 # 0.30000000000000004
+```
+
+- The same arithmetic operations that apply to integers apply to floating point values also
+
+Comparison with JavaScript:
+- Same
+- In JavaScript too we have the floating point precision problem! :/ 
+
+#### Casting a value into a number
+
+1. Casting a string to a number
+
+```python
+int('133') # 133
+int('133x') # ✕ (Error)
+```
+
+2. Casting a string to a float
+
+```python
+float('133') # 133.0
+float('133.11') # 133.11
+float('133x') # ✕ (Error)
+```
+
+3. Casting a boolean to an integer
+
+```python
+int(True) # 1
+int(False) # 0
+```
+
+4. Casting a boolean to a float
+
+```python
+float(True) # 1.0
+float(False) # 0.0
+```
+
+Comparison with JavaScript:
+- We can use similar functions to explicitly cast values: `Number()`, `parseInt()`, `parseFloat()`
+- Sometimes, we end up implicitly type-casting (type coercion) one type to another. 
+
+### Boolean values
+
+- The boolean type is represented by `bool`
+- There are two boolean values: `True` and `False`
+- A conditional expression results in a boolean value always
+- Many values can be typecast into a boolean
+
+```python
+5 > 1 # True
+'Pushkar' == 'Pushkar Dk' # False
+
+bool(1) # True
+bool(0) # False
+
+bool('x') # True
+bool('1') # True
+bool('0') # True
+bool('') # False
+```
+
+Comparison with JavaScript:
+- Same
+- However, the two values are represented in lower case (`true` and `false`)
+- Explicit typecasting can be done with `Boolean()` but also there is a concept of **Truthy** and **Falsy** values
+
