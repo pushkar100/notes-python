@@ -846,3 +846,29 @@ _Comparison with JavaScript:_
   - Use the `.toString()` return value and then compare (OR)
   - Use `.every()` to match the value at the index of current array with the value at the index of the other array
 
+#### Creating immutable lists aka Tuples
+
+Tuples are immutable lists that cannot be changed!
+1. They are represented by parentheses `()` rather than square brackets `[]`
+2. Tuples cannot be altered once created
+  - We cannot modify an item
+  - We cannot insert / append an item
+  - We cannot delete an item
+3. List methods also work on tuples except those that try to mutate it (in which case we get an error)
+4. Variables assigned to a tupl can, however, be re-assigned (either to another tuple or a value of another data type)
+```python
+record = (14, 'Pushkar', 'Desai', 29)
+
+# Accessing an item
+record[1] # 'Pushkar
+
+# Modifying an item (Error)
+record[1] = 3 # ✕ (TypeError: 'tuple' object does not support item assignment)
+
+# Appending/Inserting an item (Error)
+record.append(10) # ✕ (AttributeError: 'tuple' object has no attribute 'append')
+
+# Re-assigning a variable containing a tuple
+record = 10
+record # 10
+```
