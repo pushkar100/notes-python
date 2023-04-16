@@ -65,15 +65,15 @@ _Comparison with JavaScript:_
 ### Data types
 
 1. Numeric
-  1. Integer (`int`)
-  2. Float (`float`)
-  3. Complex Number
+ 1. Integer (`int`)
+ 2. Float (`float`)
+ 3. Complex Number
 2. String (`str`)
 3. Boolean (`bool`): There are two values, `True` and `False`
 4. Dictionary (`{}`)
 5. Sequence
-  1. Lists (`[]`)
-  2. Tuples (`()`)
+ 1. Lists (`[]`)
+ 2. Tuples (`()`)
 6. None
 
 There are many more advanced types. 
