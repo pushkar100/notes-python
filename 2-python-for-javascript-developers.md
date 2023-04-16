@@ -259,3 +259,19 @@ name.strip() # 'pushkar'
 Comparison with JavaScript:
 - In JavaScript, we originally only had a `.trim()` method to trim all leading and trailing spaces (Like `.strip()`)
 - In later versions. [`.trimEnd()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimEnd) and [`.trimStart()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimStart) have been added with good browser support
+
+### Printing to console
+
+Use the `print()` statement
+
+```python
+name = 'Pushkar'
+print('Hello, ' + name + '!') # Prints: Hello, Pushkar!
+```
+Note about Python2:
+- We do not use parentheses to print stuff out: `print 'Hello, ' + name + '!'`
+- If we add parentheses, the behaviour can be a bit different from the python3 `print()` statement
+
+Comparison with JavaScript:
+- In JavaScript, we use `console.log()` to print to the browser or node console (terminal)
+
