@@ -872,3 +872,7 @@ record.append(10) # ✕ (AttributeError: 'tuple' object has no attribute 'append
 record = 10
 record # 10
 ```
+
+_Comparison with JavaScript:_
+- Tuples do not exist in JavaScript!
+- Typecheckers like **TypeScript** and **Flow** can enforce this new type. However, executable JS can never contain it
