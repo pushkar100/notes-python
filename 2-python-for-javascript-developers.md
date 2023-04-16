@@ -2,7 +2,7 @@
 
 Learning Python as a JavaScript developer by comparing the syntax and constructs of each language with the other.
 
-- [Python for JavaScript Developers Notes](#python-for-javascript-developers-notes)
+- [Python notes for JavaScript developers](#python-notes-for-javascript-developers)
   * [Basics](#basics)
     + [Opening a REPL](#opening-a-repl)
     + [Data types](#data-types)
@@ -42,6 +42,11 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Reversing a list](#reversing-a-list)
       - [Length of a list](#length-of-a-list)
       - [Index error when selecting a list item](#index-error-when-selecting-a-list-item)
+      - [Slicing a list to work with a part of it](#slicing-a-list-to-work-with-a-part-of-it)
+      - [Copying a list](#copying-a-list)
+      - [Check if two lists are the same](#check-if-two-lists-are-the-same)
+      - [Creating immutable lists aka Tuples](#creating-immutable-lists-aka-tuples)
+      - [Looping through items in a list](#looping-through-items-in-a-list)
 
 ## Basics
 
