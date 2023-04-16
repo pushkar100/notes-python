@@ -742,6 +742,8 @@ _Comparison with JavaScript:_
 - JavaScript simply returns an `undefined` value for out-of-bounds indices i.e No error
 - However, if you search for an out-of-bounds index item and try to process it, then you may get an error depending on the operation.
 - JavaScript does not have negative index search from the end of a list but even a negative out-of-bounds item check returns `undefined`
+- Interestingly, trying to dynamically define a value for an out-of-bounds array index, **JS creates the item**! It extends the array length
+ - It fills the empty indices in-between as `undefined`!
 
 #### Slicing a list to work with a part of it
 
