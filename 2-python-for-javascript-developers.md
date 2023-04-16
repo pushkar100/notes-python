@@ -15,6 +15,9 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Variable naming rules](#variable-naming-rules)
       - [Variable naming conventions](#variable-naming-conventions)
     + [Printing to console](#printing-to-console)
+    + [Comments](#comments)
+      - [Single-line comments](#single-line-comments)
+      - [Multi-line comments](#multi-line-comments)
     + [Strings](#strings)
       - [Defining a string](#defining-a-string)
       - [Changing the case of strings](#changing-the-case-of-strings)
@@ -27,6 +30,18 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Floating point numbers](#floating-point-numbers)
       - [Casting a value into a number](#casting-a-value-into-a-number)
     + [Boolean values](#boolean-values)
+    + [Lists](#lists)
+      - [Defining a list](#defining-a-list)
+      - [Accessing a list item](#accessing-a-list-item)
+      - [Modifying a list item](#modifying-a-list-item)
+      - [Appending an item to a list](#appending-an-item-to-a-list)
+      - [Inserting an item to a list](#inserting-an-item-to-a-list)
+      - [Deleting an item from a list](#deleting-an-item-from-a-list)
+      - [Searching for an item in a list](#searching-for-an-item-in-a-list)
+      - [Sorting a list](#sorting-a-list)
+      - [Reversing a list](#reversing-a-list)
+      - [Length of a list](#length-of-a-list)
+      - [Index error when selecting a list item](#index-error-when-selecting-a-list-item)
 
 ## Basics
 
