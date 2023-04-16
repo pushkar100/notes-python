@@ -2,6 +2,24 @@
 
 Learning Python as a JavaScript developer by comparing the syntax and constructs of each language with the other.
 
+- [Python for JavaScript Developers Notes](#python-for-javascript-developers-notes)
+  * [Basics](#basics)
+    + [Data types](#data-types)
+    + [Type casting](#type-casting)
+    + [Variables](#variables)
+      - [Declaring a variable](#declaring-a-variable)
+      - [Data type of a variable](#data-type-of-a-variable)
+      - [Default value of a variable](#default-value-of-a-variable)
+      - [Re-assigning variables](#re-assigning-variables)
+      - [Variable naming rules](#variable-naming-rules)
+      - [Variable naming conventions](#variable-naming-conventions)
+    + [Strings](#strings)
+      - [Defining a string](#defining-a-string)
+      - [Changing the case of strings](#changing-the-case-of-strings)
+      - [Concatenating strings](#concatenating-strings)
+      - [Escaping characters in a string](#escaping-characters-in-a-string)
+      - [Stripping whitespaces from strings](#stripping-whitespaces-from-strings)
+
 ## Basics
 
 **Versions used**
