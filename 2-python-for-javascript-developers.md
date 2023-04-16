@@ -258,7 +258,7 @@ Comparison with JavaScript:
 
 #### Changing the case of strings
 
-1. Capitalize a string using `.capitalize()`
+**1. Capitalize a string using `.capitalize()`**
 
 Only updates the first letter to be upper case in the string (instead of every word in the string)
 
@@ -268,7 +268,7 @@ x.capitalize() # 'Pushkar dk'
 ```
 Does not affect the original string variable (immutable)
 
-2. Title-ify a string using `.title()`
+**2. Title-ify a string using `.title()`**
 
 ```python
 x = 'pushkar dk'
@@ -276,7 +276,7 @@ x.title() # 'Pushkar Dk'
 ```
 Does not affect the original string variable (immutable)
 
-3. Change to upper case using `.upper()`
+**3. Change to upper case using `.upper()`**
 
 ```python
 x = 'pushkar dk'
@@ -284,7 +284,7 @@ x.upper() # 'PUSHKAR DK'
 ```
 Does not affect the original string variable (immutable)
 
-4. Change to upper case using `.lower()`
+**4. Change to upper case using `.lower()`**
 
 ```python
 x = 'pushkar dk'
@@ -324,21 +324,21 @@ Comparison with JavaScript:
 
 #### Stripping whitespaces from strings
 
-1. Remove whitespace from the right of a string with `.rstrip()`
+**1. Remove whitespace from the right of a string with `.rstrip()`**
 
 ```python
 name = '  pushkar  '
 name.rstrip() # '  pushkar'
 ```
 
-2. Remove whitespace from the left of a string with `.lstrip()`
+**2. Remove whitespace from the left of a string with `.lstrip()`**
 
 ```python
 name = '  pushkar  '
 name.lstrip() # 'pushkar  '
 ```
 
-3. Remove all leading and trailing spaces with `.strip()`
+**3. Remove all leading and trailing spaces with `.strip()`**
 
 ```python
 name = '  pushkar  '
@@ -351,7 +351,7 @@ Comparison with JavaScript:
 
 #### Casting a value into a string
 
-1. Use the `str()` function
+Use the `str()` function
 
 ```python
 str(4) # '4'
@@ -401,14 +401,14 @@ Comparison with JavaScript:
 
 #### Casting a value into a number
 
-1. Casting a string to a number
+**1. Casting a string to a number**
 
 ```python
 int('133') # 133
 int('133x') # ✕ (Error)
 ```
 
-2. Casting a string to a float
+**2. Casting a string to a float**
 
 ```python
 float('133') # 133.0
@@ -416,14 +416,14 @@ float('133.11') # 133.11
 float('133x') # ✕ (Error)
 ```
 
-3. Casting a boolean to an integer
+**3. Casting a boolean to an integer**
 
 ```python
 int(True) # 1
 int(False) # 0
 ```
 
-4. Casting a boolean to a float
+**4. Casting a boolean to a float**
 
 ```python
 float(True) # 1.0
@@ -486,13 +486,13 @@ Comparison with JavaScript:
 
 #### Accessing a list item
 
-1. Accessing a list item using the index inside square brackets (`[]`)
+**1. Accessing a list item using the index inside square brackets (`[]`)**
 ```python
 foo = [10, 'bar', { 'a': 1 }]
 foo[1] # 'bar'
 ```
 
-2. Accessing the last item of a list
+**2. Accessing the last item of a list**
 
 We can access it by the ending index or by using `-1` as the index.
 ```python
@@ -504,7 +504,7 @@ foo[-1] # {'a': 1} (-1 refers to the first element from the end of the list)
 foo[-2] # 'bar' (second last element)
 ```
 
-3. Accessing the first item of a list using `0` index
+**3. Accessing the first item of a list using `0` index**
 ```python
 foo = [10, 'bar', { 'a': 1 }]
 foo[0] # 10
@@ -563,7 +563,7 @@ Comparison with JavaScript:
 
 #### Deleting an item from a list
 
-1. Removing an item from anywhere in a list using the index
+**1. Removing an item from anywhere in a list using the index**
 - Use the `del` operator
 - Use the `.pop(index)` method to remove an element from the given index
   - The method returns the removed top element for post-processing
@@ -582,7 +582,7 @@ Comparison with JavaScript:
 - Again, you can use the `.splice()` method without inserting any elements but only removing them
 - The `.pop()` method in JavaScript is used to remove **only** the last element
 
-2. Removing an item from the end of a list
+**2. Removing an item from the end of a list**
 - Use the `.pop()` method (i.e without `index` argument)
 - The method returns the removed top element for post-processing
 ```python
@@ -595,7 +595,7 @@ Comparison with JavaScript:
 - Same. There is a `.pop()` method in JavaScript arrays too. 
 - It too returns the removed top element
 
-3. Removing an item by value from the beginning of a list
+**3. Removing an item by value from the beginning of a list**
 - Again, use the `del` operator
 ```python
 foo = [10, 'bar', { 'a': 1 }]
@@ -606,7 +606,7 @@ foo # ['bar', { 'a': 1 }]
 Comparison with JavaScript:
 - Use the `.shift()` method. It also returns the removed first element
 
-4. Removing an item by value from a list
+**4. Removing an item by value from a list**
 - Use the `.remove()` method
 - This method removes only the **first matching element** of a list
 ```python
@@ -626,7 +626,7 @@ Comparison with JavaScript:
 
 #### Searching for an item in a list
 
-1. Searching for an item in a list
+**1. Searching for an item in a list**
 - Use an `in` expression (Returns `True` or `False` based on existence of the value)
 - Use a `.count()` method. It returns the number of occurrences of that value in the list.
 ```python
@@ -641,7 +641,7 @@ foo.count('google') # 0
 Comparison with JavaScript:
 - Use the `.includes(value)` method
 
-2. Fetching the index of an item in a list
+**2. Fetching the index of an item in a list**
 - Use `.index()` method. It returns an index if first occurrence is found else raises a `ValueError` exception
 ```python
 foo = [10, 'bar', { 'a': 1 }]
