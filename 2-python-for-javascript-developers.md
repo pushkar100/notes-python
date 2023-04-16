@@ -65,18 +65,18 @@ _Comparison with JavaScript:_
 ### Data types
 
 1. Numeric
- 1. Integer (`int`)
- 2. Float (`float`)
- 3. Complex Number
+ - Integer (`int`)
+ - Float (`float`)
+ - Complex Number
 2. String (`str`)
 3. Boolean (`bool`): There are two values, `True` and `False`
 4. Dictionary (`{}`)
 5. Sequence
- 1. Lists (`[]`)
- 2. Tuples (`()`)
+ - Lists (`[]`)
+ - Tuples (`()`)
 6. None
 
-There are many more advanced types. 
+There are many more advanced types that are imported from core libraries or third party modules 
 
 _Comparison with JavaScript:_
 - In python too, `int`, `float`, etc are internal representations of a **Number or numeric** type - same as in JavaScript
