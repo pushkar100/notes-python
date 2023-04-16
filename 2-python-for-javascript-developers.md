@@ -194,6 +194,44 @@ Note about Python2:
 Comparison with JavaScript:
 - In JavaScript, we use `console.log()` to print to the browser or node console (terminal)
 
+### Comments
+
+#### Single-line comments
+
+Use a `#` (pound) symbol
+
+```python
+# This is a single line comment 
+japanese_restaurant.open_restaurant() # This is a single line comment
+```
+
+#### Multi-line comments
+
+Use multiple `#` (pound) symbols. One for each 
+
+```python
+# This is a single line comment 
+# but we can use multiple such lines
+# to make multi-line comments
+japanese_restaurant.open_restaurant() # This is a single line comment
+```
+
+Note:
+- There exists a comment style using `"""` to begin and end a comment. 
+- However, these comments are called **docstrings** used to document a unit of code
+- They should appear when a function or class begins. This text will appear in the generated documentation.
+
+```python
+def foo():
+  """I am a docstring. This function prints 'foo'"""
+  print('foo')
+```
+
+Comparison with JavaScript:
+- Single line comments: `//`
+- Multi line comments: Multiple `//` or `/* ... */`
+- There are no docstrings (There used to be a library called `@jsdoc` for it but the syntax is different)
+
 ### Strings
 
 #### Defining a string
