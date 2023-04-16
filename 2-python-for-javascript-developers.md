@@ -919,3 +919,103 @@ _Comparison with JavaScript:_
 - In JavaScript, only the `var` keyword loop variable is available outside the loop since it is function scoped. 
 - It will also contain the last item value.
 - `let` loop variable is block scoped, so it will not be available outside the loop (Trying to access it will throw an error)
+
+### Generate a series of integers
+
+Use the `range()` function
+- It begins from a start integer and finishes before an end integer (does not include it)!
+- It has no output or return of its own, but we can use it for loops!
+```python
+# Range of the first four natural numbers
+range(1, 5) # Generates a series of numbers: 1, 2, 3, 4
+```
+
+#### Skipping values while generating a series of integers
+
+The `range()` function can take a third argument: A step value
+- The default step value is `1` so we don't have to write it for continuous integers
+- If we supply a step, it skips the in-between values
+```python
+# Even numbers from 0 to 10
+range(0, 11, 2) # Generates a series of numbers: 0, 2, 4, 6, 8, 10
+```
+
+#### Creating a list from a range of integers
+
+Use a special syntax with a list method invocation with an argument of a range function invocation:
+- Ex: `list(range(start, end, [step]))`
+```python
+natural_nums = list(range(1, 11)) # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+odd_nums = list(range(1, 11, 2)) # [1, 3, 5, 7, 9]
+```
+
+#### Looping through a series of integers
+
+Use the for (`for-in`) loop over a `range()` function (instead of a list or object)
+```python
+print('First few odd numbers:')
+for odd in range(1, 11, 2):
+  print(odd)
+
+# First few odd numbers:
+# 1
+# 3
+# 5
+# 7
+# 9
+```
+
+_Comparison with JavaScript:_
+- Nothing like this `range()` function exists built in to JS! 
+- We need to build our own custom iterator & generator functions to make this happen.
+
+#### Using list comprehension to combine list creation with generating a range of integers
+
+Shorthand for combining two operations:
+1. Generating a series of integers AND
+2. Creating a list from those integers
+
+The syntax is: `[<expression> for <loopvariable> in <range_function>]` where the `expression` depends on the `loopvariable`
+
+```python
+odd_cubes = [odd ** 3 for odd in range(1, 11, 2)]
+odd_cubes # [1, 27, 125, 343, 729]
+
+# The above code is equivalent to:
+# odd_cubes = []
+# for odd in range(1, 11, 2):
+#   odd_cubes.append(odd ** 3)
+```
+
+_Comparison with JavaScript:_
+- Such a shorthand does not exist in JS!
+
+#### Simple statistics with a list of numbers
+
+**1. Minimum value of a list of numbers**
+
+Use `min()`
+```python
+even_nums = [2, 4, 6, 8 , 10]
+min(even_nums) # 2
+```
+
+**2. Maximum value of a list of numbers**
+
+Use `max()`
+```python
+even_nums = [2, 4, 6, 8 , 10]
+max(even_nums) # 10
+```
+
+**3. Sum of a list of numbers**
+
+Use `sum()`
+```python
+even_nums = [2, 4, 6, 8 , 10]
+sum(even_nums) # 30
+```
+
+_Comparison with JavaScript:_
+- Use the `Math` core module: `Math.min(...even_nums)`, `Math.max(...even_nums)`. We need to spread out the array into many arguments of array items.
+- For finding the sum, use the `.reduce()` method and supply it a reducer function that adds successive items and an accumulator
