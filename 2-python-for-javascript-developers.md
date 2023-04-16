@@ -26,6 +26,19 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
 - Python version: `3+`
 - JavaScript version: `ES6+`
 
+### Opening a REPL
+
+Read, Evaluate, Print, Loop (REPL) program is an easy way to test out language constructs quickly
+
+In Python, we use the python REPL
+- Make sure python3 is supported by typing `python` and viewing the version number when the REPL starts
+- Usually, it is better to use the `ipython` REPL since it is a bit more enhanced program
+
+Comparison with JavaScript:
+- We can use a browser console as the REPL
+- If using NodeJS, typing `node` should open up the Node JS REPL on our system
+- Check the node version using `node -v`
+
 ### Data types
 
 1. Numeric
