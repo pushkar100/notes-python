@@ -2,57 +2,67 @@
 
 Learning Python as a JavaScript developer by comparing the syntax and constructs of each language with the other.
 
-- [Python notes for JavaScript developers](#python-notes-for-javascript-developers)
-  * [Basics](#basics)
-    + [Opening a REPL](#opening-a-repl)
-    + [Data types](#data-types)
-    + [Type casting](#type-casting)
-    + [Variables](#variables)
-      - [Declaring a variable](#declaring-a-variable)
-      - [Data type of a variable](#data-type-of-a-variable)
-      - [Default value of a variable](#default-value-of-a-variable)
-      - [Re-assigning variables](#re-assigning-variables)
-      - [Variable naming rules](#variable-naming-rules)
-      - [Variable naming conventions](#variable-naming-conventions)
-    + [Printing to console](#printing-to-console)
-    + [Comments](#comments)
-      - [Single-line comments](#single-line-comments)
-      - [Multi-line comments](#multi-line-comments)
-    + [Strings](#strings)
-      - [Defining a string](#defining-a-string)
-      - [Changing the case of strings](#changing-the-case-of-strings)
-      - [Concatenating strings](#concatenating-strings)
-      - [Escaping characters in a string](#escaping-characters-in-a-string)
-      - [Stripping whitespaces from strings](#stripping-whitespaces-from-strings)
-      - [Casting a value into a string](#casting-a-value-into-a-string)
-    + [Numbers](#numbers)
-      - [Arithmetic operations on integers](#arithmetic-operations-on-integers)
-      - [Floating point numbers](#floating-point-numbers)
-      - [Casting a value into a number](#casting-a-value-into-a-number)
-    + [Boolean values](#boolean-values)
-    + [Lists](#lists)
-      - [Defining a list](#defining-a-list)
-      - [Accessing a list item](#accessing-a-list-item)
-      - [Modifying a list item](#modifying-a-list-item)
-      - [Appending an item to a list](#appending-an-item-to-a-list)
-      - [Inserting an item to a list](#inserting-an-item-to-a-list)
-      - [Deleting an item from a list](#deleting-an-item-from-a-list)
-      - [Searching for an item in a list](#searching-for-an-item-in-a-list)
-      - [Sorting a list](#sorting-a-list)
-      - [Reversing a list](#reversing-a-list)
-      - [Length of a list](#length-of-a-list)
-      - [Index error when selecting a list item](#index-error-when-selecting-a-list-item)
-      - [Slicing a list to work with a part of it](#slicing-a-list-to-work-with-a-part-of-it)
-      - [Copying a list](#copying-a-list)
-      - [Check if two lists are the same](#check-if-two-lists-are-the-same)
-      - [Creating immutable lists aka Tuples](#creating-immutable-lists-aka-tuples)
-      - [Looping through items in a list](#looping-through-items-in-a-list)
-    + [Generate a series of integers](#generate-a-series-of-integers)
-      - [Skipping values while generating a series of integers](#skipping-values-while-generating-a-series-of-integers)
-      - [Creating a list from a range of integers](#creating-a-list-from-a-range-of-integers)
-      - [Looping through a series of integers](#looping-through-a-series-of-integers)
-      - [Using list comprehension to combine list creation with generating a range of integers](#using-list-comprehension-to-combine-list-creation-with-generating-a-range-of-integers)
-      - [Simple statistics with a list of numbers](#simple-statistics-with-a-list-of-numbers)
+- [Basics](#basics)
+  * [Opening a REPL](#opening-a-repl)
+  * [Data types](#data-types)
+  * [Type casting](#type-casting)
+  * [Variables](#variables)
+    + [Declaring a variable](#declaring-a-variable)
+    + [Data type of a variable](#data-type-of-a-variable)
+    + [Default value of a variable](#default-value-of-a-variable)
+    + [Re-assigning variables](#re-assigning-variables)
+    + [Variable naming rules](#variable-naming-rules)
+    + [Variable naming conventions](#variable-naming-conventions)
+  * [Printing to console](#printing-to-console)
+  * [Comments](#comments)
+    + [Single-line comments](#single-line-comments)
+    + [Multi-line comments](#multi-line-comments)
+  * [Strings](#strings)
+    + [Defining a string](#defining-a-string)
+    + [Changing the case of strings](#changing-the-case-of-strings)
+    + [Concatenating strings](#concatenating-strings)
+    + [Escaping characters in a string](#escaping-characters-in-a-string)
+    + [Stripping whitespaces from strings](#stripping-whitespaces-from-strings)
+    + [Casting a value into a string](#casting-a-value-into-a-string)
+  * [Numbers](#numbers)
+    + [Arithmetic operations on integers](#arithmetic-operations-on-integers)
+    + [Floating point numbers](#floating-point-numbers)
+    + [Casting a value into a number](#casting-a-value-into-a-number)
+  * [Boolean values](#boolean-values)
+  * [Lists](#lists)
+    + [Defining a list](#defining-a-list)
+    + [Accessing a list item](#accessing-a-list-item)
+    + [Modifying a list item](#modifying-a-list-item)
+    + [Appending an item to a list](#appending-an-item-to-a-list)
+    + [Inserting an item to a list](#inserting-an-item-to-a-list)
+    + [Deleting an item from a list](#deleting-an-item-from-a-list)
+    + [Searching for an item in a list](#searching-for-an-item-in-a-list)
+    + [Sorting a list](#sorting-a-list)
+    + [Reversing a list](#reversing-a-list)
+    + [Length of a list](#length-of-a-list)
+    + [Index error when selecting a list item](#index-error-when-selecting-a-list-item)
+    + [Slicing a list to work with a part of it](#slicing-a-list-to-work-with-a-part-of-it)
+    + [Copying a list](#copying-a-list)
+    + [Check if two lists are the same](#check-if-two-lists-are-the-same)
+    + [Creating immutable lists aka Tuples](#creating-immutable-lists-aka-tuples)
+    + [Looping through items in a list](#looping-through-items-in-a-list)
+  * [Generate a series of integers](#generate-a-series-of-integers)
+    + [Skipping values while generating a series of integers](#skipping-values-while-generating-a-series-of-integers)
+    + [Creating a list from a range of integers](#creating-a-list-from-a-range-of-integers)
+    + [Looping through a series of integers](#looping-through-a-series-of-integers)
+    + [Using list comprehension to combine list creation with generating a range of integers](#using-list-comprehension-to-combine-list-creation-with-generating-a-range-of-integers)
+    + [Simple statistics with a list of numbers](#simple-statistics-with-a-list-of-numbers)
+  * [Conditional checks](#conditional-checks)
+    + [Equality checks](#equality-checks)
+    + [Comparing numerical values](#comparing-numerical-values)
+  * [Logical operators](#logical-operators)
+    + [Making sure both conditions are true](#making-sure-both-conditions-are-true)
+    + [Making sure at least one condition is true](#making-sure-at-least-one-condition-is-true)
+  * [If statements](#if-statements)
+    + [An if statement](#an-if-statement)
+    + [An if-else statement](#an-if-else-statement)
+    + [An if-elif-else chain](#an-if-elif-else-chain)
+    + [If statements with lists](#if-statements-with-lists)
 
 ## Basics
 
@@ -1025,3 +1035,218 @@ sum(even_nums) # 30
 _Comparison with JavaScript:_
 - Use the `Math` core module: `Math.min(...even_nums)`, `Math.max(...even_nums)`. We need to spread out the array into many arguments of array items.
 - For finding the sum, use the `.reduce()` method and supply it a reducer function that adds successive items and an accumulator
+
+### Conditional checks
+
+Conditional checks return boolean values.
+
+#### Equality checks
+
+- Use `==` for equality
+- Use `!=` for inequality
+
+```python
+'foo' == 5 # False
+13.4 == 13.4 # True
+
+# Lists and Dictionaries are matched BY VALUE:
+['a', 'b'] == ['a', 'b'] # True
+['a', 'b'] != ['a', 'b'] # False
+
+{ 'a': 5 } == { 'a': 5 } # True
+{ 'a': 5 } != { 'a': 5 } # False
+```
+
+**Note**: Use the `is` expression to match lists and dictionaries BY REFERENCE
+```python
+# Lists and Dictionaries are matched BY VALUE:
+['a', 'b'] is ['a', 'b'] # False
+{ 'a': 5 } is { 'a': 5 } # False
+```
+
+_Comparison with JavaScript:_
+- In JavaScript, we use the same operators `==` and `!=` for equality checks
+- However, since type coercion happens, it is more common to use `===` and `!==` for strict equality (Value + Type exact match)
+- Note that for objects & arrays, the default match is **BY REFERENCE** (opposite of python)
+  - If you wish to match objects and lists by value, loop through them or use functional programming methods (`.some`, `.every`)
+
+#### Comparing numerical values
+
+- `<`: Less than a value check
+- `>`: Greather than a value check
+- `<=`: Less than or equal to a value check
+- `>=`: Greater than or equal to a value check
+```python
+2 < 4 # True
+2 <= 4 # True
+2 > 4 # False
+2 >= 4 # False
+
+# Comparing alphabetically:
+'aa' > 'ab' # False
+'aa' <= 'ab' # True
+```
+
+_Comparison with JavaScript:_
+- Same.
+
+### Logical operators
+
+#### Making sure both conditions are true
+
+- Use the `and` operator (`condition1 and condition2`)
+
+```python
+6 >= 5 and 6 < 10 # True
+6 >= 5 and 6 >= 10 # False
+```
+
+#### Making sure at least one condition is true
+
+- Use the `or` operator (`condition1 or condition2`)
+
+```python
+6 >= 5 or 6 < 10 # True
+6 >= 5 or 6 >= 10 # True
+6 >= 10 or 7 < 3 # False
+```
+
+_Comparison with JavaScript:_
+- Same, but the corresponding operators in JavaScript are `&&` for and-ing and `||` for or-ing.
+
+### If statements
+
+If statement introduces branching in our programs based on a condition.
+We can even branch based on multiple conditions or a default condition.
+
+- *Indentation by one tab inside an if statement is mandatory* (Applies to loop statement bodies as well!)
+- *Do not forget the trailing colon (`:`)* at the end of the if statement (Applies to loop statements as well!)
+ 
+#### An if statement
+
+Syntax:
+```python
+if condition:
+  do something
+```
+
+```python
+if 6 > 5:
+  print('5 is greater than 6')
+# '6 is greater than 5'
+
+if 5 > 6:
+  print('5 is greater than 6')
+# Prints nothing
+```
+
+#### An if-else statement
+
+- Do not forget the `else` and the colon (`:`) for it
+
+Syntax:
+```python
+if condition:
+  do something
+else:
+  do some other thing
+```
+
+```python
+if 6 > 5:
+  print('6 is greater than 5')
+# '6 is greater than 5'
+
+if 5 > 6:
+  print('5 is greater than 6')
+else:
+# Prints nothing
+```
+
+#### An if-elif-else chain
+
+```python
+name = 'Pushkar'
+if name == 'push':
+  print('name is push')
+elif name == 'dk':
+  print('name is dk')
+else:
+  print('dunno the name')
+
+# 'dunno the name'
+```
+
+**Note**: Omitting the `else` block. This block is optional
+
+```python
+name = 'Pushkar'
+if name == 'push':
+  print('name is push')
+elif name == 'dk':
+  print('name is dk')
+elif name == 'Pushkar:
+  print('name is Pushkar')
+
+# 'name is Pushkar'
+```
+
+_Comparison with JavaScript:_
+- Same `if` behaviour. 
+- The syntax is different though. We use `{ ... }` to contain the statement if it is more than one line
+- We do not use tabs for the statement body and no colon `:` at the end of an if statement
+
+#### If statements with lists
+
+**1. Checking a particular item exists in a list**
+
+- Use the `in` condition to check for the existence of a value
+- Use the above condition in an `if` statement
+
+```python
+cities = ['Bangkok', 'Bangalore', 'London', 'Chennai']
+'Bangalore' in cities # True
+
+if 'Bangalore' in cities:
+  print('Bangalore is a city')
+else:
+  print('Bangalore is not a city')
+
+# Bangalore is a city
+```
+
+**2. Checking a particular item does not exist in a list**
+
+- Use the `not in` condition to check for the non-existence of a value
+- Use the above condition in an `if` statement
+
+```python
+cities = ['Bangkok', 'Bangalore', 'London', 'Chennai']
+'Bangalore' not in cities # False
+
+if 'Bangalore' not in cities:
+  print('Bangalore is not a city')
+else:
+  print('Bangalore is a city')
+
+# Bangalore is a city
+```
+
+**3. Checking for an empty list**
+
+- When the name of the list is used in a for loop as the conditional: It returns `True` if it is **not empty** (Else, `False`)
+```python
+cities = ['Bangkok', 'Bangalore', 'London', 'Chennai']
+if cities:
+  print('There is at least one city in the list')
+else:
+  print('There are no cities in the list')
+
+# There is at least one city in the list
+```
+
+_Comparison with JavaScript:_
+- In JavaScript, we can check for the existence of a value in an array with either `.includes()` or `.indexOf() !== -1`
+- Checking for an empty array is slightly different: 
+  - The name of the array returns true as long as it is, in fact, an array (& not `undefined` or a falsy value)!
+  - Use the `.length` or `.length > 0` conditional to make sure the list is not empty!
