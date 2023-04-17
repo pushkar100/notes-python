@@ -1250,3 +1250,166 @@ _Comparison with JavaScript:_
 - Checking for an empty array is slightly different: 
   - The name of the array returns true as long as it is, in fact, an array (& not `undefined` or a falsy value)!
   - Use the `.length` or `.length > 0` conditional to make sure the list is not empty!
+
+### User input
+
+**1. Accepting user input**
+
+Use the `input()` method.
+- It takes one argument: A string _prompt_
+- The return value is a **string**
+- Store the return value in a variable
+- The python interpreter pause while executing `input()` so that the user can input a value
+- After providing the input, press **ENTER**
+
+```python
+message = input('What is your message?')
+# What is your message?Nothing
+message # 'Nothing'
+
+message = input('What is your message?\n')
+# What is your message?
+# Nothing much
+message # 'Nothing much'
+```
+
+**Note:** Accepting user input in Python 2.7
+- Use `raw_input()` function instead
+- The `input()` method in Python2.7 tries to execute the input string as code
+- This is a security risk (Similar to `eval()` in JavaScript)
+
+**2. Storing input as a number**
+
+Default input type is a string.
+To store a numerical value, typecast it into a number like `int()` or `float()`
+
+```python
+favourite_num = int(input('Enter your favourite number between 1 & 100? '))
+# Enter your favourite number between 1 & 100? 45
+favourite_num # 45
+```
+
+_Comparison with JavaScript:_
+- In JavaScript, we use the `prompt()` function to prompt the user to type something in a GUI dialog
+- This works in a browser & similar to python, will be a string value that is returned
+- However, in NodeJS console, we need to read from `process.stdin` and output to `process.stdout` ([An example](https://nodejs.dev/en/learn/accept-input-from-the-command-line-in-nodejs/))
+
+### Looping
+
+#### For loop
+
+**Loops through all the items of a list**
+
+- Syntax: `for loopvariable(s) in iterable:`
+- Do not forget to (a) Indent the body of the if by one tab, and (b) Add a trailing colon (`:`)
+
+```python
+for value in [1, 10, 6, 23]:
+  print('value: ' + str(value))
+# value: 1
+# value: 10
+# value: 6
+# value: 23
+
+for num in range(1, 11):
+  print(num)
+# 1
+# 2
+# 3
+# 4
+# 5
+# 6
+# 7
+# 8
+# 9
+# 10
+```
+
+_Comparison with JavaScript:_
+- The most basic `for` loop in JavaScript has the following syntax:
+  - `for (initialization; condition; afterthought) statement` where the statement can also be a complex statement within `{...}`
+- There are two variations of a for loop:
+  1. `for...in` loop: Iterate over all the entries of an object (Ex: iterates over properties of an `{}` object)
+  2. `for...of` loop: Iterate over iterable object (Ex: Array (`[]`), Map, Set, arguments, ...)
+
+#### While loop
+
+**Loops until a condition is true**
+- Syntax: `while condition:`
+- Do not forget to (a) Indent the body of the if by one tab, and (b) Add a trailing colon (`:`)
+
+```python
+active = True
+
+while active:
+  name = input('What is your name? ')
+  if name == 'quit':
+    active = False
+  else:
+    print('Your name is ' + name)
+
+# What is your name? Pushkar
+# Your name is Pushkar
+# What is your name? Rahul
+# Your name is Rahul
+# What is your name? Vandana
+# Your name is Vandana
+# What is your name? quit
+```
+
+#### Using break to exit a loop
+
+Use `break`
+
+```python
+for num in range(1,6):
+  if num == 4:
+    break
+  print('num: ' + str(num))
+# num: 1
+# num: 2
+# num: 3
+
+num = 1
+while num < 6:
+  if num == 4:
+    break
+  print('num: ' + str(num))
+  num = num + 1
+# num: 1
+# num: 2
+# num: 3
+```
+
+_Comparison with JavaScript:_
+- Same.
+
+#### Using continue to skip a loop interation
+
+Use `continue`
+
+```python
+for num in range(1,6):
+  if num == 4:
+    continue
+  print('num: ' + str(num))
+# num: 1
+# num: 2
+# num: 3
+# num: 5
+
+num = 1
+while num < 6:
+  if num == 4:
+    num = num + 1
+    continue
+  print('num: ' + str(num))
+  num = num + 1
+# num: 1
+# num: 2
+# num: 3
+# num: 5
+```
+
+_Comparison with JavaScript:_
+- Same.
