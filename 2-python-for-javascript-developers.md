@@ -599,7 +599,7 @@ foo # [10, {'a': 1}]
 ```
 
 _Comparison with JavaScript:_
-- There is no `del` operator
+- There is no `del` operator (There is a `delete` operator but usually used with objects. On lists it marks the item as empty rather than removing it - quirky behaviour)
 - Again, you can use the `.splice()` method without inserting any elements but only removing them
 - The `.pop()` method in JavaScript is used to remove **only** the last element
 
