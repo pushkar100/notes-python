@@ -2446,3 +2446,206 @@ my_japanese_restaurant = JapaneseRestaurant()
 
 _Comparison with JavaScript:_
 - Either as a named export or default export: `import ClassName from '...'` or `import { ClassName } from '...'`
+
+### Files
+
+Reading, writing and appending to files in python is straight-forward
+
+File used with examples below: `cities.txt` in the same directory as the python script.
+```
+Bangalore
+London
+New Delhi
+Beijing
+New York
+```
+
+#### Opening a file
+
+Use `open(file_path)`: It returns an **object representing the file**!
+(File paths can be either relative to the executing python directory or an absolute path)
+
+#### Closing a file
+
+Use `close(file_path)`
+
+#### Correctly opening and closing a file
+
+Opening and closing file manually everytime in the correct way is prone to error!
+Example: If there is an error before closing or if file is not closed properly then the program might crash or file get corrupted.
+
+- Use the `with` expression along with (a) `open()` and (b)`as` expression to properly open, work with, and close a file!
+- The with statement body must be tabbed!
+
+Syntax:
+```python
+with open(file_path) as open_object_name:
+  # do
+  # whatever you want
+  # with the file & its contents
+```
+
+**Note:** When the `with` clause ends, the file is also closed! Python takes care of safely closing the file when the clause ends.
+
+Example:
+```python
+with open('cities.txt') as cities_file_object:
+  contents = cities_file_object.read()
+  print(contents)
+```
+
+#### Reading the entire contents of a file
+
+Use `.read()` method on the file object.
+
+```python
+with open('cities.txt') as cities_file_object:
+  contents = cities_file_object.read()
+  print(contents)
+
+# Bangalore
+# London
+# New Delhi
+# Beijing
+# New York
+```
+
+**Note:** File contents are read as **strings**!
+
+#### Reading the file contents one line at a time
+
+- The file object, when used as an iterable in a `for` loop (`for-in`), returns contents by line (& moves the pointer to the next time each time)
+- **Note:** Each line will also contain the invisible newline `\n` at the end (If you print it, the print statement too inserts a newline)
+- In order to get rid of the newline `\n`, use `.rstrip()` (or `.strip()`)
+
+```python
+with open('cities.txt') as cities_file_object:
+  for city in cities_file_object:
+    print('city: ' + city)
+
+# city: Bangalore
+
+# city: London
+
+# city: New Delhi
+
+# city: Beijing
+
+# city: New York
+```
+
+By stripping whitespaces:
+
+```python
+with open('cities.txt') as cities_file_object:
+  for city in cities_file_object:
+    print('city: ' + city.rstrip())
+
+# city: Bangalore
+# city: London
+# city: New Delhi
+# city: Beijing
+# city: New York
+```
+
+#### Storing lines of a file into a list
+
+- Use `.readlines()` method on the file object to generate a list containing each line string as an item (including the newline `\n`)
+- Tip: Remove the `\n` character from the end of each line in the file using `.rstrip()` or `.strip()` later
+
+```python
+with open('cities.txt') as cities_file_object:
+  cities = cities_file_object.readlines()
+
+print(cities) # ['Bangalore\n', 'London\n', 'New Delhi\n', 'Beijing\n', 'New York']
+```
+
+```python
+with open('cities.txt') as cities_file_object:
+  cities = cities_file_object.readlines()
+
+cities = [city.rstrip() for city in cities]
+
+print(cities) # ['Bangalore', 'London', 'New Delhi', 'Beijing', 'New York']
+```
+
+#### Writing to a file
+
+Different modes in which to `open()` a file in:
+1. Read (`r`) - The default and need not be specified
+2. Write (`w`) - Write mode: Creates a file if it does not exist. If it exists, clears the existing contents
+3. Append (`a`) - Append mode: Creates a file if it does not exist. If it exists, preserves the existing contents and appends to it
+
+Pass the mode as the _second argument_ to the `open()` function.
+
+- Use the `.write()` method on the file object
+
+```python
+with open('cities.txt', 'w') as cities_file_object:
+  cities_file_object.write('Paris') # String does not include a newline
+  cities_file_object.write('Berlin') # String does not include a newline
+
+# FILE CONTENTS:
+# ParisBerlin
+```
+
+#### Appending to file
+
+```python
+with open('cities.txt', 'a') as cities_file_object:
+  cities_file_object.write('Paris') # String does not include a newline
+
+# FILE CONTENTS:
+# Bangalore
+# London
+# New Delhi
+# Beijing
+# New York
+# Paris
+```
+
+#### Loading and dumping JSON data
+
+There exists an easier way to work with a specific type of file, a json file.
+
+1. `import json`. This is the module required to load and dump json (Standard library)
+2. `json.dump(data, file_object)`: Takes data (list / object) and a JSON file object
+3. `json.load(file_object)`: Loads the data from a JSON file object
+
+Example JSON:
+```json
+{
+  "cities": ["Bangalore", "London", "New Delhi", "Beijing", "New York"],
+  "person": "Pushkar",
+  "age": 29,
+  "location": "London"
+}
+```
+
+Loading JSON data:
+```python
+import json
+
+with open('data.json') as json_file_object:
+  json_data = json.load(json_file_object)
+
+print(json_data)
+# {'cities': ['Bangalore', 'London', 'New Delhi', 'Beijing', 'New York'], 'person': 'Pushkar', 'age': 29, 'location': 'London'}
+```
+
+Dumping JSON data:
+```python
+import json
+
+json_data = {
+  'cities': ['Bangalore', 'London'],
+  'person': 'James',
+  'age': 20
+}
+
+with open('data.json', 'w') as json_file_object:
+  json.dump(json_data, json_file_object)
+
+# FILE CONTENTS:
+# {"cities": ["Bangalore", "London"], "person": "James", "age": 20}
+```
