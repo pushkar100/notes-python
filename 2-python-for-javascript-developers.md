@@ -2652,3 +2652,4 @@ with open('data.json', 'w') as json_file_object:
 
 _Comparison with JavaScript:_
 - NodeJS has a similar way of working with files ([Tutorial](https://www.w3schools.com/nodejs/nodejs_filesystem.asp))
+- It uses a core module called `fs` which stands for file system
