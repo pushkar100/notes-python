@@ -2653,3 +2653,72 @@ with open('data.json', 'w') as json_file_object:
 _Comparison with JavaScript:_
 - NodeJS has a similar way of working with files ([Tutorial](https://www.w3schools.com/nodejs/nodejs_filesystem.asp))
 - It uses a core module called `fs` which stands for file system
+
+### Exceptions
+
+1. The `try-except` block 
+
+- `Exception` catches all types of errors (Least specific)
+```python
+try:
+  print(5/0)
+except Exception:
+  print('Caught an error')
+
+# Caught an error
+```
+
+- To access the error object, use the `as` expression:
+
+```python
+try:
+  print(5/0)
+except Exception as e:
+  print(e)
+
+# division by zero
+```
+
+- Generally, try to be more specific in trying to catch an error! (Good practice: Catch only errors you meant to catch)
+```python
+try:
+  print(5/0)
+except ZeroDivisionError:
+  print('Cannot divide by zero')
+
+# Cannot divide by zero
+```
+
+2. The `else` block
+
+- Any code to be executed when the `try` block has no errors (successful), is added to `else`
+
+```python
+try:
+  print(5/1)
+except ZeroDivisionError:
+  print('Cannot divide by zero')
+else:
+  print('Great! You did not divide by zero')
+
+# 5.0
+# Great! You did not divide by zero
+```
+
+_Comparison with JavaScript:_
+- Similar. We use a `try { /* ... */ } catch (e) { /* ... */ }` block
+- The `catch()` block catches all errors (unlike python where we need to specify the type)
+- The `catch(e)` argument is the error object. It tells us the type of error
+- The `else` block in python does not exist in JavaScript.
+- However, a `finally { /* ... */ }` handles code to be run in all the cases i.e Error / No error!
+```javascript
+try {
+  // tryCode - Code block to run
+}
+catch(e) {
+  // catchCode - Code block to handle errors
+}
+finally {
+  // finallyCode - Code block to be executed regardless of the try result
+}
+```
