@@ -1834,3 +1834,263 @@ for value in set_of_countries:
 
 _Comparison with JavaScript:_
 - Similar. `for`, `.forEach`, `.keys()`, `.values()`, ... etc work!
+
+### Functions
+
+Functions are units of logic that perform an operation.
+- They can be invoked
+- Some can accept arguments that are defined as parameters
+- They can be re-used by re-invocation
+- Extremely helpful
+
+#### Defining a function
+
+- Use the `def` keyword
+- Give a descriptive name in `snake_case` (convention)
+- Add parenthese `()` and optional arguments
+- Do not forget the colon `:` at the end of function signature
+- List the function body (code) in a single tabbed space
+
+```python
+def print_hello():
+  print('Hello!')
+
+print_hello()
+
+# Hello!
+```
+
+To invoke a function, type the function name along with parenthese (to invoke).
+Pass in any arguments to match the parameters
+
+_Comparison with JavaScript:_
+- Same but we use the `function` keyword and `{}` for the body (No tabbing)
+- Also, our convention for function names are `camelCase`
+
+#### Docstring for a function in python
+
+- Triple quote comment at the beginning of the function body is called a **docstring**
+- It must describe what the function does
+- Python automatically picks up the docstring when generating documentation for a piece of code
+- Hence, it is not a regular comment that is ignored
+- It can be _multiline_ too!
+
+```python
+def print_hello():
+  """This function prints hello"""
+  print('Hello!')
+
+print_hello()
+
+# Hello!
+```
+
+_Comparison with JavaScript:_
+- Nothing like this exists in-built in JavaScript!
+- Sometimes we use `@jsdoc` to provide docs for a function but it is a library and the params/description are documented above the function definition
+
+#### Parameters for a function
+
+Define parameters in via the `()` in the function signature
+- Use comma `,` to separate out multiple parameters
+- The order of the parameters matter
+
+These are the default **position based parameters** and arguments to a function
+
+```python
+def add(num1, num2):
+  print(str(num1) + ' + ' + str(num2) + ' = ' + str(num1 + num2))
+
+add(5, 6) # 5 + 6 = 11
+```
+
+_Comparison with JavaScript:_
+- Same.
+
+#### Keyword arguments in Python
+
+- We can pass keyword arguments to a function (instead of the positional parameters)
+- The parameter name is used as the key in the function call to pass the argument
+- Since these are keyword arguments, the **order does not matter**
+
+```python
+def add(num1, num2):
+  print(str(num1) + ' + ' + str(num2) + ' = ' + str(num1 + num2))
+
+add(num1=5, num2=6) # 5 + 6 = 11
+```
+
+- You can also mix positional arguments with keyword ones! (However, this may not be best practice)
+- If you do so, **keyword arguments must come after positional arguments**!
+
+```python
+def add(num1, num2):
+  print(str(num1) + ' + ' + str(num2) + ' = ' + str(num1 + num2))
+
+add(5, num2=6) # 5 + 6 = 11
+
+add(num2=6, 5) # ✕ (SyntaxError: positional argument follows keyword argument)
+
+# Make sure all the mandatory parameters match:
+add(5, num1=5) # ✕ (TypeError: add() got multiple values for argument 'num1')
+
+# The number of arguments (positional + keyword) must match the count of parameters:
+add(5, 6, num1=2) # ✕ (TypeError: add() got multiple values for argument 'num1')
+```
+
+_Comparison with JavaScript:_
+- No support for keyword arguments / named parameters in JavaScript
+- If you want to pass by key then define an object `{}` as a parameter
+
+#### Unmatched arguments in Python cause an error
+
+```python
+def add(num1, num2):
+  print(str(num1) + ' + ' + str(num2) + ' = ' + str(num1 + num2))
+  
+add(1) # ✕ (TypeError: add() missing 1 required positional argument: 'num2')
+```
+
+_Comparison with JavaScript:_
+- The unmatched parameters receive the value, `undefined`. 
+- Depending on how this value is used inside the function, it may or may not cause a runtime error.
+
+#### Declaring default arguments
+
+- Sometimes, we want to make parameters/arguments **OPTIONAL**
+- To do so, define a parameter and provide a default argument with `=`
+- If the argument for the parameter is not passed during invocation, the default value is used (making it optional)
+- Else, if the argument is passed, it overrides the default value for the parameter
+- **Note:** Define the parameters with default arguments AFTER all the positional parameters (in order to interpret arguments positionally)
+
+```python
+def add(num1, num2 = 5):
+  print(str(num1) + ' + ' + str(num2) + ' = ' + str(num1 + num2))
+
+add(1) # 1 + 5 = 6 (Used the default)
+add(1, 10) # 1 + 10 = 11 (Used the argument passed)
+
+
+def add(num1=5, num2): # ✕ (SyntaxError: non-default argument follows default argument)
+```
+
+_Comparison with JavaScript:_
+- Same but default argument parameters need not come after positional ones! (All are considered positional parameters)
+
+#### Return value of a function
+
+- Use the `return` keyword
+```python
+def add(num1, num2):
+  return num1 + num2
+
+add_result = add(1, 4)
+add_result # 5
+```
+
+- Empty return / nothing returned case: The returned type will be `None`
+
+```python
+def add(num1, num2):
+  print(str(num1) + ' + ' + str(num2) + ' = ' + str(num1 + num2))
+
+add_result = add(1, 4)
+print(add_result) # None
+print(type(add_result)) # <class 'int'>
+```
+
+_Comparison with JavaScript:_
+- Same keyword but when you return nothing, the returned value is `undefined`
+
+#### Passing an arbitrary number of arguments
+
+To pass an arbitrary number of arguments (Suppose we do not know how many the function will need), use the `*` prefixed parameter
+- Python will take this parameter and create a tuple for it from the set of arguments it receives from a function call
+- It is useful when you do not know the number of arguments before hand
+
+```python
+def add(*numbers):
+  sum = 0
+  for number in numbers:
+    sum += number
+  return sum
+
+print(add(1, 2, 3, 4)) # 10
+```
+
+_Comparison with JavaScript:_
+- Use the `spread` and `rest` (`...value`) to spread the many arguments during invocation and to group the arguments into a parameter representing an array, respectively.
+
+#### Passing an arbitrary number of keyword arguments
+
+In Python, apart from passing an arbitrary number of arguments, we can pass an arbitrary number of keyword arguments as well!
+- Use the `**` prefix for the parameter
+- All the keyword arguments are packed into a **dictionary** created for this parameter
+- You can loop through the keys of a dictionary to obtain the values
+
+- **Python rule**: The argument representing arbitrary args must come after positional and default args
+
+```python
+def remove_age_from_record(**record_details):
+  filtered_record = {}
+  for attribute, value in record_details.items():
+    if attribute != 'age':
+      filtered_record[attribute] = value
+  return filtered_record
+
+print(remove_age_from_record(name='Pushkar', age=29, location='London')) # {'name': 'Pushkar', 'location': 'London'}
+```
+
+_Comparison with JavaScript:_
+- Nothing like this exits in JavaScript. Add an object `{}` parameter to collect key-value pairs. 
+
+#### Passing a value by reference and by value
+
+A list or a dictionary passed by name to a function or a method is passed by reference (default!)
+- Modifying the list or dictionary within a function modifies it outside too 
+- (i.e in-place since it is a reference to the same list or dictionary)
+
+```python
+my_list = [10, 200, 40, 61, 1]
+def mutate_list(list):
+  list[2] = 10000
+
+print(my_list) # [10, 200, 40, 61, 1]
+mutate_list(my_list)
+print(my_list) # [10, 200, 10000, 61, 1]
+```
+
+```python
+my_dict = { 'a': 100, 'b': 200 }
+
+def mutate_dict(dict):
+  dict['a'] = 0
+
+print(my_dict) # {'a': 100, 'b': 200}
+mutate_dict(my_dict)
+print(my_dict) # {'a': 0, 'b': 200}
+```
+
+_Comparison with JavaScript:_
+- Same!
+
+- Passing an object or a list by value (immutability):
+
+In order to **maintain immutability**, create a **clone** of the list or object and pass it to the function!
+
+```python
+my_list = [10, 200, 40, 61, 1]
+def mutate_list(list):
+  list[2] = 10000
+
+print(my_list) # [10, 200, 40, 61, 1]
+mutate_list(my_list[:])
+print(my_list) # [10, 200, 40, 61, 1] (Has not changed)
+```
+
+Need to manually clone an object! (No workaround - at least not in basic python)
+
+_Comparison with JavaScript:_
+- To clone an array in JS, use the `[...originalArray]` syntax (i.e the spread operator as an aid)
+- For objects, you have to write your own function to manually deep clone it (Using `JSON.stringify` and `JSON.parse`, maybe)
+- Methods for shallow cloning exist: `{ ...originalObject }` or `Object.assign()`
