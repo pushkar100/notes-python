@@ -109,6 +109,14 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Defining an alias while importing a function](#defining-an-alias-while-importing-a-function)
       - [Defining an alias while importing the whole module](#defining-an-alias-while-importing-the-whole-module)
       - [Importing all functions from a module](#importing-all-functions-from-a-module)
+    + [Classes](#classes)
+      - [Defining a class](#defining-a-class)
+      - [Instantiating a class](#instantiating-a-class)
+      - [Accessing attributes and methods](#accessing-attributes-and-methods)
+      - [Default attribute values](#default-attribute-values)
+      - [Modifying an attribute value](#modifying-an-attribute-value)
+      - [Inheritance](#inheritance)
+      - [Importing classes](#importing-classes)
 
 ## Basics
 
@@ -2211,3 +2219,230 @@ print(add_two_nums(1, 3)) # 4 (note: no dot notation (.) needed!)
 _Comparison with JavaScript:_
 - Name collision is not possible as we always need to provide an `as` to import the whole module
 - I.e the functions are not imported unless each is specified or is imported as a property of the module import.
+
+### Classes
+
+- Classes are used to model real-world objects
+- Classes are blueprints for an object
+
+#### Defining a class
+
+1. Syntax:
+
+```python
+class ClassName():
+  """Docstring for a class"""
+
+  def __init__(self):
+    # ...
+
+  def method_1():
+    # ...
+
+  def method_1():
+    # ...
+```
+
+a. Classes have the `class` keyword. We need parentheses after the name: It is necessary and accept another class to inherit from
+b. Class names are usually written in `PascalCase` (Note that object names, functions, & variables are `snake_case`)
+c. The _constructor_ executed when the class is instantiated, i.e object created, is named as `__init__`
+d. The object created by the class can be referred to by `self` within the class. All the methods receive `self` as the first argument!
+e. Do not forget the colon `:` and the tabbing for the class methods.
+f. **Optional**: Adding a docstring at the beginning of the class to document it
+
+Example:
+```python
+class Restaurant():
+  """Restaurant class"""
+
+  def __init__(self, restaurant_name, cuisine_type):
+    self.restaurant_name = restaurant_name
+    self.cuisine_type = cuisine_type
+    self.number_served = 0
+  
+  def describe_restaurant(self):
+    print('Restaurant, ' + self.restaurant_name + ', serving ' + self.cuisine_type + ' cuisine')
+
+  def open_restaurant(self):
+    print(self.restaurant_name + ' is now open')
+
+  def set_number_served(self, count):
+    self.number_served += count
+```
+
+**Note:** Making python2.7 classes behave like python3 classes by passing `object`
+- Python2.7 syntax: `class ClassName(object):`
+
+_Comparison with JavaScript:_
+- In JavaScript, classes are nothing but syntactic sugar over **[prototypal inheritance](https://levelup.gitconnected.com/prototypal-inheritance-the-big-secret-behind-classes-in-javascript-e7368e76e92a)**
+- Class syntax is: `class ClassName { constructor() { /*...*/ }}`. Instead of `__init__`, we use `constructor`
+- We use `this` instead of `self. However, it is implicitly available to every class method (Not required to pass as first argument)
+- Functions inside clasess are known as **methods** and they do not need to prefixed with the `function` keyword (like `def` is needed for python methods)
+
+#### Instantiating a class
+
+Instantiating a class i.e object creation: 
+- Invoke the class with arguments meant for the `__init__` constructor
+- **Note**: You do not need to pass the `self` argument (will be auto-added). Ignore it and pass in the other arguments.
+
+```python
+my_restaurant = Restaurant('Best Taste', 'Indian')
+print(my_restaurant) # <Restaurant object at 0x7f8bb21227c0>
+```
+
+_Comparison with JavaScript:_
+- Similar but you need to instantiate the class using the `new` keyword
+
+#### Accessing attributes and methods
+
+Use the dot `.` notation
+
+```python
+my_restaurant = Restaurant('Best Taste', 'Indian')
+print(my_restaurant.cuisine_type) # Indian
+my_restaurant.open_restaurant() # Best Taste is now open
+```
+
+_Comparison with JavaScript:_
+- Same.
+
+#### Default attribute values
+
+Add more attributes to the `self` object inside the `__init__` method (these do not depend on the `__init__` parameters)
+
+```python
+class Adder():
+  def __init__(self, num_1=0, num_2=1): # Constructor, i.e init, parameters can accept default arguments!
+    self.num_1 = num_1
+    self.num_2 = num_2
+    self.sum = 0 # A DEFAULT ATTRIBUTE!
+
+  def add(self):
+    self.sum = self.num_1 + self.num_2
+
+  def view_result(self):
+    return self.sum
+
+add_five_and_six = Adder(5, 6)
+add_five_and_six.add()
+print(add_five_and_six.view_result()) # 11
+```
+
+_Comparison with JavaScript:_
+- Same (but inside a constructor, using `this`)
+
+#### Modifying an attribute value
+
+1. Direct modification
+
+```python
+my_restaurant = Restaurant('Best Taste', 'Indian')
+
+my_restaurant.number_served = 5
+print(my_restaurant.number_served) # 5
+```
+
+2. Modification via a method
+
+```python
+my_restaurant = Restaurant('Best Taste', 'Indian')
+
+my_restaurant.set_number_served(5)
+print(my_restaurant.number_served) # 5
+```
+
+_Comparison with JavaScript:_
+- Same (unless _access modifiers_ prevent one from updating an attribute directly)
+
+#### Inheritance
+
+1. Creating a child class from the parent: 
+
+- Pass in the parent class in the class signature as an argument `()`!
+- Call `super().__init__` with the arguments required for parent class' `__init__` method i.e we must invoke the parent class constructor first!
+
+```python
+class JapaneseRestaurant(Restaurant):
+  """A Japanese restaurant class"""
+
+  def __init__(self, restaurant_name):
+    super().__init__(restaurant_name, 'Japanese')
+    self.cuisine_type = 'special japanese'
+```
+
+**Note**: Inheritance in Python2.7 
+- We need to pass a reference to the child class & `self `in `super()`
+- Ex: `super(JapaneseRestaurant, self).__init__()`
+
+2. Adding attributes/methods to or overriding parent class attributes/methods in a child class
+
+- We can add new attributes and methods (OR) override the parent class ones too! 
+
+```python
+class JapaneseRestaurant(Restaurant):
+  """A Japanese restaurant class"""
+
+  def __init__(self, restaurant_name):
+    super().__init__(restaurant_name, 'Japanese')
+    self.cuisine_type = 'special japanese' # overriding the parent class attribute
+    self.japanese_welcome_message = 'いらっしゃいませ' # new child class attribute
+
+  # Overriding a method of the parent class
+  def describe_restaurant(self):
+    print(self.restaurant_name + ' is a special Japanese restaurant!')
+
+  # Adding a new method to the child class:
+  def welcome_in_japanese(self):
+    print(self.japanese_welcome_message)
+
+my_japanese_restaurant = JapaneseRestaurant('Arigato')
+my_japanese_restaurant.describe_restaurant() # Arigato is a special Japanese restaurant!
+my_japanese_restaurant.welcome_in_japanese() # いらっしゃいませ
+```
+
+_Comparison with JavaScript:_
+- Similar. We only need to invoke `super()` inside the child constructor but the arguments are passed to `super` itself (not to `__init__()`)
+- We can also override attributes and methods of a parent class inside a child class by default
+- We can also add new attributes and methods to a child class
+- **Note:** access modifiers (Ex: `private`, `protected`) might affect default behaviour
+
+#### Importing classes
+
+1. Importing a single class
+
+```python
+from restaurant import Restaurant
+```
+
+2. Importing multiple classes from a module
+
+Better to store _related classes_ in the same module if you have to.
+
+```python
+from restaurant import Restaurant, JapaneseRestaurant
+```
+
+3. Importing an entire module
+
+Use the dot `.` notation to access specific classes of the module
+
+```python
+import restaurant_classes # Assume this holds Restaurant and JapaneseRestaurant
+
+my_restaurant = restaurant_classes.Restaurant()
+my_japanese_restaurant = restaurant_classes.JapaneseRestaurant()
+```
+
+5. Importing all classes from a module
+
+Against best practices as this can pollute the current module's namespace (leads to collisions possibly) if names overlap
+
+```python
+from restaurant_classes import *
+
+my_restaurant = Restaurant()
+my_japanese_restaurant = JapaneseRestaurant()
+```
+
+_Comparison with JavaScript:_
+- Either as a named export or default export: `import ClassName from '...'` or `import { ClassName } from '...'`
