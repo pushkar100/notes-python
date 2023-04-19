@@ -136,6 +136,28 @@ _Comparison with JavaScript:_
 - `None` is an empty type when a function returns nothing. It is similar to `undefined` in JavaScript
 - JavaScript has more built-in types: `NaN`, Symbol
 
+### Finding the type of a value
+
+Use the `type()` function
+
+```python
+type(5) # int
+type(5.0) # float
+type('Hello') # str
+type([1, 2, 3]) # list
+type({ 'a': 1, 'b': 2 }) # dict
+
+def foo():
+  print('Foo')
+
+type(foo) # function
+
+type(SomeClass) # type (? unsure)
+```
+
+_Comparison with JavaScript:_
+- Use the `typeof` operator / expression.
+
 ### Type casting
 
 1. Converting to a string: **`str()`**
