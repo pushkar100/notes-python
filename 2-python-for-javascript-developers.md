@@ -117,6 +117,24 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Modifying an attribute value](#modifying-an-attribute-value)
       - [Inheritance](#inheritance)
       - [Importing classes](#importing-classes)
+    + [Files](#files)
+      - [Opening a file](#opening-a-file)
+      - [Closing a file](#closing-a-file)
+      - [Correctly opening and closing a file](#correctly-opening-and-closing-a-file)
+      - [Reading the entire contents of a file](#reading-the-entire-contents-of-a-file)
+      - [Reading the file contents one line at a time](#reading-the-file-contents-one-line-at-a-time)
+      - [Storing lines of a file into a list](#storing-lines-of-a-file-into-a-list)
+      - [Writing to a file](#writing-to-a-file)
+      - [Appending to file](#appending-to-file)
+      - [Loading and dumping JSON data](#loading-and-dumping-json-data)
+    + [Exceptions](#exceptions)
+    + [Unit testing your code](#unit-testing-your-code)
+      - [Unit test](#unit-test)
+      - [Test case](#test-case)
+      - [Creating a test case](#creating-a-test-case)
+      - [Understanding the test case output](#understanding-the-test-case-output)
+      - [Common assertions](#common-assertions)
+      - [Setup code](#setup-code)
 
 ## Basics
 
@@ -2722,3 +2740,146 @@ finally {
   // finallyCode - Code block to be executed regardless of the try result
 }
 ```
+
+### Unit testing your code
+
+Python provides a standard library called `unittest` in order to unit test our code.
+
+#### Unit test
+
+Verifies that one specific aspect of a function's behaviour is correct
+
+#### Test case
+A collection of unit tests which together prove that a function is supposed to behave as it is supposed to (within the full range of situations you expect it to handle)
+
+#### Creating a test case
+
+1. Import `unittest` (and import any python program files that need to be tested)
+2. Create a class that inherits from `unittest.TestCase` (Not required to write the `__init__` method)
+3. Unit tests must be class methods starting with the `test_` prefix. Write your code for each unit test inside such a method
+4. Assertions must be written the `self.assert*` methods ([Python unittest assertions cheatsheet](https://kapeli.com/cheat_sheets/Python_unittest_Assertions.docset/Contents/Resources/Documents/index))
+5. Write `unittest.main()` at the end of the file. It tells python to execute the unit tests in that file
+
+Example module to test:
+```python
+# add_module.py
+
+def add_nums(*nums):
+  sum = 0
+  for num in nums:
+    sum += num
+  return sum
+
+def add_two_nums(num1, num2):
+  return num1 + num2
+```
+
+The test file:
+```python
+import unittest
+import add_module
+
+class AddTestCase(unittest.TestCase):
+  """Tests for add_module"""
+
+  def test_adds_two_nums(self):
+    """Tests if two numbers can be added"""
+    sum = add_module.add_two_nums(4, 3)
+    self.assertEqual(sum, 7)
+
+unittest.main()
+```
+
+#### Understanding the test case output
+
+Execute the test file like you would any other python script.
+
+1. A passing test example
+
+```
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+```
+
+2. A failing test example (Needs fixing)
+```
+F
+======================================================================
+FAIL: test_adds_two_nums (__main__.AddTestCase)
+Tests if two numbers can be added
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pushkar/Desktop/test.py", line 10, in test_adds_two_nums
+    self.assertEqual(sum, 7)
+AssertionError: 8 != 7
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
+```
+
+3. Adding a new unit test
+
+Add a new `test_` prefixed method
+
+```python
+class AddTestCase(unittest.TestCase):
+  # ...
+
+  def test_adds_many_numbers(self):
+    """Tests if two numbers can be added"""
+    sum = add_module.add_nums(4, 3, 2, 1)
+    self.assertEqual(sum, 10)
+
+  # ...
+```
+
+#### Common assertions
+
+1. `assertEqual(a, b)` : `a == b`
+2. `assertNotEqual(a, b)` : `a != b`
+3. `assertTrue(x)` : `x == True`
+4. `assertFalse(x)` : `x == False`
+5. `assertIn(item, list)` : `item in list`
+6. `assertNotIn(item, list)` : `item not in list`
+
+#### Setup code
+
+The `setUp` method (A bit like `beforeAll` in JavaScript)
+- Useful for setting up code before all your unit tests execute. Ex: class set up
+- The code set up in `setUp` will be available via `self` to all test methods depending on how it was set up (as attributes or not)
+
+```python
+import unittest
+import add_module
+
+class AddTestCase(unittest.TestCase):
+  """Tests for add_module"""
+
+  def setUp(self):
+    """Sets up data for the tests"""
+    self.num_1 = 4
+    self.num_2 = 3
+    self.num_3 = 2
+    self.num_4 = 1
+
+  def test_adds_two_nums(self):
+    """Tests if two numbers can be added"""
+    sum = add_module.add_two_nums(self.num_1, self.num_2)
+    self.assertEqual(sum, 7)
+
+  def test_adds_many_numbers(self):
+    """Tests if two numbers can be added"""
+    sum = add_module.add_nums(self.num_1, self.num_2, self.num_3, self.num_4)
+    self.assertEqual(sum, 10)
+
+unittest.main()
+```
+
+_Comparison with JavaScript:_
+- No standard library such as `unittest` exists in JavaScript, either for the web or NodeJS.
+- NodeJS does have a primitve, built-in `assert` module though
