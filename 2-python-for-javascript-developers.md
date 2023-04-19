@@ -1413,3 +1413,228 @@ while num < 6:
 
 _Comparison with JavaScript:_
 - Same.
+
+### Dictionaries
+
+A dictionary is a set of **key-value** pairs.
+
+#### Defining a dictionary
+
+- Use `{ 'key': value }` syntax
+
+```python
+country_capitals = {
+  'India': 'New Delhi',
+  'United Kingdom': 'London',
+  'France': 'Paris'
+}
+
+country_capitals # {'India': 'New Delhi', 'United Kingdom': 'London', 'France': 'Paris'}
+```
+
+- Using a key other than string is also allowed (Ex: lists, dictionaries, functions, numbers, boolean)
+```python
+def some_method():
+  print('I am some method')
+
+some_method # <function __main__.some_method()>
+
+complex_key_object = { some_method: 10 }
+
+complex_key_object # {<function __main__.some_method()>: 10}
+```
+
+_Comparison with JavaScript:_
+- Dictionaries in JavaScript are known as objects `{}`. The syntax is pretty much the same.
+- Keys for objects can only be **strings** or a **Symbol**.
+- For string keys, you do not need to wrap the keys in quotes (`'` or `"`) but in Python, you need to!
+- If you want to assign other types as keys (Ex: objects, functions, etc) then use a `Map` or a `WeakMap`
+
+#### Empty dictionary
+
+Use `{}`
+- Useful for dynamically building up key-value pairs in your program (similar to dynamically building a list of items)
+
+```python
+empty_dict = {}
+empty_dict # {}
+```
+
+_Comparison with JavaScript:_
+- Same.
+
+#### Accessing a value in an dictionary
+
+Use the square bracket notation `[]`
+
+```python
+country_capitals = {
+  'India': 'New Delhi',
+  'United Kingdom': 'London',
+  'France': 'Paris'
+}
+country_capitals['India'] # 'New Delhi'
+```
+
+_Comparison with JavaScript:_
+- Same.
+
+#### Adding a new key-value pair to a dictionary
+
+Use the square bracket notation `[]`
+
+```python
+country_capitals = {
+  'India': 'New Delhi',
+  'United Kingdom': 'London',
+  'France': 'Paris'
+}
+
+country_capitals['Sri Lanka'] = 'Colombo'
+
+country_capitals
+# {'India': 'New Delhi',
+#  'United Kingdom': 'London',
+#  'France': 'Paris',
+#  'Sri Lanka': 'Colombo'}
+```
+
+_Comparison with JavaScript:_
+- Same.
+
+#### Modifying values in a dictionary
+
+Use the square bracket notation `[]`
+
+```python
+country_capitals = {
+  'India': 'New Delhi',
+  'United Kingdom': 'London',
+  'France': 'Paris'
+}
+
+country_capitals['India'] = 'Bangalore'
+
+# {'India': 'Bangalore',
+#  'United Kingdom': 'London',
+#  'France': 'Paris',
+#  'Sri Lanka': 'Colombo'}
+```
+
+_Comparison with JavaScript:_
+- Same.
+
+#### Removing key-value pairs from a dictionary
+
+Use the `del` keyword
+
+```python
+country_capitals = {
+  'India': 'New Delhi',
+  'United Kingdom': 'London',
+  'France': 'Paris'
+}
+
+del country_capitals['India']
+
+country_capitals # {'United Kingdom': 'London', 'France': 'Paris'}
+```
+
+_Comparison with JavaScript:_
+- Use the `delete` operator in a similar way.
+
+#### Looping through key-value pairs in dictionaries
+
+Use `.items()` to get the key-value pairs as list of tuple items (Each tuple = key, value).
+
+```python
+country_capitals = {
+  'India': 'New Delhi',
+  'United Kingdom': 'London',
+  'France': 'Paris'
+}
+
+country_capitals.items() # dict_items([('India', 'New Delhi'), ('United Kingdom', 'London'), ('France', 'Paris')])
+
+for key, value in country_capitals.items():
+  print('key ' + key + ' | ' + value)
+
+# key India | New Delhi
+# key United Kingdom | London
+# key France | Paris
+```
+**Note:** Order of keys is not guaranteed while looping through dictionary keys!
+
+_Comparison with JavaScript:_
+- We can use an object method called `Object.entries(objectVariable)` to get an array of the key-value pairs.
+
+#### Looping through just the keys in dictionaries
+
+Use `.keys()` to get just the keys in a list
+
+```python
+country_capitals = {
+  'India': 'New Delhi',
+  'United Kingdom': 'London',
+  'France': 'Paris'
+}
+
+country_capitals.keys() # dict_keys(['India', 'United Kingdom', 'France'])
+
+for key in country_capitals.keys():
+  print('key: ' + key)
+
+# key: India
+# key: United Kingdom
+# key: France
+```
+
+**Note:** If you want to maintain the order of the keys in the list, you can do so using the sorted() function on the return of `.keys()`
+
+_Comparison with JavaScript:_
+- We can use a similar object method called `Object.keys(objectVariable)` to get an array of the keys.
+
+#### Nesting dictionaries
+
+You can assign a dictionary to another dictionary as a value to a prop.
+
+```python
+nested_object = {
+  'a': 10,
+  'b': {
+    'c': 'I am a nested value'
+  }
+}
+```
+
+_Comparison with JavaScript:_
+- Same.
+
+#### List of dictionaries
+
+Python lists can contain dictionaries as items
+
+```python
+foo = { 'some': 'object' }
+bar = { 'another': 'object', 'a': 1 }
+my_list = [foo, bar]
+
+my_list # [{'some': 'object'}, {'another': 'object', 'a': 1}]
+```
+
+_Comparison with JavaScript:_
+- Same with arrays.
+
+#### Dictionary containing lists
+
+Python dictionaries can also contain lists as values to props
+```python
+foo = { 
+  'bar': ['list', 1, 'of', 2, 'objects']
+}
+
+foo # {'bar': ['list', 1, 'of', 2, 'objects']}
+```
+
+_Comparison with JavaScript:_
+- Same with arrays.
