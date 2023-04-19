@@ -2433,7 +2433,7 @@ my_restaurant = restaurant_classes.Restaurant()
 my_japanese_restaurant = restaurant_classes.JapaneseRestaurant()
 ```
 
-5. Importing all classes from a module
+4. Importing all classes from a module
 
 Against best practices as this can pollute the current module's namespace (leads to collisions possibly) if names overlap
 
