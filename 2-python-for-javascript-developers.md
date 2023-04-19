@@ -135,6 +135,7 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Understanding the test case output](#understanding-the-test-case-output)
       - [Common assertions](#common-assertions)
       - [Setup code](#setup-code)
+    + [Python standard library](#python-standard-library)
 
 ## Basics
 
