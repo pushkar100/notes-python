@@ -1664,3 +1664,123 @@ foo # {'bar': ['list', 1, 'of', 2, 'objects']}
 
 _Comparison with JavaScript:_
 - Same with arrays.
+
+### Sets
+
+A set is a list that contains no duplicate values (& they are indexed for constant time operations)
+
+- To create a set of values, use the `set()` function.
+- Like dictionaries, set values are **unordered**
+
+#### Defining a set
+
+Use `set()` by passign it a list.
+- It creates a set data structure
+- The values contained are all unique (**duplicates are removed!**)
+
+```python
+set_of_countries = set(['India', 'Brazil', 'Australia', 'India'])
+
+set_of_countries # {'Australia', 'Brazil', 'India'}
+```
+
+#### Fetching a set value
+
+**Note:** You cannot access items in a set by referring to an index or a key.
+
+```python
+set_of_countries = set(['India', 'Brazil', 'Australia', 'India'])
+
+set_of_countries[1] # ✕ (Error)
+
+# ---------------------------------------------------------------------------
+# TypeError                                 Traceback (most recent call last)
+# <ipython-input-40-cfca302c0359> in <module>
+# ----> 1 set_of_countries[1]
+
+# TypeError: 'set' object is not subscriptable
+```
+
+_Comparison with JavaScript:_
+- Same.
+
+#### Checking if a set contains a value
+
+You can check if a set has a value using the `in` operator. (Similar to lists)
+
+```python
+set_of_countries = set(['India', 'Brazil', 'Australia', 'India'])
+
+'India' in set_of_countries # True
+
+'Bahrain' in set_of_countries # False
+
+# Use such conditionals in if statements and while loops
+```
+
+_Comparison with JavaScript:_
+- Use the `.has(value)` method
+
+#### Adding a value to a set
+
+Use the `.add()` method
+
+```python
+set_of_countries = set(['India', 'Brazil', 'Australia', 'India'])
+
+set_of_countries.add('China') 
+set_of_countries # {'Australia', 'Brazil', 'China', 'India'}
+
+# Duplicate insertions still result in only storing values that are unique
+
+set_of_countries.add('China') 
+set_of_countries # {'Australia', 'Brazil', 'China', 'India'}
+```
+
+_Comparison with JavaScript:_
+- Same (`.add(value)` method)
+
+#### Removing a value from a set
+
+- Use the `.remove()` method
+
+```python
+set_of_countries = set(['India', 'Brazil', 'Australia'])
+
+set_of_countries.remove('Brazil')
+set_of_countries # {'Australia', 'India'}
+```
+
+_Comparison with JavaScript:_
+- Use the `.delete(value)` method
+
+#### Size of a set
+
+- Use the `len()` function (similar to lists)
+
+```python
+set_of_countries = set(['India', 'Brazil', 'Australia'])
+
+len(set_of_countries) # 3
+```
+
+_Comparison with JavaScript:_
+- Use the `.size()` method
+
+#### Looping through a set
+
+Use a `for` (for-in) loop similar to lists
+
+```python
+set_of_countries = set(['India', 'Brazil', 'Australia'])
+
+for value in set_of_countries:
+  print(value)
+
+# Brazil
+# Australia
+# India
+```
+
+_Comparison with JavaScript:_
+- Similar. `for`, `.forEach`, `.keys()`, `.values()`, ... etc work!
