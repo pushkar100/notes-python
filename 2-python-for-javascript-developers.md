@@ -108,7 +108,7 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Importing a specific function](#importing-a-specific-function)
       - [Defining an alias while importing a function](#defining-an-alias-while-importing-a-function)
       - [Defining an alias while importing the whole module](#defining-an-alias-while-importing-the-whole-module)
-      - [Importing all functions in from a module](#importing-all-functions-in-from-a-module)
+      - [Importing all functions from a module](#importing-all-functions-from-a-module)
 
 ## Basics
 
@@ -2195,7 +2195,7 @@ _Comparison with JavaScript:_
 - Same (we have to do this by default). Ex: `import * as Module from './some/module`
 - For a default export: Ex: `import defaultExport as someName from './some/module`
 
-#### Importing all functions in from a module
+#### Importing all functions from a module
 
 Use the `*` operator
 - Do not use it unless you have a valid reason!
