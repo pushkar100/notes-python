@@ -2883,3 +2883,16 @@ unittest.main()
 _Comparison with JavaScript:_
 - No standard library such as `unittest` exists in JavaScript, either for the web or NodeJS.
 - NodeJS does have a primitve, built-in `assert` module though
+
+### Python standard library
+
+The Python Standard Library is a collection of script modules accessible to a Python program.
+It does so by simplifying the programming process and removing the need to rewrite commonly used commands. 
+They can be used by 'calling/importing' them at the beginning of a script.
+
+Common built-in modules (need to `import` them):
+
+1. `datetime` ([docs](https://docs.python.org/3/library/datetime.html))
+2. `math` ([docs](https://docs.python.org/3/library/math.html))
+3. `random` ([docs](https://docs.python.org/3/library/random.html))
+4. `os` ([docs](https://docs.python.org/3/library/os.html))
