@@ -2094,3 +2094,102 @@ _Comparison with JavaScript:_
 - To clone an array in JS, use the `[...originalArray]` syntax (i.e the spread operator as an aid)
 - For objects, you have to write your own function to manually deep clone it (Using `JSON.stringify` and `JSON.parse`, maybe)
 - Methods for shallow cloning exist: `{ ...originalObject }` or `Object.assign()`
+
+
+### Modules
+
+- Modules help store functionality, functions, and classes that can be imported by another python program
+- Save modules in `.py` files 
+- **Place the modules you want to import in the same directory as the executor python program/script.** (unless, it's standard library)
+- Use the `import` syntax to import a module
+- By convention, all `import` statements are placed at the top of the file
+- Module (or just general python file naming) convention suggests using the `snake_case` 
+
+Example module:
+
+```python
+# add_module.py
+def add_nums(*nums):
+  sum = 0
+  for num in nums:
+    sum += num
+  return sum
+
+def add_two_nums(num1, num2):
+  return num1 + num2
+```
+
+#### Importing an entire module
+
+- Use the dot (`.`) notation to access functions from the import
+
+```python
+import add_module
+
+print(add_module.add_nums(1, 3, 5, 7)) # 16
+print(add_module.add_two_nums(1, 3)) # 4
+```
+
+_Comparison with JavaScript:_
+- We also use the `import` statement: Ex: `import * as Module from './some/module`
+- Modules in JavaScript have the concept of a **default** import. Ex: `import defaultImport from './some/module'`
+- Just `import './some/module'` will execute the module i.e including side-effects but provides no function or class to work with
+
+#### Importing a specific function
+
+```python
+from add_module import add_nums
+
+print(add_nums(1, 3, 5, 7)) # 16
+```
+
+Use commas `,` to import multiple specific functions:
+- Syntax: `from module_name import function_1, function_2, function_3`
+
+_Comparison with JavaScript:_
+- Syntax would be `import { someFunction } from './some/module'`
+- Multiple functions' import ``import { func_1, func_2, func_3 } from './some/module'`
+
+#### Defining an alias while importing a function
+
+Use the `as` keyword for the function
+
+```python
+from add_module import add_nums as add_numbers
+
+print(add_numbers(1, 3, 5, 7)) # 16
+```
+
+_Comparison with JavaScript:_
+- Same. Syntax would be `import { someFunction as someOtherName } from './some/module'`
+
+#### Defining an alias while importing the whole module
+
+Use the `as` keyword for the module
+
+```python
+import add_module as custom_add_module
+
+print(custom_add_module.add_nums(1, 3, 5, 7)) # 16
+```
+
+_Comparison with JavaScript:_
+- Same (we have to do this by default). Ex: `import * as Module from './some/module`
+- For a default export: Ex: `import defaultExport as someName from './some/module`
+
+#### Importing all functions in from a module
+
+Use the `*` operator
+- Do not use it unless you have a valid reason!
+- Pollutes the namespace: Can lead to name collisions between the imported module and the current script!
+
+```python
+from add_module import *
+
+print(add_nums(1, 3, 5, 7)) # 16 (note: no dot notation (.) needed!)
+print(add_two_nums(1, 3)) # 4 (note: no dot notation (.) needed!)
+```
+
+_Comparison with JavaScript:_
+- Name collision is not possible as we always need to provide an `as` to import the whole module
+- I.e the functions are not imported unless each is specified or is imported as a property of the module import.
