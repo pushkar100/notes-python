@@ -1568,6 +1568,32 @@ for key, value in country_capitals.items():
 _Comparison with JavaScript:_
 - We can use an object method called `Object.entries(objectVariable)` to get an array of the key-value pairs.
 
+#### Looping through just the values in dictionaries
+
+Use `.values()` to get just the keys in a list
+
+```python
+country_capitals = {
+  'India': 'New Delhi',
+  'United Kingdom': 'London',
+  'France': 'Paris'
+}
+
+country_capitals.values() # dict_values(['New Delhi', 'London', 'Paris'])
+
+for value in country_capitals.values():
+  print('value: ' + value)
+
+# value: New Delhi
+# value: London
+# value: Paris
+```
+
+**Note:** If you want to maintain the order of the values in the list, you can do so using the sorted() function on the return of `.keys()`
+
+_Comparison with JavaScript:_
+- We can use a similar object method called `Object.values(objectVariable)` to get an array of the values.
+
 #### Looping through just the keys in dictionaries
 
 Use `.keys()` to get just the keys in a list
