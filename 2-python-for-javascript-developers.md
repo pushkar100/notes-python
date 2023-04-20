@@ -1658,6 +1658,31 @@ country_capitals['India'] # 'New Delhi'
 _Comparison with JavaScript:_
 - Same.
 
+#### Accessing a value in a dictionary in a safe way using get
+
+In case the key-value pair does not exist, we get around an error in accessing a dictionary value by using `.get()`
+- Two arguments: The key and an optional fallback value to return if the key-value pair is not present
+
+```python
+foo = {
+  'a': 10,
+  'b': 20,
+  'names': ['Jon', 'Ron', 'Emma']
+}
+
+# When value exists:
+print(foo['a']) # 10
+print(foo.get('a', 0)) # 10
+
+# When value does not exist:
+# print(foo['nonexistent']) # ✕ (KeyError: 'nonexistent')
+print(foo.get('nonexistent', 100)) # 100
+```
+
+_Comparison with JavaScript:_
+- No error in accessing a non-existent key-value pair in an object. You receive the value `undefined`
+- Perform truthy checks on the value before processing it
+
 #### Adding a new key-value pair to a dictionary
 
 Use the square bracket notation `[]`
