@@ -429,6 +429,34 @@ _Comparison with JavaScript:_
 - There is another way to build strings in JS: Interpolation. 
   - Ex: `age = 15; x = `My age is ${age}`;`
 
+#### String interpolation 
+
+String interpolation is a special way to concatenate strings i.e interpolate expression, including variables, into a string.
+
+Strings can be interpolated in two ways:
+1. Using the `%s` operator
+2. Using the new **`f` strings** in Python3.6+
+
+```python
+name = 'Pushkar'
+age = 29
+message = 'My name is %s. I am %s years old.' % (name, age)
+print(message) # My name is Pushkar. I am 29 years old.
+```
+
+```python
+# Valid from python 3.6 only!
+# Do not forget to prefix the string with `f`
+name = 'Pushkar'
+age = 29
+message = f'My name is {name}. I am {age} years old.'
+print(message) # My name is Pushkar. I am 29 years old.
+```
+
+_Comparison with JavaScript:_
+- Use `'`'` character to open a string where interpolation is possible. Use `${}` within such a string to input an expression
+- Ex: `Hello, ${name}! You are ${age} years old.` where `name` and `age` are single value expressions i.e variables
+
 #### Escaping characters in a string
 
 1. Escape newlines with `\n`
