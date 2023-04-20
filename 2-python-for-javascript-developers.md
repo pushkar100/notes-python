@@ -993,6 +993,32 @@ _Comparison with JavaScript:_
 - Tuples do not exist in JavaScript!
 - Typecheckers like **TypeScript** and **Flow** can enforce this new type. However, executable JS can never contain it
 
+#### Concatenating lists
+
+Use the `+` operator on two list operands to create a new list
+
+```python
+foo = ['x', 'y', 'z']
+bar = [5, 6, 7]
+print(foo + bar) # ['x', 'y', 'z', 5, 6, 7]
+```
+
+_Comparison with JavaScript:_
+- Use the spread operator: `[...arr_1, ...arr_2]`
+
+#### Replicating lists
+
+Use the `*` on a list and an integer to replicate the list that many times
+
+```python
+foo = ['x', 'y', 'z']
+
+print(foo * 3) # ['x', 'y', 'z', 'x', 'y', 'z', 'x', 'y', 'z']
+```
+
+_Comparison with JavaScript:_
+- Such an operator does not exist. Do it manually using loops or a `.reduce()`/`.map()` logic
+
 #### Looping through items in a list
 
 **1. Loop through items using a for (`for-in`) loop**
