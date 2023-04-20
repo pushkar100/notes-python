@@ -477,6 +477,36 @@ str(True) # 'True'
 _Comparison with JavaScript:_
 - In JavaScript, we use the `String()` function or just type coerce by `''` or `""` or ` `${}` `
 
+#### Indexing and slicing strings
+
+This is done pretty much the same way as with lists (arrays)
+
+**Note:** Strings are immutable (unlike lists) therefore accessing strings work like lists but not modifications (which are not allowed)
+
+```python
+foo = 'Hello Boy!'
+
+print(foo[1]) # 'e'
+
+print(foo[2:5]) # 'llo'
+
+print(foo[2:]) # 'llo Boy!'
+
+print(foo[:3]) # 'Hel'
+
+print(foo[-1]) # '!'
+
+print(foo[-3:]) # 'oy!'
+
+print(foo[:-3]) # 'Hello B'
+```
+
+_Comparsion with JavaScript:_
+- String characters can be accessed like arrays (same as python)
+- However, for getting substrings use `substr()` or `substr()` 
+- Negative indices do not fetch a character from the end of the string
+- Strings are immutable in JS too!
+
 ### Numbers
 
 #### Arithmetic operations on integers
