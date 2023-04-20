@@ -2897,3 +2897,25 @@ Common built-in modules (need to `import` them):
 2. `math` ([docs](https://docs.python.org/3/library/math.html))
 3. `random` ([docs](https://docs.python.org/3/library/random.html))
 4. `os` ([docs](https://docs.python.org/3/library/os.html))
+
+### Lambda functions
+
+Lambda is an anonymous function
+- Syntax: `lambda arg_1[, arg_2, ...] : expression`
+- Can take any number of arguments (comma `,` separated)
+- However, they have only one expression whose result becomes the return value of that lambda function
+```python
+square = lambda x : x ** 2
+print(square)
+print(square(5))
+```
+
+Benefits of Lambda functions:
+- We can have anonymous functions _inside another function_ (Creating reusable units of code within that function's logic)
+- They offer a _concise syntax_ for a function
+- Lambdas can be used to construct *higher order functions* (HOCs)
+
+Debugging a lambda function is more difficult than regular functions (missing name in traceback).
+
+_Comparison with JavaScript:_
+- Lambdas are very similar to arrow functions `() => {}`
