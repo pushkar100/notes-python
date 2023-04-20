@@ -1747,6 +1747,58 @@ country_capitals # {'United Kingdom': 'London', 'France': 'Paris'}
 _Comparison with JavaScript:_
 - Use the `delete` operator in a similar way.
 
+#### Setting a default value for a key
+
+Helpful shorthand for checking if a key-value pair exists
+- Use `.setdefault()`
+- First parameter is the key and the second is a default value to set if the key does not exist
+- If key does not exist, the value is set for it and returned
+- If key exists, the existing value is returned (ignoring the second argument)
+
+```python
+spam = {'name': 'Pooka', 'age': 5}
+
+return_val = spam.setdefault('color', 'black')
+
+print(return_val) # black
+print(spam) # {'name': 'Pooka', 'age': 5, 'color': 'black'}
+
+return_val = spam.setdefault('color', 'white')
+
+print(return_val) # black
+print(spam) # {'name': 'Pooka', 'age': 5, 'color': 'black'}
+```
+
+_Comparison with JavaScript:_
+- Nothing like this exists in-built to set a default or shorthand
+- Use `Object.values(obj)` and `.includes()` on the returned list to check for existence of a key-value pair
+
+#### Pretty print a dictionary
+
+Use the `pprint` module (import it!)
+
+```python
+import pprint
+
+spam = {'name': 'Pooka', 'age': 5, 'color': 'black', 'sky': 'blue', 'last_name': 'Bro', 'a': 10000, 'f': 1.344 }
+
+print(spam)
+# {'name': 'Pooka', 'age': 5, 'color': 'black', 'sky': 'blue', 'last_name': 'Bro', 'a': 10000, 'f': 1.344
+
+pprint.pprint(spam)
+# {'a': 10000,
+#  'age': 5,
+#  'color': 'black',
+#  'f': 1.344,
+#  'last_name': 'Bro',
+#  'name': 'Pooka',
+#  'sky': 'blue'}
+```
+
+_Comparison with JavaScript:_
+- There is no in-built prettifier but the browser console makes it collapsible and tabbed
+
+
 #### Looping through key-value pairs in dictionaries
 
 Use `.items()` to get the key-value pairs as list of tuple items (Each tuple = key, value).
