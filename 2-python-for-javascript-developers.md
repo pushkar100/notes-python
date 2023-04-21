@@ -3195,19 +3195,6 @@ _Comparison with JavaScript:_
 - No standard library such as `unittest` exists in JavaScript, either for the web or NodeJS.
 - NodeJS does have a primitve, built-in `assert` module though
 
-### Python standard library
-
-The Python Standard Library is a collection of script modules accessible to a Python program.
-It does so by simplifying the programming process and removing the need to rewrite commonly used commands. 
-They can be used by 'calling/importing' them at the beginning of a script.
-
-Common built-in modules (need to `import` them):
-
-1. `datetime` ([docs](https://docs.python.org/3/library/datetime.html))
-2. `math` ([docs](https://docs.python.org/3/library/math.html))
-3. `random` ([docs](https://docs.python.org/3/library/random.html))
-4. `os` ([docs](https://docs.python.org/3/library/os.html))
-
 ### Lambda functions
 
 Lambda is an anonymous function
@@ -3229,3 +3216,301 @@ Debugging a lambda function is more difficult than regular functions (missing na
 
 _Comparison with JavaScript:_
 - Lambdas are very similar to arrow functions `() => {}`
+
+### Python standard library
+
+The Python Standard Library is a collection of script modules accessible to a Python program.
+It does so by simplifying the programming process and removing the need to rewrite commonly used commands. 
+They can be used by 'calling/importing' them at the beginning of a script.
+
+Common built-in modules (need to `import` them):
+
+1. `datetime` ([docs](https://docs.python.org/3/library/datetime.html))
+2. `math` ([docs](https://docs.python.org/3/library/math.html))
+3. `random` ([docs](https://docs.python.org/3/library/random.html))
+4. `os` ([docs](https://docs.python.org/3/library/os.html))
+
+### PIP package manager
+
+The standard package manager for Python is `pip`. Essentially, a _dependency manager_.
+- It allows you to _install and manage_ packages that _are not part of_ the Python standard library.
+- The Python community is very active and you will find a lot of packages created by people
+- There exist alternatives to PIP as well!
+
+**Note:** Python’s installers have included pip since versions 3.4 and 2.7.9, for Python 3 and Python 2, respectively.
+(If you do not have PIP, you need to manually install it. Ex: `sudo apt install python3-pip`)
+
+#### Verifying the system has pip installed
+
+Check for `pip` or `pip3` executable in the CLI:
+```bash
+$ pip3
+
+Usage:   
+  pip3 <command> [options]
+  # ...
+  # ...
+
+
+$ pip3 --version
+pip 21.2.3 from /Users/pushkar/Desktop/practice/venv/lib/python3.9/site-packages/pip (python 3.9)
+```
+
+To know where it is installed, use the `where` command:
+```bash
+$ where pip
+/Users/pushkar/opt/anaconda3/bin/pip
+
+$ where pip3
+/usr/local/bin/pip3
+/usr/bin/pip3
+/Users/pushkar/opt/anaconda3/bin/pip3
+```
+
+#### Running pip as a module
+
+This has one benefit: Making sure we are using the right pip version when we run the basic `pip` executable without the version! (For python2.7 or Python3)
+
+Example of making sure pip3 is being run:
+- Use a specific python interpreter (Ex: 2.7 or 3)
+- Use the `-m` flag to run a file as a module
+- Pass `pip` as the file
+```bash
+$ python3 -m pip
+
+Usage:   
+  /usr/local/opt/python@3.11/bin/python3.11 -m pip <command> [options]
+
+Commands:
+  install                     Install packages.
+  download                    Download packages.
+  # ...
+  # ...
+```
+
+#### Best setup by creating a virtual environment
+
+To avoid installing packages directly into your system Python installation, you can use a **virtual environment**. 
+
+- A virtual environment provides an isolated Python interpreter for your project
+- Any packages that you use inside this environment will be independent of your system interpreter
+- This means that you can keep your project’s dependencies separate from other projects and the system at large.
+
+Using `pip` inside a virtual environment has three main advantages. You can:
+
+1. Be sure that you’re using the right Python version for the project at hand
+2. Be confident that you’re referring to the correct pip instance when running pip or pip3
+3. Use a specific package version for your project without affecting other projects
+
+Python 3 has the built-in **`venv`** module for creating virtual environments. 
+
+- This module helps you create virtual environments with an isolated Python installation
+- Once you’ve **activated** the virtual environment, then you can install packages into this environment. 
+- The packages that you install into one virtual environment are ***isolated*** from all other environments on your system.
+
+```bash
+$ python3 -m venv venv
+$ source venv/bin/activate
+(venv) $ pip3 --version
+pip 21.2.3 from .../python3.10/site-packages/pip (python 3.10)
+(venv) $ pip --version
+pip 21.2.3 from .../python3.10/site-packages/pip (python 3.10)
+```
+
+You create a virtual environment named `"venv"` by using Python’s built-in `venv` module. Then you activate it with the source command. The parentheses (`()`) surrounding your venv name indicate that you successfully activated the virtual environment.
+
+You check the version of the pip3 and pip executables inside your activated virtual environment. 
+- Both point to the same pip module, so once your virtual environment is activated, you can use either `pip` or `pip3`.
+
+##### Virtual environment variable
+
+```shell
+# MacOS / Linux
+(venv) $ echo $VIRTUAL_ENV
+/Users/pushkar/Desktop/practice/venv
+```
+
+##### pip config file
+
+Every virtual environment has a pip config file:
+We can see the values of each config by using the `config list` command. Ex:
+```shell
+(venv) $ pip config list
+global.disable-pip-version-check='True'
+global.index-url='https://pypi.org/simple'
+global.trusted-host='pypi.org'
+
+
+(venv) $ pip config get global.index-url
+https://pypi.org/simple
+
+
+(venv) $ pip config set global.index-url https://custom.com/pypi/simple
+
+
+# Find which pip.conf is going to be used and where are they all located:
+(venv) $ pip config list -vv
+For variant 'global', will try loading '/Library/Application Support/pip/pip.conf'
+For variant 'user', will try loading '/Users/pushkar/.pip/pip.conf'
+For variant 'user', will try loading '/Users/pushkar/.config/pip/pip.conf'
+For variant 'site', will try loading '/Users/pushkar/Desktop/practice/venv/pip.conf'
+global.disable-pip-version-check='True'
+global.index-url='https://pypi.org/simple'
+global.trusted-host='pypi.org'
+```
+
+#### Installing pip packages
+
+Community packages are published to the [**Python Package Index**](https://pypi.org/), also known as PyPI (pronounced ***Pie Pea Eye***).
+
+- PyPI hosts an extensive collection of packages, including development frameworks, tools, and libraries. 
+- Many of these packages provide friendly interfaces to the Python standard library’s functionality.
+
+Example package used: `requests`. This library helps you to interact with web services by abstracting the complexities of HTTP requests
+
+To install packages, pip provides an `install` command. You can run it to install the `requests` package:
+It’s also possible to install multiple packages in a single command (Space separated package names)
+
+```shell
+(venv) $ pip install requests
+```
+
+1. The pip command looks for the package in PyPI
+2. Resolves its dependencies, and 
+3. Installs everything in your current Python environment to ensure that requests will work
+
+The `pip install <package>` command always looks for the ***latest version*** of the package and installs it. It also searches for dependencies listed in the package metadata and installs them to ensure that the package has all the requirements that it needs.
+
+Installing specific versions. Examples:
+- `pip install example-package==1.2.2`
+- `pip install example-package>=2.0.1`
+- `pip install example-package<=2.0.1`
+- `pip install 'example-package>=1.3.0,<1.4.0'`
+
+#### Listing the installed packages and their versions
+
+Use the `list` command provided by pip.
+
+```shell
+(venv) $ pip list
+
+Package            Version
+------------------ ---------
+certifi            2022.12.7
+charset-normalizer 3.1.0
+idna               3.4
+pip                21.2.3
+requests           2.28.2
+setuptools         57.4.0
+urllib3            1.26.15
+```
+
+#### Get more information about an installed package
+
+Run the `show <package>` command provided by pip
+
+```shell
+(venv) $ pip show requests
+
+Name: requests
+Version: 2.28.2
+Summary: Python HTTP for Humans.
+Home-page: https://requests.readthedocs.io
+Author: Kenneth Reitz
+Author-email: me@kennethreitz.org
+License: Apache 2.0
+Location: /Users/pushkar/Desktop/practice/venv/lib/python3.9/site-packages
+Requires: idna, urllib3, charset-normalizer, certifi
+Required-by: 
+```
+
+Notice the last two fields, `Requires` and `Required-by`. 
+- The `show` command tells you that requests requires `certifi`, `idna`, `charset-normalizer`, and `urllib3`. You probably want to uninstall those too. 
+- Notice that requests isn’t required by any other package. So it’s _safe_ to uninstall it.
+
+#### Importing an installed package
+
+Importing a package is done just like it is done with a standard library (or a module within the same directory)
+- Use the `import` statement as you would with any other module
+
+```python
+import requests
+
+print(requests.__version__)
+
+# 2.28.2
+```
+
+#### Uninstalling a package via pip
+
+**Unfortunately: `pip` does not uninstall dependencies when you uninstall the original package**
+
+You should run the show command against all of the requests dependencies to ensure that no other libraries also depend on them (`Required-by`). Once you understand the dependency order of the packages that you want to uninstall, then you can remove them using the **`uninstall`** command:
+
+```shell
+(venv) $ pip uninstall certifi
+(venv) $ pip uninstall urllib3 -y # `-y` suppresses the information dialog
+(venv) $ pip uninstall -y charset-normalizer idna requests
+```
+
+#### Using a custom package index
+
+`pip` also gives you the option to define a custom package index.
+
+- You can use the `-i` flag to provide a custom URL in your `pip install` command
+- You can also download the package directly from github. Ex: `pip install git+https://github.com/realpython/rptree`
+
+#### Pinning requirements
+
+Using the virtual environment `venv`, one can install packages as dependencies for a project. But, how can we pin these dependencies so that when someone else needs to use your project on their system, they download the exact same packages and versions as you did?
+
+**Why?**
+Maybe a specific version of a package contains a new feature that you rely on, or the version of a package that you’re using is incompatible with former versions.
+
+These external dependencies are also called requirements. You’ll often find Python projects that pin their requirements in a file called `'requirements.txt'` or similar. The requirements file format allows you to specify precisely which packages and versions should be installed.
+
+- Running `pip freeze` command that outputs the installed packages in requirements format. 
+- You can use this command, redirecting the output (`>`) to a file to generate a requirements file.
+- The file can be named anything but the general convention is `requirements.txt`
+
+```shell
+(venv) $ pip freeze
+certifi==2022.12.7
+charset-normalizer==3.1.0
+idna==3.4
+requests==2.28.2
+urllib3==1.26.15
+
+
+(venv) $ pip freeze > requirements.txt
+
+# Contents of requirements.txt:
+# certifi==2022.12.7
+# charset-normalizer==3.1.0
+# idna==3.4
+# requests==2.28.2
+# urllib3==1.26.15
+```
+
+**Using the requirements file to install dependencies on another system**
+
+When you want to replicate the environment in another system, you can run `pip install`, using the **`-r` switch** to specify the requirements file:
+```shell
+(venv) $ pip install -r requirements.txt
+```
+
+You can submit `requirements.txt` into a version control system like `Git`.
+
+[Read more about pip](https://realpython.com/what-is-pip/#:~:text=The%20pip%20command%20looks%20for,the%20package%20and%20installs%20it)
+
+_Comparison with JavaScript:_
+- Node Package Manager (**NPM**) is the NodeJS equivalent of PIP (a standard package manager)
+- We do not have a virtual environment but every project can have its own `node_modules` folder (similar to the folder created for `venv`) where packages defined in `package.json` file are installed. In this way, we avoid using any globally (system) installed versions of packages for any of our projects (thus, avoiding version mismatches)
+- Pinning requirements (like `requirements.txt`): To avoid auto-update of package versions for dependencies within the different libraries used inside a Node project, we can use `yarn` to create `yarn.lock` file to freeze versions (Alternative: `npm > version 5` with `package-json.lock`)
+- Even with NPM, we can `import` our NPM packages by name. Only custom modules need a path (Core & NPM installed packages do not)
+
+#### Alternatives to PIP
+
+1. **Conda:** Conda is a package, dependency, and environment manager for many languages, including Python. It comes from Anaconda, which started as a data science package for Python. Consequently, it’s widely used for data science and machine learning applications. Conda operates its own index to host compatible packages.
+2. **Poetry:** Poetry will look very familiar to you if you’re coming from JavaScript and npm. Poetry goes beyond package management, helping you build distributions for your applications and libraries and deploying them to PyPI.
+3. **Pipenv:** Pipenv is another package management tool that merges virtual environment and package management in a single tool. Pipenv: A Guide to the New Python Packaging Tool is a great place to start learning about Pipenv and its approach to package management.
