@@ -3514,3 +3514,247 @@ _Comparison with JavaScript:_
 1. **Conda:** Conda is a package, dependency, and environment manager for many languages, including Python. It comes from Anaconda, which started as a data science package for Python. Consequently, it’s widely used for data science and machine learning applications. Conda operates its own index to host compatible packages.
 2. **Poetry:** Poetry will look very familiar to you if you’re coming from JavaScript and npm. Poetry goes beyond package management, helping you build distributions for your applications and libraries and deploying them to PyPI.
 3. **Pipenv:** Pipenv is another package management tool that merges virtual environment and package management in a single tool. Pipenv: A Guide to the New Python Packaging Tool is a great place to start learning about Pipenv and its approach to package management.
+
+### Debugging python with pdb
+
+**`pdb`** is part of Python’s standard library, so it’s always there and available for use.
+
+#### Adding a breakpoint
+
+Insert the following code at the location where you want to break into the debugger:
+```python
+import pdb; pdb.set_trace()
+```
+
+Starting in Python 3.7, we can just add a simpler function `breakpoint()` that does the same thing.
+
+Example:
+```python
+# add_module.py
+age = 29
+min_age = 18
+
+def add_nums(*nums):
+  sum = 0
+  for num in nums:
+    sum += num
+  return sum
+
+def add_two_nums(num1, num2):
+  return num1 + num2
+
+import pdb; pdb.set_trace()
+
+add_nums(1, 5, 4)
+add_two_nums(age, min_age)
+```
+
+#### Running the program with the debugger
+
+Once `pdb` has been imported and the trace has been set, execute the program normally (Ex: `python <module>`).
+You should be able to see the `(pdb)` Command Line program execute
+
+```shell
+$ python add_module.py
+> ./add_module.py(12)<module>()
+-> add_nums(1, 5, 4)
+(Pdb) 
+```
+
+- `>` starts the 1st line and tells you which source file you are in
+- After the filename, there is the current line number in parentheses
+- Next is the name of the function. 
+- (In this example, since we’re not paused inside a function and at module level, we see `<module>()`)
+
+- `->` starts the 2nd line and is the current source line where Python is paused
+- This line hasn’t been executed yet. 
+
+- `(Pdb)` is pdb’s prompt. It is waiting for a command
+
+#### Quit pdb
+
+Type the `q` command
+```shell
+$ python add_module.py
+> ./add_module.py(12)<module>()
+-> add_nums(1, 5, 4)
+(Pdb) q
+# Exits pdb
+$ _
+```
+
+#### Print an expression
+
+Print an expression (including variables) with `p <expression>`:
+```shell
+$ python add_module.py
+> ./add_module.py(15)<module>()
+-> add_nums(1, 5, 4)
+(Pdb) p age
+29
+(Pdb) p min_age
+18
+(Pdb) p add_nums
+<function add_nums at 0x7f87c11d3f70>
+(Pdb) p add_nums(1, 3)
+4
+(Pdb) 
+```
+
+#### Stepping through code
+
+- Use `n` (next) : execute program until the next line in the current function (or return statement)
+- Use `s` (step) : similar to next but it will stop at the next line in a foreign (invoked) function as well - if it is the next line! "Step into"
+
+```shell
+$ python add_module.py
+> ./add_module.py(15)<module>()
+-> add_nums(1, 5, 4)
+(Pdb) n
+> ./add_module.py(16)<module>()
+-> add_two_nums(age, min_age)
+(Pdb) 
+```
+
+```shell
+$ python add_module.py
+> ./add_module.py(15)<module>()
+-> add_nums(1, 5, 4)
+(Pdb) s
+--Call--
+> ./add_module.py(4)add_nums()
+-> def add_nums(*nums):
+```
+
+#### Listing the function source code
+
+- Use the `l` (list) command (Lists a shorter version of the function or frame, 11 lines by default)
+```shell
+$ python add_module.py
+> ./add_module.py(15)<module>()
+-> add_nums(1, 5, 4)
+(Pdb) s
+--Call--
+> ./add_module.py(4)add_nums()
+-> def add_nums(*nums):
+(Pdb) ll
+def add_nums(*nums):
+  5       sum = 0
+  6       for num in nums:
+  7         sum += num
+  8       return sum
+```
+
+- You can also use the `ll` (long list) command (list the whole source code for the current function or frame)
+
+#### Setting and removing breakpoints
+
+Instead of breaking line-by-line (`n` or `s`), add breakpoints using `b` (break)
+
+- Can specify a line number (or)
+- Can specify a function name
+
+Syntax: `b(reak) [ ([filename:]lineno | function) [, condition] ]`
+
+Provide a **condition** (Extremely useful feature)
+- We can conditionally break at a line or function i.e only if the condition is `True`
+
+The command `c` (continue) continues execution until a breakpoint is found.
+
+```shell
+$ python add_module.py
+> ./add_module.py(15)<module>()
+-> add_nums(1, 5, 4)
+(Pdb) b add_two_nums
+Breakpoint 1 at ./add_module.py:10
+(Pdb) c
+> ./add_module.py(11)add_two_nums()
+-> return num1 + num2
+```
+
+View all the set breakpoints with `b` (& no arguments):
+```shell
+(Pdb) b
+Num Type         Disp Enb   Where
+1   breakpoint   keep yes   at /Users/pushkar/Desktop/practice/add_module.py:10
+```
+
+It changes output when a breakpoint is hit:
+```shell
+(Pdb) b
+Num Type         Disp Enb   Where
+1   breakpoint   keep yes   at /Users/pushkar/Desktop/practice/add_module.py:10
+        breakpoint already hit 1 time
+```
+
+Disable breakpoints with `disable bpnumber` (where `bpnumber` is the one that appears for a breakpoint in `b` list)
+```shell
+(Pdb) disable 1
+Disabled breakpoint 1 at /Users/pushkar/Desktop/practice/add_module.py:10
+(Pdb) b
+Num Type         Disp Enb   Where
+1   breakpoint   keep no    at /Users/pushkar/Desktop/practice/add_module.py:10
+        breakpoint already hit 1 time
+```
+
+Remove breakpoints using the `cl` (clear) command.
+- Simple syntax: `cl bpnumber`
+- (Complex syntax (by filename & line number): `cl filename:lineno`)
+```shell
+(Pdb) cl 1
+Deleted breakpoint 1 at /Users/.../add_module.py:10
+(Pdb) b
+(Pdb) 
+```
+
+#### Trace the caller function
+
+Use the `w` (where) command to see from where the current function was called.
+- It prints a stack trace of the function call stack
+
+```shell
+(Pdb) w
+  /add_module.py(16)<module>()
+-> add_two_nums(age, min_age)
+> ./add_module.py(11)add_two_nums()
+-> return num1 + num2
+```
+
+#### pdb cheatsheet
+
+| Command | Description |
+| ------- |:------------:|
+| p       | Print the value of an expression. |
+| pp	    | Pretty-print the value of an expression. |
+| n	      | Continue execution until the next line in the current function is reached or it returns. |
+| s       |	Execute the current line and stop at the first possible occasion (either in a function that is called or in the current function). |
+| c       |	Continue execution and only stop when a breakpoint is encountered. |
+| unt	    | Continue execution until the line with a number greater than the current one is reached. With a line number argument, continue execution until a line with a number greater or equal to that is reached. |
+| l       |	List source code for the current file. Without arguments, list 11 lines around the current line or continue the previous listing. |
+| ll	    | List the whole source code for the current function or frame. |
+| b       |	With no arguments, list all breaks. With a line number argument, set a breakpoint at this line in the current file. |
+| w       |	Print a stack trace, with the most recent frame at the bottom. An arrow indicates the current frame, which determines the context of most commands. |
+| a       | Prints out all the arguments the current function received |
+| r       | Continues execution until the current function returns |
+| u       |	Move the current frame count (default one) levels up in the stack trace (to an older frame). |
+| d       |	Move the current frame count (default one) levels down in the stack trace (to a newer frame). |
+| h       |	See a list of available commands. |
+| h <topic> |	Show help for a command or topic. |
+| h pdb	  | Show the full pdb documentation. |
+| q       |	Quit the debugger and exit. |
+
+#### pdb vs ipdb
+
+Same thing but with enhanced interactive experience provided by _IPython_.
+
+`pdb`: the Python Debugger, is an interactive debugger that is part of the Python standard library. It allows you to jump into a shell at arbitrary breakpoints in your code, where you can inspect the code and runtime, walkthrough the code line by line, change the values of objects, and more.
+
+`ipdb`: the IPython-enabled Python Debugger, is a third party interative debugger with all pdb's functionality and adds IPython support for the interactive shell, like tab completion, color support, magic functions and much more. You use `ipdb` just as you use `pdb` but with an enhanced user experience.
+
+[Read more about pdb](https://realpython.com/python-debugging-pdb/#essential-pdb-commands)
+
+_Comparison with JavaScript:_
+- In JavaScript, we use the `debugger;` command to debug.
+- Browser consoles provide an interactive debuggign experience
+- Code editors can be modified to allow interactive debugging on seeing a `debugger;` 
+- Terminal-only debugging like in python is not really possible (?unsure)
