@@ -23,9 +23,11 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Defining a string](#defining-a-string)
       - [Changing the case of strings](#changing-the-case-of-strings)
       - [Concatenating strings](#concatenating-strings)
+      - [String interpolation](#string-interpolation)
       - [Escaping characters in a string](#escaping-characters-in-a-string)
       - [Stripping whitespaces from strings](#stripping-whitespaces-from-strings)
       - [Casting a value into a string](#casting-a-value-into-a-string)
+      - [Indexing and slicing strings](#indexing-and-slicing-strings)
     + [Numbers](#numbers)
       - [Arithmetic operations on integers](#arithmetic-operations-on-integers)
       - [Floating point numbers](#floating-point-numbers)
@@ -47,6 +49,8 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Copying a list](#copying-a-list)
       - [Check if two lists are the same](#check-if-two-lists-are-the-same)
       - [Creating immutable lists aka Tuples](#creating-immutable-lists-aka-tuples)
+      - [Concatenating lists](#concatenating-lists)
+      - [Replicating lists](#replicating-lists)
       - [Looping through items in a list](#looping-through-items-in-a-list)
     + [Generate a series of integers](#generate-a-series-of-integers)
       - [Skipping values while generating a series of integers](#skipping-values-while-generating-a-series-of-integers)
@@ -75,9 +79,12 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Defining a dictionary](#defining-a-dictionary)
       - [Empty dictionary](#empty-dictionary)
       - [Accessing a value in an dictionary](#accessing-a-value-in-an-dictionary)
+      - [Accessing a value in a dictionary in a safe way using get](#accessing-a-value-in-a-dictionary-in-a-safe-way-using-get)
       - [Adding a new key-value pair to a dictionary](#adding-a-new-key-value-pair-to-a-dictionary)
       - [Modifying values in a dictionary](#modifying-values-in-a-dictionary)
       - [Removing key-value pairs from a dictionary](#removing-key-value-pairs-from-a-dictionary)
+      - [Setting a default value for a key](#setting-a-default-value-for-a-key)
+      - [Pretty print a dictionary](#pretty-print-a-dictionary)
       - [Looping through key-value pairs in dictionaries](#looping-through-key-value-pairs-in-dictionaries)
       - [Looping through just the values in dictionaries](#looping-through-just-the-values-in-dictionaries)
       - [Looping through just the keys in dictionaries](#looping-through-just-the-keys-in-dictionaries)
@@ -103,6 +110,9 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Passing an arbitrary number of arguments](#passing-an-arbitrary-number-of-arguments)
       - [Passing an arbitrary number of keyword arguments](#passing-an-arbitrary-number-of-keyword-arguments)
       - [Passing a value by reference and by value](#passing-a-value-by-reference-and-by-value)
+    + [Scopes and closures](#scopes-and-closures)
+      - [Variable shadowing](#variable-shadowing)
+      - [Modifying a global variable inside a function](#modifying-a-global-variable-inside-a-function)
     + [Modules](#modules)
       - [Importing an entire module](#importing-an-entire-module)
       - [Importing a specific function](#importing-a-specific-function)
@@ -136,6 +146,7 @@ Learning Python as a JavaScript developer by comparing the syntax and constructs
       - [Common assertions](#common-assertions)
       - [Setup code](#setup-code)
     + [Python standard library](#python-standard-library)
+    + [Lambda functions](#lambda-functions)
 
 ## Basics
 
@@ -2301,6 +2312,139 @@ _Comparison with JavaScript:_
 - For objects, you have to write your own function to manually deep clone it (Using `JSON.stringify` and `JSON.parse`, maybe)
 - Methods for shallow cloning exist: `{ ...originalObject }` or `Object.assign()`
 
+### Scopes and closures
+
+- Parameters and variables assigned inside a function are in the **Local scope**
+- Variables assigned outside all functions are in the **Global scope**
+
+**Local scope**
+- Created when a function is created
+- Destroyed when a function returns (i.e Parameters and variables are forgotten)
+
+**Global scope**
+- Created when the program begins
+- Destroyed when the program terminates
+
+**(A) Global variables can be used in a function's local scope but not vice-versa!**
+**(B) One function cannot access the local scope of another function!**
+
+**Note:**
+- It is fine to use global variables
+- However, it is **bad practice** to rely on a lot of gloabl variables, especially when your programs get larger
+
+```python
+# Local variables
+
+def foo():
+  bar = 1
+  baz = 2
+  
+  # Can be used locally
+  print(f'I can access bar and baz in the local scope: {bar}, {baz}')
+
+bar # ✕ (NameError: name 'bar' is not defined)
+```
+
+```python
+# Local variables in one function cannot be used in another function:
+
+def foo_1():
+  bar = 1
+  print(f'I can only access bar inside foo_1: {bar}')
+
+def foo_2():
+  baz = 2
+  print(f'I can only access bar inside foo_2: {bar}')
+  
+  bar # ✕ (NameError: name 'bar' is not defined - when the function executes)
+
+foo_1()
+foo_2()
+```
+
+```python
+# Global variables can be accessed inside a function's local scope
+
+bar = 5
+
+def foo():
+  baz = 1
+  print(f'I can access bar inside foo: {baz}')
+  print(f'I can also access bar as well: {bar}')
+
+# I can access bar inside foo: 1
+# I can also access bar as well: 5
+```
+
+#### Variable shadowing
+
+- Local variables will shadow the global variable with the same name inside the function!
+- Avoid using the same names for both global and variables (namespace them if needed) as it gets confusing!
+
+```python
+# Variable shadowing
+
+bar = 1
+
+def foo():
+  bar = 2
+  print(bar)
+  goo()
+
+def goo():
+  bar = 3
+  print(bar)
+
+print(bar)
+foo()
+
+# 1
+# 2
+# 3
+```
+
+#### Modifying a global variable inside a function 
+
+- We can read a global variable inside a function.
+- However, assigning a variable inside a function will create a local one always!!
+- Therefore, how do we modify global variables inside a function (other than passing by reference, if possible)?
+
+```python
+bar = 1
+
+def foo():
+  bar = 2 # This line creates a local variable always!
+  print(bar)
+
+print(bar)
+foo()
+print(bar)
+
+# 1
+# 2
+# 1
+```
+
+- Modify global variables inside a function by marking them as **`global <variablename>`**
+- Better to place this at the top of the function before modifying it
+- It tells Python that it the variable used inside it is the one available globally
+
+```python
+bar = 1
+
+def foo():
+  global bar
+  bar = 2 # This line creates a local variable always!
+  print(bar)
+
+print(bar)
+foo()
+print(bar)
+
+# 1
+# 2
+# 2
+```
 
 ### Modules
 
