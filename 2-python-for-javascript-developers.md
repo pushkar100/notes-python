@@ -2325,7 +2325,7 @@ _Comparison with JavaScript:_
 - Created when the program begins
 - Destroyed when the program terminates
 
-**(A) Global variables can be used in a function's local scope but not vice-versa!**
+**(A) Global variables can be used in a function's local scope but not vice-versa! Known as CLOSURE**
 **(B) One function cannot access the local scope of another function!**
 
 **Note:**
@@ -2445,6 +2445,11 @@ print(bar)
 # 2
 # 2
 ```
+
+_Comparison with JavaScript:_
+- These scopes and closure principles apply to JavaScript too!
+- First difference: Functions can contain other functions within them so closure works not just between the global scope and a function but also within nested functons
+- Second difference: We can edit a global variable inside a function. That is because, in JavaScript, the variable declaration and assignment can happen separately. If a variable is assigned inside a local scope without declaring it, JavaScript will look for it in the outer scope (which maybe an enclosing function or the global scope)
 
 ### Modules
 
