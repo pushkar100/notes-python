@@ -2337,6 +2337,13 @@ _Comparison with JavaScript:_
 - For objects, you have to write your own function to manually deep clone it (Using `JSON.stringify` and `JSON.parse`, maybe)
 - Methods for shallow cloning exist: `{ ...originalObject }` or `Object.assign()`
 
+#### Functions are first class objects
+
+In Python, functions are first-class objects. This means that functions can be _passed around) and used as arguments, just like any other object (string, int, float, list, and so on).
+
+_Comparison with JavaScript:_
+- Same.
+
 ### Scopes and closures
 
 - Parameters and variables assigned inside a function are in the **Local scope**
