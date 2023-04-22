@@ -2356,6 +2356,23 @@ print_result_of_adder(add, 3, 5)
 _Comparison with JavaScript:_
 - Same.
 
+#### Nesting functions as inner functions
+
+A function can contain an inner function, one or many.
+
+```python
+def print_result_of_adder(x, y):
+  def add(a, b):
+    return a + b
+
+  print(add(x, y))
+
+print_result_of_adder(3, 5) # 8
+```
+
+_Comparison with JavaScript:_
+- Same.
+
 ### Scopes and closures
 
 - Parameters and variables assigned inside a function are in the **Local scope**
