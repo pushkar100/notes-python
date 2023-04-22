@@ -2339,7 +2339,19 @@ _Comparison with JavaScript:_
 
 #### Functions are first class objects
 
-In Python, functions are first-class objects. This means that functions can be _passed around) and used as arguments, just like any other object (string, int, float, list, and so on).
+In Python, functions are first-class objects. This means that functions can be _passed around_ and used as arguments, just like any other object (string, int, float, list, and so on).
+
+```python
+def add(a, b):
+  return a + b
+
+def print_result_of_adder(callback, x, y):
+  print(callback(x, y))
+
+print_result_of_adder(add, 3, 5) 
+
+# 8
+```
 
 _Comparison with JavaScript:_
 - Same.
