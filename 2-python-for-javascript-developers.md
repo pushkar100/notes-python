@@ -2373,6 +2373,22 @@ print_result_of_adder(3, 5) # 8
 _Comparison with JavaScript:_
 - Same.
 
+#### Fetching the name of a function
+
+Use the `.__name__` property
+
+```python
+def greet(name):
+    return f'Hello, {name}'
+    
+print(greet.__name__) # greet
+```
+
+Note: A decorator for a function can end up overriding this. To preserve the function details when wrapped by a decorator, use the [`functools`](https://realpython.com/primer-on-python-decorators/#who-are-you-really) module 
+
+_Comparison with JavaScript:_
+- Similar. The `name` data property of a Function instance indicates the function's name as specified when it was created, or it may be either `anonymous` or `''` (an empty string) for functions created anonymously.
+
 ### Scopes and closures
 
 - Parameters and variables assigned inside a function are in the **Local scope**
