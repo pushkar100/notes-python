@@ -2812,6 +2812,102 @@ _Comparison with JavaScript:_
 - We can also add new attributes and methods to a child class
 - **Note:** access modifiers (Ex: `private`, `protected`) might affect default behaviour
 
+#### Class multiple inheritance
+
+A single class can inherit from multiple parent classes. Use the comma `,` to list all the parent classes within `()`
+
+```python
+class ParentClass1:
+    # features of ParentClass1
+
+class ParentClass2:
+    # features of ParentClass2
+
+class MultiDerived(ParentClass1, ParentClass2):
+    # features of ParentClass1 + ParentClass2 + MultiDerived class
+```
+
+**Method Resolution Order (MRO)** in Python
+If two parent classes have the _same method name_ and the derived class calls that method, Python uses the *MRO* to search for the right method to call. 
+```python
+class SuperClass1:
+    def info(self):
+        print("Super Class 1 method called")
+
+class SuperClass2:
+    def info(self):
+        print("Super Class 2 method called")
+
+class Derived(SuperClass1, SuperClass2):
+    pass
+
+d1 = Derived()
+d1.info()  
+
+# Output: "Super Class 1 method called"
+```
+The MRO specifies that _methods should be inherited from the leftmost superclass first_, so `info()` of `SuperClass1` is called rather than that of `SuperClass2`.
+
+#### Class operator overloading
+
+Class functions that begin with double underscore `__` are called **special functions** in Python.
+
+| Function | Description |
+|----------|-------------|
+| `__init__()` |	initialize the attributes of the object |
+| `__str__()` |	returns a string representation of the object |
+| `__len__()` |	returns the length of the object |
+| `__add__()` |	adds two objects |
+| `__call__()` |	call objects of the class like a normal function |
+
+To overload the `+` operator, we will need to implement `__add__()` function in the class.
+
+Example:
+```python
+class Point:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return "({0},{1})".format(self.x, self.y)
+
+    def __add__(self, other):
+        x = self.x + other.x
+        y = self.y + other.y
+        return Point(x, y)
+
+
+p1 = Point(1, 2)
+p2 = Point(2, 3)
+
+print(p1 + p2)
+
+# Output: (3,5)
+```
+
+| Operator | Expression | Internally |
+|----------|------------|------------|
+| Addition |	p1 + p2 | p1.__add__(p2) |
+| Subtraction |	p1 - p2	| p1.__sub__(p2) |
+| Multiplication | p1 * p2 | p1.__mul__(p2) |
+| Power |	p1 ** p2	| p1.__pow__(p2) |
+| Division |	p1 / p2 |	p1.__truediv__(p2) |
+| Floor | Division	p1 // p2	| p1.__floordiv__(p2) |
+| Remainder | (modulo)	p1 % p2	| p1.__mod__(p2) |
+| Bitwise | Left Shift	p1 << p2	| p1.__lshift__(p2) |
+| Bitwise | Right Shift	p1 >> p2	| p1.__rshift__(p2) |
+| Bitwise | AND	p1 & p2	| p1.__and__(p2) |
+| Bitwise | OR	p1, p2	| p1.__or__(p2) |
+| Bitwise | XOR	p1 ^ p2	| p1.__xor__(p2) |
+| Bitwise | NOT	~p1	| p1.__invert__() |
+| Less than	| p1 < p2	| p1.__lt__(p2) |
+| Less than or equal to |	p1 <= p2	| p1.__le__(p2) |
+| Equal to	| p1 == p2	| p1.__eq__(p2) |
+| Not equal to |	p1 != p2	| p1.__ne__(p2) |
+| Greater than |	p1 > p2	| p1.__gt__(p2) |
+| Greater than or equal to |	p1 >= p2 | p1.__ge__(p2) |
+
 #### Importing classes
 
 1. Importing a single class
@@ -2852,6 +2948,31 @@ my_japanese_restaurant = JapaneseRestaurant()
 
 _Comparison with JavaScript:_
 - Either as a named export or default export: `import ClassName from '...'` or `import { ClassName } from '...'`
+
+### The pass keyword
+
+The `pass` statement is used as a placeholder for future code.
+- Empty code is not allowed in if statements, in loops, function definitions, or in class definitions
+- When the `pass` statement is executed, nothing happens, but you avoid getting an error when empty code is not allowed
+
+```python
+def myfunction():
+  pass
+```
+
+```python
+class Person:
+  pass
+```
+
+Using the pass keyword in an `if` statement:
+```python
+a = 33
+b = 200
+
+if b > a:
+  pass
+```
 
 ### Files
 
@@ -3128,6 +3249,52 @@ finally {
   // finallyCode - Code block to be executed regardless of the try result
 }
 ```
+
+#### User defined exceptions
+
+For a normal exception, we can `try-except` to catch errors in the try block of code.
+
+How can we create a custom exception?
+
+In Python, we can define custom exceptions by creating a new class that is _derived_ from the built-in `Exception` class.
+
+```python
+class CustomError(Exception):
+    ...
+    pass
+
+try:
+   ...
+
+except CustomError:
+    ...
+```
+
+To manually raise an error, use the **`raise`** keyword!
+
+Example:
+```python
+# define Python user-defined exceptions
+class InvalidAgeException(Exception):
+    "Raised when the input value is less than 18"
+    pass
+
+# you need to guess this number
+number = 18
+
+try:
+    input_num = int(input("Enter a number: "))
+    if input_num < number:
+        raise InvalidAgeException
+    else:
+        print("Eligible to Vote")
+        
+except InvalidAgeException:
+    print("Exception occurred: Invalid Age")
+```
+
+_Comparison with JavaScript:_
+- We can create a custom error object too!
 
 ### Unit testing your code
 
