@@ -497,7 +497,7 @@ print(message) # My name is Pushkar. I am 29 years old.
 ```
 
 _Comparison with JavaScript:_
-- Use ~`~ character to open a string where interpolation is possible. Use `${}` within such a string to input an expression
+- Use ````` character to open a string where interpolation is possible. Use `${}` within such a string to input an expression
 - Ex: `Hello, ${name}! You are ${age} years old.` where `name` and `age` are single value expressions i.e variables
 
 #### Escaping characters in a string
