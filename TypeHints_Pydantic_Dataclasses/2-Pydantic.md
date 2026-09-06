@@ -777,6 +777,8 @@ class User(BaseModel):
 user = User(name="Alice", email="alice@example.com", age=30)
 
 user_dict = user.model_dump()
+print(user)
+# Output: name='Alice' email='alice@example.com' age=30
 print(user_dict)
 # Output: {'name': 'Alice', 'email': 'alice@example.com', 'age': 30}
 ```
