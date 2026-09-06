@@ -14,7 +14,7 @@ _Based on the NeuralNine tutorial on YouTube._
 
 ## 1. What is a Partial Function?
 
-A partial function is a new function created from an existing function by taking one or more of its parameters and setting them to fixed, constant values [cite: 1]. By doing this, you don't have to pass those specific arguments to the function anymore [cite: 1]. This is incredibly helpful when working with complex functions where certain arguments repeat frequently [cite: 1].
+A partial function is a new function created from an existing function by taking one or more of its parameters and setting them to fixed, constant values. By doing this, you don't have to pass those specific arguments to the function anymore. This is incredibly helpful when working with complex functions where certain arguments repeat frequently.
 
 ## 2. Creating Partial Functions Manually (Not Recommended)
 
@@ -55,7 +55,7 @@ print(greater_than_50(25))  # False
 
 ## 3. The Recommended Way: `functools.partial`
 
-The built-in and recommended way to create partial functions in Python is by using the `partial` method from the core `functools` module [cite: 1].
+The built-in and recommended way to create partial functions in Python is by using the `partial` method from the core `functools` module.
 
 **Importing:**
 
@@ -82,14 +82,14 @@ print(greater_than_20(30)) # Returns True
 print(greater_than_20(10)) # Returns False
 ```
 
-_Note: You can pass positional or keyword arguments to `partial`. If you skip positional keywords, Python applies them in the original function's order [cite: 1]._
+_Note: You can pass positional or keyword arguments to `partial`. If you skip positional keywords, Python applies them in the original function's order._
 
 ### Realistic Example: Fetching Stock Data
 
-Imagine a function `get_stock_data(ticker, start, end)` that fetches financial data [cite: 1]:
+Imagine a function `get_stock_data(ticker, start, end)` that fetches financial data:
 
 **Fixing the Ticker:**
-If you want to pull data only for Apple, you can fix the `ticker` argument [cite: 1]:
+If you want to pull data only for Apple, you can fix the `ticker` argument:
 
 ```python
 get_apple_data = partial(get_stock_data, 'AAPL')
@@ -99,7 +99,7 @@ data = get_apple_data(start='1-1-2018', end='1-1-2019')
 ```
 
 **Fixing the Time Frame:**
-Alternatively, if you want to pull data for many companies but always starting from 2018 [cite: 1]:
+Alternatively, if you want to pull data for many companies but always starting from 2018:
 
 ```python
 get_stock_data_from_2018 = partial(get_stock_data, start='1-1-2018')
@@ -110,7 +110,7 @@ data = get_stock_data_from_2018('FB', end='1-1-2020')
 ```
 
 **Fixing Multiple Parameters:**
-You can fix multiple arguments at once [cite: 1]:
+You can fix multiple arguments at once:
 
 ```python
 get_stock_2018_to_2020 = partial(get_stock_data, start='1-1-2018', end='1-1-2020')
@@ -121,7 +121,7 @@ data = get_stock_2018_to_2020('GS')
 
 ## 4. Key Takeaways
 
-- Partial functions prevent you from repeating the same arguments over and over [cite: 1].
-- They save you from having to rewrite entirely new functions that do the exact same thing with fewer parameters [cite: 1].
-- Always import `partial` from `functools` rather than building lambda wrappers yourself [cite: 1].
-- Pay attention to argument positioning. If you fix an earlier parameter (like `start`), ensure you use explicit keyword arguments for the remaining parameters (like `end=...`) when calling the new function so things don't get overwritten incorrectly [cite: 1].
+- Partial functions prevent you from repeating the same arguments over and over.
+- They save you from having to rewrite entirely new functions that do the exact same thing with fewer parameters.
+- Always import `partial` from `functools` rather than building lambda wrappers yourself.
+- Pay attention to argument positioning. If you fix an earlier parameter (like `start`), ensure you use explicit keyword arguments for the remaining parameters (like `end=...`) when calling the new function so things don't get overwritten incorrectly.
