@@ -1149,6 +1149,11 @@ class User(BaseModel):
 
 user = User(username="AliceSmith")
 print(user.username)  # alicesmith
+
+user = User(username="Alice Smith")
+# ValidationError: 1 validation error for User
+# username
+  # Value error, Username cannot contain spaces [type=value_error, input_value='Alice Smith', input_type=str]
 ```
 
 Custom validators receive `cls` (the model class) and `value` (the field value). Return the cleaned value or raise `ValueError`.
