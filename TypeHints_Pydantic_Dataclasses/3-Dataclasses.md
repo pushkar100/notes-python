@@ -33,14 +33,14 @@ Python **Data Classes** (introduced in Python 3.7) eliminate this boilerplate by
 
 ```mermaid
 flowchart LR
-    A[1. Define Class] --> B["2. Write __init__()\n(self.x = x, self.y = y)"] --> C["3. Write __repr__()\n(string formatting)"] --> D["4. Write __eq__()\n(value comparison)"] --> E["Result:\n15+ Lines of Boilerplate"]
+    A["1. Define Class"] --> B["2. Write __init__()\n(self.x = x, self.y = y)"] --> C["3. Write __repr__()\n(string formatting)"] --> D["4. Write __eq__()\n(value comparison)"] --> E["Result:\n15+ Lines of Boilerplate"]
 ```
 
 ### Data Class Approach (Automated & Clean)
 
 ```mermaid
 flowchart LR
-    F[1. Declare Fields with Types\n(x: int, y: int)] --> G["2. Add @dataclass Decorator"] --> H["3. Python Auto-Generates\n__init__, __repr__, and __eq__"] --> I["Result:\n4 Clean Lines of Code"]
+    F["1. Declare Fields with Types\n(x: int, y: int)"] --> G["2. Add @dataclass Decorator"] --> H["3. Python Auto-Generates\n__init__, __repr__, and __eq__"] --> I["Result:\n4 Clean Lines of Code"]
 ```
 
 **Code Comparison**
@@ -216,7 +216,7 @@ Python `@dataclass` catches this and raises a `ValueError`. Use `field(default_f
 
 ```mermaid
 flowchart LR
-    Instance1[Instance 1] & Instance2[Instance 2] -->|Both reference| SharedList[Single Shared List [] in Memory]
+    Instance1["Instance 1"] & Instance2["Instance 2"] -->|Both reference| SharedList["Single Shared List [] in Memory"]
     Instance1 -->|Appends item| SharedList
     SharedList -->|Accidentally mutates state of| Instance2
 ```
@@ -225,10 +225,10 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    Bag1[ShoppingBag 1] -->|default_factory=list| List1[Isolated List 1 []]
-    Bag2[ShoppingBag 2] -->|default_factory=list| List2[Isolated List 2 []]
+    Bag1["ShoppingBag 1"] -->|default_factory=list| List1["Isolated List 1 []"]
+    Bag2["ShoppingBag 2"] -->|default_factory=list| List2["Isolated List 2 []"]
     Bag1 -->|Appends 'Apples'| List1
-    Note[List 2 remains empty & untouched] -.-> List2
+    Note["List 2 remains empty & untouched"] -.-> List2
 ```
 
 **Code Example: `default_factory` and `field()` Options**
@@ -343,9 +343,9 @@ To define a shared **class variable** (like a global counter or constant):
 
 ```mermaid
 flowchart LR
-    Blueprint[Car Class Blueprint] -->|Shared ClassVar| CV[total_cars = 2]
-    Obj1[Car Instance 1: Toyota] -->|Shares| CV
-    Obj2[Car Instance 2: Honda] -->|Shares| CV
+    Blueprint["Car Class Blueprint"] -->|Shared ClassVar| CV["total_cars = 2"]
+    Obj1["Car Instance 1: Toyota"] -->|Shares| CV
+    Obj2["Car Instance 2: Honda"] -->|Shares| CV
 ```
 
 **Code Example: Shared Instance Counter**
@@ -394,7 +394,7 @@ Standard Python inspects classes from bottom-to-top (`Child` $\rightarrow$ `Pare
 
 ```mermaid
 flowchart LR
-    Child[1. ElectricCar] --> Parent[2. Car] --> Base[3. Vehicle]
+    Child["1. ElectricCar"] --> Parent["2. Car"] --> Base["3. Vehicle"]
 ```
 
 #### Dataclass Constructor Parameter Order (Top-to-Bottom)
