@@ -783,6 +783,8 @@ print(user_dict)
 # Output: {'name': 'Alice', 'email': 'alice@example.com', 'age': 30}
 ```
 
+Generally, stick to the Pydantic model instance since you can use the `.` notation to autocomplete attributes. AI agents too can infer types and properties. Only use the `dict` version for specific needs since it requires a square bracket notation `somedict['somedictkey']`.
+
 #### `model_dump_json()`
 
 Converts a model instance into a formatted JSON string:
@@ -792,6 +794,8 @@ json_string = user.model_dump_json()
 print(json_string)
 # Output: {"name":"Alice","email":"alice@example.com","age":30}
 ```
+
+Use this when you want to send data over an API.
 
 ### Serialization & Deserialization Reference
 
