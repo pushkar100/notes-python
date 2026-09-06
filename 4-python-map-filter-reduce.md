@@ -1,4 +1,4 @@
-# Advanced Python Study Notes: Map, Filter, and Reduce
+# Functional Programming in Python: Map, Filter, and Reduce
 
 _A practical, beginner-friendly guide to functional programming and iterators in Python based on `db2.py`._
 
@@ -29,8 +29,6 @@ _A practical, beginner-friendly guide to functional programming and iterators in
 - [9. Cheat Sheet & Decision Matrix: Functional Tools vs. Comprehensions](#9-cheat-sheet--decision-matrix-functional-tools-vs-comprehensions)
 
 ---
-
-# Functional Programming in Python: Map, Filter, and Reduce
 
 Python is a versatile multi-paradigm programming language. Alongside object-oriented and procedural styles, Python provides powerful tools inspired by **functional programming**:
 
