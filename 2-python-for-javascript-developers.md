@@ -3448,10 +3448,13 @@ _Comparison with JavaScript:_
 
 ### Lambda functions
 
-Lambda is an anonymous function
+Lambda is an anonymous function. It is a small, anonymous function. Unlike standard functions defined with the `def` keyword, lambda functions are defined on a single line using the `lambda` keyword.
+
 - Syntax: `lambda arg_1[, arg_2, ...] : expression`
+  - That is, `lambda arguments: expression`
 - Can take any number of arguments (comma `,` separated)
 - However, they have only one expression whose result becomes the return value of that lambda function
+
 ```python
 square = lambda x : x ** 2
 print(square)
@@ -3467,6 +3470,34 @@ Debugging a lambda function is more difficult than regular functions (missing na
 
 _Comparison with JavaScript:_
 - Lambdas are very similar to arrow functions `() => {}`
+
+Observations:
+* It can take any number of arguments
+* It can only have one expression
+* The expression is evaluated and returned automatically (no need for a `return` statement)
+
+Here is a simple lambda function that takes two numbers and multiplies them:
+```python
+multiply = lambda a, b: a * b
+
+print(multiply(5, 3))  # Output: 15
+```
+
+Real-World Example: Sorting
+* Lambda functions are most useful when you need a quick, "throwaway" function. A common use case is customizing how a list is sorted. 
+* For example, sorting a list of words by their last letter:
+
+```python
+words = ['banana', 'apple', 'cherry']
+
+# Sort by the last character of each string
+sorted_words = sorted(words, key=lambda word: word[-1])
+
+print(sorted_words)  # Output: ['banana', 'apple', 'cherry']
+```
+
+When to use them?
+* Use lambda functions when you need a simple, single-line function for a short period of time, often alongside built-in functions like `map()`, `filter()`, or `sorted()`. If your function needs multiple lines, loops, or complex logic, you should use a standard `def` function instead.
 
 ### Python standard library
 
