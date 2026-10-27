@@ -131,9 +131,9 @@ Python (by default, **CPython**, the reference implementation written in C) foll
 ```mermaid
 flowchart LR
     A["Source Code<br/>(script.py)"] -->|"CPython Compiler"| B["Bytecode<br/>(__pycache__/*.pyc)<br/>(Stack-based)"]
-    B --> C["Python Virtual Machine (PVM)"]
-    subgraph PVM_Internals["Inside the PVM"]
-        C --> D["Bytecode Evaluation Loop"]
+    B --> C
+    subgraph PVM_Internals ["Inside the PVM"]
+        C["Python Virtual Machine (PVM)"] --> D["Bytecode Evaluation Loop"]
         D --> E["C Native Functions & Memory Allocator"]
     end
     E --> F["CPU Machine Code<br/>(OS Execution)"]
@@ -340,11 +340,11 @@ In Python, **Everything is an Object**. A variable is simply a **name (label / p
 
 ```mermaid
 flowchart LR
-    subgraph VariableNames["Variable Names (Namespace Table)"]
+    subgraph VariableNames ["Variable Names (Namespace Table)"]
         a["Variable 'a'"]
         b["Variable 'b'"]
     end
-    subgraph HeapMemory["Heap Objects"]
+    subgraph HeapMemory ["Heap Objects"]
         obj1["Integer Object: 100<br/>at Memory Address 0x10A<br/>(Ref Count = 2)"]
     end
     a -->|"points to"| obj1
@@ -368,10 +368,10 @@ Every object in Python is either **Mutable** (its contents can change in-place) 
 
 ```mermaid
 flowchart TD
-    subgraph ImmutableDemo["Immutable Modification (Integers)"]
+    subgraph ImmutableDemo ["Immutable Modification (Integers)"]
         x1["x = 10 (Address 0x10)"] -->|"x += 1"| x2["x points to NEW object 11 (Address 0x18)"]
     end
-    subgraph MutableDemo["Mutable In-Place Modification (Lists)"]
+    subgraph MutableDemo ["Mutable In-Place Modification (Lists)"]
         list1["my_list at Address 0x50: [1, 2]"] -->|"my_list.append(3)"| list2["SAME Address 0x50: [1, 2, 3]"]
     end
 ```
@@ -1331,16 +1331,16 @@ In JavaScript, developers often use `array.shift()` to dequeue elements. In Pyth
 
 ```mermaid
 flowchart TD
-    subgraph Python_List["Python list (Contiguous Array) - list.pop(0)"]
+    subgraph Python_List ["Python list (Contiguous Array) - list.pop(0)"]
         direction LR
         L0["[0] POP"] -.->|shifts left| L1["[1] A"]
         L1 -.->|shifts left| L2["[2] B"]
         L2 -.->|shifts left| L3["[3] C"]
         note1["Requires O(N) memory copies!"]
     end
-    subgraph Python_Deque["collections.deque (Doubly-Linked Blocks) - deque.popleft()"]
+    subgraph Python_Deque ["collections.deque (Doubly-Linked Blocks) - deque.popleft()"]
         direction LR
-        D0["Block 1\n[Head Node]"] <===> D1["Block 2\n[Data]"] <===> D2["Block 3\n[Tail Node]"]
+        D0["Block 1<br/>Head Node"] <==> D1["Block 2<br/>Data"] <==> D2["Block 3<br/>Tail Node"]
         note2["Pointer update: Instant O(1)!"]
     end
 ```
@@ -1446,7 +1446,7 @@ In a Min-Heap, the smallest element is **always** at index `0` (`heap[0]`).
 
 ```mermaid
 flowchart TD
-    subgraph MinHeap_Tree["Min-Heap Conceptual Binary Tree"]
+    subgraph MinHeap_Tree ["Min-Heap Conceptual Binary Tree"]
         R["1 (Index 0 - Min Element)"]
         R --> L1["3 (Index 1)"]
         R --> R1["5 (Index 2)"]
@@ -1454,7 +1454,7 @@ flowchart TD
         L1 --> R2["4 (Index 4)"]
         R1 --> L3["8 (Index 5)"]
     end
-    subgraph List_Representation["Underlying Python List: [1, 3, 5, 7, 4, 8]"]
+    subgraph List_Representation ["Underlying Python List: 1, 3, 5, 7, 4, 8"]
         M0["[0]=1"] --- M1["[1]=3"] --- M2["[2]=5"] --- M3["[3]=7"] --- M4["[4]=4"] --- M5["[5]=8"]
     end
 ```
@@ -2187,10 +2187,10 @@ Python's `try / except / else / finally` construct provides a comprehensive erro
 ```mermaid
 flowchart TD
     Try["try block"] --> Condition{"Did an exception occur?"}
-    Condition -- "Yes" --> Match{"Matches except type?"}
-    Match -- "Yes" --> Except["except block executed"]
-    Match -- "No" --> Unhandled["Exception propagates up"]
-    Condition -- "No" --> Else["else block executed"]
+    Condition -->|"Yes"| Match{"Matches except type?"}
+    Match -->|"Yes"| Except["except block executed"]
+    Match -->|"No"| Unhandled["Exception propagates up"]
+    Condition -->|"No"| Else["else block executed"]
     Except --> Finally["finally block ALWAYS executed"]
     Else --> Finally
 ```
@@ -2463,10 +2463,10 @@ Instead of computing an entire collection in memory and returning it, a generato
 
 ```mermaid
 flowchart TD
-    subgraph Eager_List["Eager List Evaluation: [x for x in range(10_000_000)]"]
+    subgraph Eager_List ["Eager List Evaluation: x for x in range(10_000_000)"]
         E1["Allocates all 10 Million integers at once"] --> E2["Consumes ~400 MB of RAM!"]
     end
-    subgraph Lazy_Generator["Lazy Generator Stream: (x for x in range(10_000_000))"]
+    subgraph Lazy_Generator ["Lazy Generator Stream: (x for x in range(10_000_000))"]
         G1["Generates 1 integer at a time on request"] --> G2["Consumes only ~100 Bytes of RAM!"]
     end
 ```
@@ -2498,7 +2498,7 @@ In JavaScript, higher-order functions wrap functions: `const loggedFn = withLogg
 
 ```mermaid
 flowchart LR
-    Define["@my_decorator\ndef greet(): pass"] --> Transform["greet = my_decorator(greet)"]
+    Define["@my_decorator<br/>def greet(): pass"] --> Transform["greet = my_decorator(greet)"]
 ```
 
 #### Writing Decorators with `@functools.wraps`
@@ -2872,8 +2872,8 @@ To solve this, Python uses **Virtual Environments (`venv`)**, which create an is
 ```mermaid
 flowchart TD
     System["System Python 3.x (/usr/bin/python)"]
-    System --> Venv1["Project A Virtual Environment (.venv1)\n- requests==2.28.0\n- flask==2.2.0"]
-    System --> Venv2["Project B Virtual Environment (.venv2)\n- requests==2.31.0\n- fastapi==0.100.0"]
+    System --> Venv1["Project A Virtual Environment (.venv1)<br/>- requests==2.28.0<br/>- flask==2.2.0"]
+    System --> Venv2["Project B Virtual Environment (.venv2)<br/>- requests==2.31.0<br/>- fastapi==0.100.0"]
 ```
 
 #### Step-by-Step Virtual Environment Workflow
