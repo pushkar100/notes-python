@@ -30,6 +30,7 @@
   - [Pip](#pip)
   - [Object oriented python](#object-oriented-python)
   - [Python interpreter](#python-interpreter)
+  - [Practice Exercises](#practice-exercises)
 
 ## Intro
 
@@ -1527,5 +1528,607 @@ Use it to test out commands and prototype stuff. It's a good debugging , quick-c
 Do not use it to build complete programs or develop anything for production.
 
 ---
+
+## Practice Exercises
+
+These hands-on coding exercises test the fundamental concepts covered throughout this tutorial, ranging from basic variables to object-oriented programming.
+
+---
+
+### Exercise 1: Mad Libs Story Generator
+- **Concepts Covered:** Variables, strings, user input (`input()`), string concatenation/formatting.
+- **Problem Statement:**
+  Prompt the user for 4 inputs: a color, a plural noun, a celebrity name, and an adjective. Then, plug those inputs into a short story template and print the finished story to the console.
+
+**Starter Code:**
+```python
+# Prompt the user for 4 words and print the story
+color = input("Enter a color: ")
+# complete the rest...
+```
+
+**Solution:**
+```python
+color = input("Enter a color: ")
+plural_noun = input("Enter a plural noun: ")
+celebrity = input("Enter a celebrity name: ")
+adjective = input("Enter an adjective: ")
+
+print("\n--- Here is your Mad Libs Story! ---")
+print("Roses are " + color)
+print(plural_noun + " are blue")
+print("I ran into " + celebrity + " today")
+print("And they were feeling super " + adjective + "!")
+```
+
+**Sample Output:**
+```
+Enter a color: magenta
+Enter a plural noun: sneakers
+Enter a celebrity name: Keanu Reeves
+Enter an adjective: energized
+
+--- Here is your Mad Libs Story! ---
+Roses are magenta
+sneakers are blue
+I ran into Keanu Reeves today
+And they were feeling super energized!
+```
+
+---
+
+### Exercise 2: Temperature Converter & Formatter
+- **Concepts Covered:** Numbers, floating-point arithmetic, type casting (`float()`), `round()`, string concatenation.
+- **Problem Statement:**
+  Write a program that takes a temperature in Celsius from the user (via `input()`), converts it to Fahrenheit using the formula:
+  $$F = (C \times 1.8) + 32$$
+  Display the result rounded to 2 decimal places.
+
+**Starter Code:**
+```python
+celsius_input = input("Enter temperature in Celsius: ")
+# Cast to float, calculate Fahrenheit, and print result
+```
+
+**Solution:**
+```python
+celsius_input = input("Enter temperature in Celsius: ")
+celsius = float(celsius_input)
+
+fahrenheit = (celsius * 1.8) + 32
+rounded_fahrenheit = round(fahrenheit, 2)
+
+print(str(celsius) + "°C is equal to " + str(rounded_fahrenheit) + "°F")
+```
+
+**Sample Output:**
+```
+Enter temperature in Celsius: 28.5
+28.5°C is equal to 83.3°F
+```
+
+---
+
+### Exercise 3: Palindrome String Checker
+- **Concepts Covered:** Strings, string methods (`lower()`, `replace()`), string indexing and reverse slicing.
+- **Problem Statement:**
+  Write a function `is_palindrome(word)` that takes a string, normalizes it (lowercases it and removes spaces), and checks whether it reads the same forward and backward. Return `True` if it is a palindrome and `False` otherwise.
+
+**Starter Code:**
+```python
+def is_palindrome(text):
+    # Your code here
+    pass
+
+print(is_palindrome("Radar"))  # Should print True
+print(is_palindrome("Python")) # Should print False
+```
+
+**Solution:**
+```python
+def is_palindrome(text):
+    # Normalize: lowercase and remove spaces
+    cleaned = text.lower().replace(" ", "")
+    # In Python, [::-1] reverses any string sequence
+    reversed_cleaned = cleaned[::-1]
+    return cleaned == reversed_cleaned
+
+print(is_palindrome("Radar"))              # True
+print(is_palindrome("Python"))             # False
+print(is_palindrome("Never odd or even"))  # True
+```
+
+**Sample Output:**
+```
+True
+False
+True
+```
+
+---
+
+### Exercise 4: Shopping Cart & List Operations
+- **Concepts Covered:** Lists, list methods (`append()`, `remove()`, `count()`, `sort()`, `copy()`), `len()`.
+- **Problem Statement:**
+  Start with a list of grocery items: `["apples", "milk", "bread", "apples", "bananas", "milk"]`.
+  1. Print the total count of `"apples"`.
+  2. Create a deduplicated copy of the list (remove duplicate `"apples"` and `"milk"`).
+  3. Append `"oranges"` and `"eggs"` to the list.
+  4. Sort the final list alphabetically and print the sorted cart along with the total item count.
+
+**Starter Code:**
+```python
+cart = ["apples", "milk", "bread", "apples", "bananas", "milk"]
+# 1. Count apples
+# 2. Remove duplicates
+# 3. Append new items
+# 4. Sort and print
+```
+
+**Solution:**
+```python
+cart = ["apples", "milk", "bread", "apples", "bananas", "milk"]
+
+# 1. Count occurrences of "apples"
+print("Number of apple occurrences: " + str(cart.count("apples")))
+
+# 2. Work on a copy and remove duplicates
+unique_cart = []
+for item in cart:
+    if item not in unique_cart:
+        unique_cart.append(item)
+
+# 3. Add new items
+unique_cart.append("oranges")
+unique_cart.append("eggs")
+
+# 4. Sort alphabetically
+unique_cart.sort()
+
+print("Final shopping cart: " + str(unique_cart))
+print("Total unique items to buy: " + str(len(unique_cart)))
+```
+
+**Sample Output:**
+```
+Number of apple occurrences: 2
+Final shopping cart: ['apples', 'bananas', 'bread', 'eggs', 'milk', 'oranges']
+Total unique items to buy: 6
+```
+
+---
+
+### Exercise 5: 2D Coordinate Distance with Tuples
+- **Concepts Covered:** Tuples, immutability, `math.sqrt()`, exponent operator `**`.
+- **Problem Statement:**
+  Coordinates in a game are stored as 2-item tuples: `(x, y)`. Write a function `calculate_distance(point1, point2)` that computes the Euclidean distance between two points:
+  $$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$
+  Also demonstrate what happens if you attempt to reassign `point1[0] = 100` (catch the `TypeError`).
+
+**Starter Code:**
+```python
+from math import sqrt
+
+def calculate_distance(point1, point2):
+    # Unpack or index tuples, calculate distance
+    pass
+```
+
+**Solution:**
+```python
+from math import sqrt
+
+def calculate_distance(point1, point2):
+    x1, y1 = point1
+    x2, y2 = point2
+    distance = sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+    return round(distance, 2)
+
+p1 = (3, 4)
+p2 = (7, 1)
+
+print("Distance between points:", calculate_distance(p1, p2))
+
+# Demonstrate tuple immutability
+try:
+    p1[0] = 100
+except TypeError as err:
+    print("Caught expected tuple error:", err)
+```
+
+**Sample Output:**
+```
+Distance between points: 5.0
+Caught expected tuple error: 'tuple' object does not support item assignment
+```
+
+---
+
+### Exercise 6: Bill Splitter with Tip Calculator
+- **Concepts Covered:** Functions, multiple parameters, default values, `if/elif/else`, return values.
+- **Problem Statement:**
+  Write a function `calculate_bill(total, tip_percent, num_people)` that:
+  - Adds the tip amount to the subtotal.
+  - Divides the final total among `num_people`.
+  - If `num_people <= 0`, returns `"Error: Number of people must be at least 1"`.
+  - Returns the per-person amount rounded to 2 decimal places.
+
+**Starter Code:**
+```python
+def calculate_bill(total, tip_percent, num_people=1):
+    # Your logic here
+    pass
+```
+
+**Solution:**
+```python
+def calculate_bill(total, tip_percent, num_people=1):
+    if num_people <= 0:
+        return "Error: Number of people must be at least 1"
+    
+    tip_amount = total * (tip_percent / 100.0)
+    grand_total = total + tip_amount
+    per_person = grand_total / num_people
+    return round(per_person, 2)
+
+print("Individual share (Party of 4, 15% tip on $120):", calculate_bill(120.0, 15, 4))
+print("Solo diner (Default 1 person, 20% tip on $50):", calculate_bill(50.0, 20))
+print("Invalid party test:", calculate_bill(50.0, 20, 0))
+```
+
+**Sample Output:**
+```
+Individual share (Party of 4, 15% tip on $120): 34.5
+Solo diner (Default 1 person, 20% tip on $50): 60.0
+Invalid party test: Error: Number of people must be at least 1
+```
+
+---
+
+### Exercise 7: Contact Phonebook with Dictionaries
+- **Concepts Covered:** Dictionaries, `.get()` method, dictionary lookups, inserting/updating key-value pairs, `in` keyword.
+- **Problem Statement:**
+  Create a dictionary `phonebook` storing initial names and phone numbers. Write a helper function `lookup_contact(phonebook, name)` that returns the contact's number or `"Contact not found"` if the name doesn't exist. Add a new contact and update an existing contact's number.
+
+**Starter Code:**
+```python
+phonebook = {
+    "Alice": "555-0199",
+    "Bob": "555-0142",
+    "Charlie": "555-0188"
+}
+# Write lookup function and update entries
+```
+
+**Solution:**
+```python
+phonebook = {
+    "Alice": "555-0199",
+    "Bob": "555-0142",
+    "Charlie": "555-0188"
+}
+
+def lookup_contact(contacts, name):
+    # .get() allows specifying a default fallback when key is not present
+    return contacts.get(name, "Contact not found")
+
+# Test existing and missing contacts
+print("Alice:", lookup_contact(phonebook, "Alice"))
+print("David:", lookup_contact(phonebook, "David"))
+
+# Add new contact
+phonebook["David"] = "555-0177"
+print("David (after adding):", lookup_contact(phonebook, "David"))
+
+# Update an existing contact
+phonebook["Alice"] = "555-9999"
+print("Alice (after update):", lookup_contact(phonebook, "Alice"))
+```
+
+**Sample Output:**
+```
+Alice: 555-0199
+David: Contact not found
+David (after adding): 555-0177
+Alice (after update): 555-9999
+```
+
+---
+
+### Exercise 8: Number Guessing Game
+- **Concepts Covered:** While loops, `input()`, conditionals (`if/elif/else`), `break`, loop counters.
+- **Problem Statement:**
+  Write a number guessing script. Pick a secret number (e.g. `7`). Give the user up to 3 attempts to guess the number.
+  - If the user guesses correctly, print `"You won!"` and break out of the loop.
+  - If the guess is wrong, inform them if the guess was too high or too low.
+  - If they exhaust all 3 guesses, print `"Game Over! The number was X"`.
+
+**Starter Code:**
+```python
+secret_number = 7
+guess_count = 0
+guess_limit = 3
+
+while guess_count < guess_limit:
+    # Get user guess and compare
+    pass
+```
+
+**Solution:**
+```python
+secret_number = 7
+guess_count = 0
+guess_limit = 3
+out_of_guesses = False
+
+while guess_count < guess_limit:
+    guess = int(input("Guess a number (1-10): "))
+    guess_count += 1
+    
+    if guess == secret_number:
+        print("Congratulations! You guessed it in " + str(guess_count) + " tries!")
+        break
+    elif guess < secret_number:
+        print("Too low!")
+    else:
+        print("Too high!")
+else:
+    print("Out of guesses! The secret number was " + str(secret_number))
+```
+
+**Sample Output:**
+```
+Guess a number (1-10): 3
+Too low!
+Guess a number (1-10): 9
+Too high!
+Guess a number (1-10): 7
+Congratulations! You guessed it in 3 tries!
+```
+
+---
+
+### Exercise 9: FizzBuzz with `range()`
+- **Concepts Covered:** For loops, `range()`, modulo operator (`%`), `if/elif/else` precedence.
+- **Problem Statement:**
+  Loop through numbers from 1 to 20 (inclusive) using `range()`.
+  - For multiples of 3, print `"Fizz"`.
+  - For multiples of 5, print `"Buzz"`.
+  - For numbers that are multiples of both 3 and 5, print `"FizzBuzz"`.
+  - Otherwise, print the number itself.
+
+**Starter Code:**
+```python
+for num in range(1, 21):
+    # Your condition logic here
+    pass
+```
+
+**Solution:**
+```python
+for num in range(1, 21):
+    # Check 15 first because both 3 and 5 must match
+    if num % 3 == 0 and num % 5 == 0:
+        print("FizzBuzz")
+    elif num % 3 == 0:
+        print("Fizz")
+    elif num % 5 == 0:
+        print("Buzz")
+    else:
+        print(num)
+```
+
+**Sample Output:**
+```
+1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+16
+17
+Fizz
+19
+Buzz
+```
+
+---
+
+### Exercise 10: 2D Matrix Sum and Row Counter
+- **Concepts Covered:** 2D lists (nested lists), nested `for` loops, accumulator variables.
+- **Problem Statement:**
+  Given a 2D list of numbers representing a matrix:
+  ```python
+  matrix = [
+      [10, 20, 30],
+      [40, 50, 60],
+      [70, 80, 90]
+  ]
+  ```
+  Write a program that uses nested loops to:
+  1. Print the sum of each individual row.
+  2. Compute and print the grand total of all numbers in the matrix.
+
+**Starter Code:**
+```python
+matrix = [
+    [10, 20, 30],
+    [40, 50, 60],
+    [70, 80, 90]
+]
+# Nested loops to compute row totals and matrix total
+```
+
+**Solution:**
+```python
+matrix = [
+    [10, 20, 30],
+    [40, 50, 60],
+    [70, 80, 90]
+]
+
+grand_total = 0
+row_index = 1
+
+for row in matrix:
+    row_sum = 0
+    for val in row:
+        row_sum += val
+        grand_total += val
+    print("Row " + str(row_index) + " sum: " + str(row_sum))
+    row_index += 1
+
+print("Grand total of matrix:", grand_total)
+```
+
+**Sample Output:**
+```
+Row 1 sum: 60
+Row 2 sum: 150
+Row 3 sum: 240
+Grand total of matrix: 450
+```
+
+---
+
+### Exercise 11: Robust Safe Division Calculator
+- **Concepts Covered:** `try...except`, specific exceptions (`ZeroDivisionError`, `ValueError`), input casting.
+- **Problem Statement:**
+  Write a function `safe_divide()` that prompts the user for a numerator and a denominator. Use a `try...except` block to gracefully handle:
+  - Non-numeric inputs (`ValueError`)
+  - Division by zero (`ZeroDivisionError`)
+  - Return the division result when valid.
+
+**Starter Code:**
+```python
+def safe_divide():
+    try:
+        # Prompt user, convert, divide
+        pass
+    except ZeroDivisionError:
+        pass
+    except ValueError:
+        pass
+```
+
+**Solution:**
+```python
+def safe_divide():
+    try:
+        raw_num = input("Enter numerator: ")
+        raw_den = input("Enter denominator: ")
+        
+        num = float(raw_num)
+        den = float(raw_den)
+        
+        result = num / den
+        return "Result: " + str(round(result, 3))
+    except ZeroDivisionError:
+        return "Error: Cannot divide by zero!"
+    except ValueError:
+        return "Error: Please enter valid numbers only!"
+
+# Run example
+print(safe_divide())
+```
+
+**Sample Output:**
+```
+Enter numerator: 10
+Enter denominator: 0
+Error: Cannot divide by zero!
+```
+
+---
+
+### Exercise 12: Bank Account Class with SavingsAccount Inheritance
+- **Concepts Covered:** Object-oriented programming, `class`, `__init__`, `self`, instance methods, subclass inheritance, method overriding.
+- **Problem Statement:**
+  1. Create a `BankAccount` class with attributes `account_holder` and `balance` (default 0.0). Provide methods `deposit(amount)`, `withdraw(amount)`, and `get_balance()`. Guard against withdrawing more money than available.
+  2. Create a subclass `SavingsAccount` that inherits from `BankAccount` and adds an `interest_rate` attribute. Add an `apply_interest()` method that calculates and deposits interest into the balance.
+
+**Starter Code:**
+```python
+class BankAccount:
+    def __init__(self, account_holder, initial_balance=0.0):
+        # Your constructor code
+        pass
+
+class SavingsAccount(BankAccount):
+    def __init__(self, account_holder, initial_balance=0.0, interest_rate=0.05):
+        # Inherit and add interest rate
+        pass
+```
+
+**Solution:**
+```python
+class BankAccount:
+    def __init__(self, account_holder, balance=0.0):
+        self.account_holder = account_holder
+        self.balance = balance
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+            print("Deposited $" + str(amount) + ". New balance: $" + str(self.balance))
+        else:
+            print("Deposit amount must be positive.")
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            print("Declined: Insufficient funds! Current balance: $" + str(self.balance))
+        elif amount <= 0:
+            print("Withdrawal amount must be positive.")
+        else:
+            self.balance -= amount
+            print("Withdrew $" + str(amount) + ". Remaining balance: $" + str(self.balance))
+
+    def get_balance(self):
+        return self.balance
+
+
+class SavingsAccount(BankAccount):
+    def __init__(self, account_holder, balance=0.0, interest_rate=0.05):
+        # Initialize parent attributes
+        super().__init__(account_holder, balance)
+        self.interest_rate = interest_rate
+
+    def apply_interest(self):
+        interest = self.balance * self.interest_rate
+        self.deposit(interest)
+        print("Interest of $" + str(interest) + " applied at " + str(self.interest_rate * 100) + "% rate.")
+
+
+# Demonstration:
+account = SavingsAccount("Pushkar", 1000.0, 0.04)
+account.deposit(500.0)
+account.withdraw(200.0)
+account.withdraw(2000.0)  # Insufficient funds
+account.apply_interest()  # 4% on $1300 = $52
+print("Final Balance:", account.get_balance())
+```
+
+**Sample Output:**
+```
+Deposited $500.0. New balance: $1500.0
+Withdrew $200.0. Remaining balance: $1300.0
+Declined: Insufficient funds! Current balance: $1300.0
+Deposited $52.0. New balance: $1352.0
+Interest of $52.0 applied at 4.0% rate.
+Final Balance: 1352.0
+```
+
+---
+
 
 

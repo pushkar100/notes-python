@@ -99,6 +99,19 @@
   - [14.2 Testing in Python: `unittest` & `pytest`](#142-testing-in-python-unittest-pytest)
   - [14.3 Complete Mini-Project: CLI Task Tracker Application](#143-complete-mini-project-cli-task-tracker-application)
   - [Module 14 Practice Challenges](#module-14-practice-challenges)
+- [Comprehensive Practice Exercises: JS-to-Python Mastery](#comprehensive-practice-exercises-js-to-python-mastery)
+  - [Exercise 1: Longest Substring Without Repeating Characters (Sliding Window)](#exercise-1-longest-substring-without-repeating-characters-sliding-window)
+  - [Exercise 2: Group Anagrams (Hashability & Defaultdict)](#exercise-2-group-anagrams-hashability--defaultdict)
+  - [Exercise 3: Invert & Transform Nested Configuration Maps (Comprehensions)](#exercise-3-invert--transform-nested-configuration-maps-comprehensions)
+  - [Exercise 4: Top K Frequent Elements (Heaps vs JS Sort)](#exercise-4-top-k-frequent-elements-heaps-vs-js-sort)
+  - [Exercise 5: Sliding Window Maximum (Monotonic Deque vs JS Array.shift)](#exercise-5-sliding-window-maximum-monotonic-deque-vs-js-arrayshift)
+  - [Exercise 6: Deep Config Merger (Avoiding the Mutable Default Trap)](#exercise-6-deep-config-merger-avoiding-the-mutable-default-trap)
+  - [Exercise 7: Redux-Style Action Dispatcher (Python 3.10 Pattern Matching)](#exercise-7-redux-style-action-dispatcher-python-310-pattern-matching)
+  - [Exercise 8: Mathematical Vector2D (Dunders & Operator Overloading)](#exercise-8-mathematical-vector2d-dunders--operator-overloading)
+  - [Exercise 9: Expiring Cache with Dataclass & Property](#exercise-9-expiring-cache-with-dataclass--property)
+  - [Exercise 10: Atomic Transaction Rollback Context Manager](#exercise-10-atomic-transaction-rollback-context-manager)
+  - [Exercise 11: Memory-Efficient Batch Stream Paginator (Generators)](#exercise-11-memory-efficient-batch-stream-paginator-generators)
+  - [Exercise 12: Resilient Retry Decorator with Exponential Backoff](#exercise-12-resilient-retry-decorator-with-exponential-backoff)
 
 ---
 
@@ -3044,4 +3057,784 @@ except ValueError:
 
 print("Challenge 14.1 Passed!")
 ```
+
+---
+
+## Comprehensive Practice Exercises: JS-to-Python Mastery
+
+These 12 advanced coding exercises test the full spectrum of Python concepts taught across all 14 modules. Each problem specifically contrasts JavaScript/TypeScript patterns with idiomatic Python, focusing on LeetCode algorithmic efficiency, memory architectures, modern typing, and backend software engineering patterns.
+
+---
+
+### Exercise 1: Longest Substring Without Repeating Characters (Sliding Window)
+- **LeetCode Reference:** LeetCode 3 (Medium)
+- **Concepts Covered:** Strings, hash maps (`dict`), two pointers / sliding window, `enumerate()`, time/space complexity.
+- **JS vs. Python Mindset:** In JavaScript, developers frequently reach for `new Set()` or `new Map()`. In Python, a dictionary mapping `char -> last_seen_index` allows jumping the `left` boundary forward in $O(1)$ time without manually evicting characters one-by-one.
+
+#### Problem Statement
+Given a string `s`, find the length of the longest substring without repeating characters.
+
+##### Thought Process & Strategy (Step-by-Step)
+1. **Window Definition:** Maintain a sliding window `[left, right]`. As `right` iterates from `0` to `len(s) - 1`, check if `s[right]` was seen inside the current window.
+2. **Hash Map Lookup:** Store the last observed index of each character in `last_seen: dict[str, int]`.
+3. **Jump Left Pointer:** If `s[right]` is already in `last_seen` and its index is $\ge left$, update $left = \text{last\_seen}[s[right]] + 1$.
+4. **Complexity:** $O(N)$ time (single pass) and $O(\min(N, \Sigma))$ space where $\Sigma$ is the alphabet size.
+
+```python
+def length_of_longest_substring(s: str) -> int:
+    last_seen: dict[str, int] = {}
+    left = 0
+    max_len = 0
+
+    for right, char in enumerate(s):
+        if char in last_seen and last_seen[char] >= left:
+            # Advance left pointer past previous occurrence of char
+            left = last_seen[char] + 1
+        else:
+            max_len = max(max_len, right - left + 1)
+        
+        last_seen[char] = right
+
+    return max_len
+
+# Test Cases
+assert length_of_longest_substring("abcabcbb") == 3  # "abc"
+assert length_of_longest_substring("bbbbb") == 1     # "b"
+assert length_of_longest_substring("pwwkew") == 3    # "wke"
+assert length_of_longest_substring("") == 0
+assert length_of_longest_substring("abba") == 2      # tests left boundary clamp
+print("Exercise 1 Passed!")
+# Time Complexity: O(n)
+# Space Complexity: O(min(n, m)) where m is charset size
+```
+
+---
+
+### Exercise 2: Group Anagrams (Hashability & Defaultdict)
+- **LeetCode Reference:** LeetCode 49 (Medium)
+- **Concepts Covered:** `collections.defaultdict`, hashable vs unhashable types, `tuple` vs `list`, sorting sequences.
+- **JS vs. Python Mindset:** In JavaScript, `Map` keys can be object references, but plain objects coerce keys to strings (`obj[[1,2]]` becomes `obj["1,2"]`). In Python, dictionary keys **must be immutable and hashable**. Attempting `dict[[1, 2]]` raises a runtime `TypeError: unhashable type: 'list'`. Hence, we use **tuples** as dictionary keys.
+
+#### Problem Statement
+Given an array of strings `strs`, group the anagrams together in any order.
+
+##### Thought Process & Strategy (Step-by-Step)
+1. **Canonical Key Representation:** Two words are anagrams if and only if their sorted characters are identical, or their 26-element character frequency counts are identical.
+2. **Tuple as Dict Key:** Convert the sorted character list or frequency list into an immutable `tuple`, which can serve as a key in a Python dictionary.
+3. **Use `defaultdict(list)`:** Avoid manual key existence checking (`if key not in d: d[key] = []`).
+
+```python
+from collections import defaultdict
+
+def group_anagrams(strs: list[str]) -> list[list[str]]:
+    # Map: tuple of sorted characters -> list of anagram words
+    groups: defaultdict[tuple[str, ...], list[str]] = defaultdict(list)
+
+    for word in strs:
+        # sorted(word) produces a list: ['a', 'e', 't'] -> convert to immutable tuple!
+        key = tuple(sorted(word))
+        groups[key].append(word)
+
+    return list(groups.values())
+
+# Frequency count alternative (O(N * K) without string sorting):
+def group_anagrams_count(strs: list[str]) -> list[list[str]]:
+    groups: defaultdict[tuple[int, ...], list[str]] = defaultdict(list)
+
+    for word in strs:
+        count = [0] * 26
+        for char in word:
+            count[ord(char) - ord('a')] += 1
+        groups[tuple(count)].append(word)
+
+    return list(groups.values())
+
+# Test Cases
+test_input = ["eat", "tea", "tan", "ate", "nat", "bat"]
+grouped = group_anagrams(test_input)
+# Sort sublists and outer list for deterministic assertion
+sorted_result = sorted([sorted(g) for g in grouped])
+expected = [["ate", "eat", "tea"], ["bat"], ["nat", "tan"]]
+assert sorted_result == expected
+assert group_anagrams([""]) == [[""]]
+assert group_anagrams(["a"]) == [["a"]]
+print("Exercise 2 Passed!")
+# Time Complexity: O(n * k log k) where n is word count and k is max word length
+# Space Complexity: O(n * k)
+```
+
+---
+
+### Exercise 3: Invert & Transform Nested Configuration Maps (Comprehensions)
+- **Concepts Covered:** Dictionary comprehensions, set operations, nested iterations, filtering, data transformations.
+- **JS vs. Python Mindset:** In JavaScript, transforming objects requires chaining `Object.entries()`, `.filter()`, and `.reduce()`, creating intermediate arrays. In Python, dictionary comprehensions `{k: v for ...}` are expressive, single-pass, and run at C-speed.
+
+#### Problem Statement
+Given a user-to-permissions mapping where each user has a list of roles, invert the mapping to produce a `role -> set of active users` dictionary. Only include users whose account status is `active == True`.
+
+```python
+users_data = {
+    "alice": {"roles": ["admin", "editor"], "active": True},
+    "bob": {"roles": ["editor", "viewer"], "active": False},  # Inactive, skip!
+    "charlie": {"roles": ["viewer"], "active": True},
+    "diana": {"roles": ["admin", "viewer"], "active": True},
+}
+```
+
+##### Thought Process & Strategy (Step-by-Step)
+1. **Filter Active Users:** Filter out users with `active == False`.
+2. **Collect All Unique Roles:** Use a set comprehension to extract all unique roles from active users.
+3. **Invert via Dict Comprehension:** For each role, build the set of active users possessing that role.
+
+```python
+def invert_user_roles(data: dict[str, dict]) -> dict[str, set[str]]:
+    # Step 1: Filter to active users only
+    active_users = {
+        username: info["roles"]
+        for username, info in data.items()
+        if info.get("active", False)
+    }
+
+    # Step 2: Extract all distinct roles using a set comprehension
+    all_roles = {role for roles in active_users.values() for role in roles}
+
+    # Step 3: Map each role to the set of users who possess it
+    inverted: dict[str, set[str]] = {
+        role: {user for user, roles in active_users.items() if role in roles}
+        for role in all_roles
+    }
+
+    return inverted
+
+# Test Cases
+users_data = {
+    "alice": {"roles": ["admin", "editor"], "active": True},
+    "bob": {"roles": ["editor", "viewer"], "active": False},
+    "charlie": {"roles": ["viewer"], "active": True},
+    "diana": {"roles": ["admin", "viewer"], "active": True},
+}
+
+result = invert_user_roles(users_data)
+assert result["admin"] == {"alice", "diana"}
+assert result["editor"] == {"alice"}          # bob excluded because inactive
+assert result["viewer"] == {"charlie", "diana"}
+print("Exercise 3 Passed!")
+# Time Complexity: O(R * U) where R is total roles, U is active users
+# Space Complexity: O(R * U)
+```
+
+---
+
+### Exercise 4: Top K Frequent Elements (Heaps vs JS Sort)
+- **LeetCode Reference:** LeetCode 347 (Medium)
+- **Concepts Covered:** `collections.Counter`, `heapq` module, min-heap algorithm, complexity trade-offs.
+- **JS vs. Python Mindset:** JavaScript has no built-in Priority Queue in the standard library; JS devs typically sort the entire frequency array in $O(N \log N)$. Python provides the `heapq` module out of the box, allowing an optimal $O(N \log K)$ solution using a bounded min-heap.
+
+#### Problem Statement
+Given an integer array `nums` and an integer `k`, return the `k` most frequent elements.
+
+##### Thought Process & Strategy (Step-by-Step)
+1. **Count Frequencies:** Use `collections.Counter(nums)` in $O(N)$ time.
+2. **Maintain a Min-Heap of Size $K$:** Push `(frequency, num)` tuples into a heap. If the heap size exceeds $k$, `heappop()` removes the element with the smallest frequency.
+3. **Result Extraction:** The $k$ remaining elements in the heap are the top $k$ frequent elements.
+
+```python
+from collections import Counter
+import heapq
+
+def top_k_frequent(nums: list[int], k: int) -> list[int]:
+    counts = Counter(nums)
+    
+    # Python min-heap storing tuples: (frequency, value)
+    min_heap: list[tuple[int, int]] = []
+
+    for num, freq in counts.items():
+        heapq.heappush(min_heap, (freq, num))
+        if len(min_heap) > k:
+            # Evicts element with lowest frequency in O(log k)
+            heapq.heappop(min_heap)
+
+    return [num for freq, num in min_heap]
+
+# Alternative Pythonic standard library one-liner:
+def top_k_frequent_quick(nums: list[int], k: int) -> list[int]:
+    return [num for num, _ in Counter(nums).most_common(k)]
+
+# Test Cases
+nums = [1, 1, 1, 2, 2, 3]
+res = sorted(top_k_frequent(nums, 2))
+assert res == [1, 2]
+
+nums2 = [4, 4, 4, 4, 5, 5, 6, 7, 7, 7]
+res2 = sorted(top_k_frequent(nums2, 2))
+assert res2 == [4, 7]
+print("Exercise 4 Passed!")
+# Time Complexity: O(n log k) with min-heap (beats O(n log n) full sort)
+# Space Complexity: O(n + k)
+```
+
+---
+
+### Exercise 5: Sliding Window Maximum (Monotonic Deque vs JS Array.shift)
+- **LeetCode Reference:** LeetCode 239 (Hard)
+- **Concepts Covered:** `collections.deque`, monotonic queues, double-ended queues.
+- **JS vs. Python Mindset:** In JavaScript, calling `arr.shift()` on an array is $O(N)$ because the entire underlying memory buffer must be re-indexed. In Python, `collections.deque` is implemented as a doubly linked list of blocks, providing true $O(1)$ amortized `append()`, `appendleft()`, `pop()`, and `popleft()`.
+
+#### Problem Statement
+Given an array `nums` and sliding window size `k`, return the max sliding window elements.
+
+##### Thought Process & Strategy (Step-by-Step)
+1. **Monotonic Decreasing Deque:** Store indices in a `deque` such that the corresponding values in `nums` are always in strictly descending order.
+2. **Discard Smaller Elements:** Before pushing index `i`, pop all indices from the back whose values are $\le nums[i]$ (they will never be the maximum again).
+3. **Evict Out-of-Window Indices:** If the front index is $< i - k + 1$, it has dropped out of the window; remove it via `popleft()`.
+4. **Collect Window Max:** When index $i \ge k - 1$, the front of the deque is guaranteed to be the maximum of the window.
+
+```python
+from collections import deque
+
+def max_sliding_window(nums: list[int], k: int) -> list[int]:
+    if not nums or k <= 0:
+        return []
+
+    dq: deque[int] = deque()  # Stores INDICES of nums
+    result: list[int] = []
+
+    for i, num in enumerate(nums):
+        # 1. Evict elements outside the sliding window boundary [i - k + 1, i]
+        while dq and dq[0] < i - k + 1:
+            dq.popleft()
+
+        # 2. Maintain monotonic decreasing property: remove smaller values from back
+        while dq and nums[dq[-1]] <= num:
+            dq.pop()
+
+        dq.append(i)
+
+        # 3. Append current maximum to result once first window is formed
+        if i >= k - 1:
+            result.append(nums[dq[0]])
+
+    return result
+
+# Test Cases
+nums = [1, 3, -1, -3, 5, 3, 6, 7]
+assert max_sliding_window(nums, 3) == [3, 3, 5, 5, 6, 7]
+assert max_sliding_window([1], 1) == [1]
+assert max_sliding_window([1, -1], 1) == [1, -1]
+assert max_sliding_window([9, 11], 2) == [11]
+print("Exercise 5 Passed!")
+# Time Complexity: O(n) - Each element is pushed and popped at most once
+# Space Complexity: O(k) for the deque
+```
+
+---
+
+### Exercise 6: Deep Config Merger (Avoiding the Mutable Default Trap)
+- **Concepts Covered:** Positional vs keyword arguments, `*args`, `**kwargs`, mutable default parameters, recursion, dictionary cloning.
+- **JS vs. Python Mindset:** In JavaScript, `function merge(config = {})` creates a new object default on each call if undefined. In Python, **default parameter values are evaluated once when the function is defined**, not when called! Writing `def merge(config={})` causes all invocations sharing the default to mutate the exact same dictionary. Use `None` as sentinel.
+
+#### Problem Statement
+Write a function `deep_merge(base: dict, override: dict | None = None, **extra_overrides) -> dict` that deeply merges nested dictionaries without mutating the original inputs.
+
+##### Thought Process & Strategy (Step-by-Step)
+1. **Sentinel Default:** Default `override` to `None`, then initialize `override = {}` inside the body.
+2. **Deep Copy:** Clone `base` deeply so nested mutations do not affect the original.
+3. **Recursive Merge:** For keys in `override`:
+   - If both `base[k]` and `override[k]` are dictionaries, merge recursively.
+   - Otherwise, overwrite with `override[k]`.
+4. **Apply `**extra_overrides`:** Apply any additional keyword arguments to the root configuration.
+
+```python
+import copy
+from typing import Any
+
+def deep_merge(
+    base: dict[str, Any],
+    override: dict[str, Any] | None = None,
+    **extra_overrides: Any
+) -> dict[str, Any]:
+    # Defend against the mutable default argument trap
+    if override is None:
+        override = {}
+
+    # Start with a deep copy of base to preserve immutability of inputs
+    result = copy.deepcopy(base)
+
+    # Combine override with extra keyword overrides
+    all_overrides = {**override, **extra_overrides}
+
+    for key, val in all_overrides.items():
+        if key in result and isinstance(result[key], dict) and isinstance(val, dict):
+            result[key] = deep_merge(result[key], val)
+        else:
+            result[key] = copy.deepcopy(val)
+
+    return result
+
+# Test Cases
+default_config = {
+    "server": {"host": "localhost", "port": 8080},
+    "logging": {"level": "INFO", "handlers": ["console"]},
+    "debug": False,
+}
+
+# 1. Verify default argument isolation
+r1 = deep_merge(default_config)
+r1["server"]["port"] = 9000
+assert default_config["server"]["port"] == 8080, "Base config was mutated!"
+
+# 2. Verify deep nested merge and extra kwargs
+user_override = {"server": {"port": 3000}, "logging": {"level": "DEBUG"}}
+merged = deep_merge(default_config, user_override, debug=True)
+
+assert merged["server"] == {"host": "localhost", "port": 3000}
+assert merged["logging"] == {"level": "DEBUG", "handlers": ["console"]}
+assert merged["debug"] is True
+print("Exercise 6 Passed!")
+# Time Complexity: O(K) where K is total keys in nested dicts
+# Space Complexity: O(K) for deep clone
+```
+
+---
+
+### Exercise 7: Redux-Style Action Dispatcher (Python 3.10 Pattern Matching)
+- **Concepts Covered:** Structural pattern matching (`match / case`), guards (`if`), tuple/list unpacking, dictionary matching.
+- **JS vs. Python Mindset:** In TypeScript, Redux reducers rely on `switch(action.type)` with discriminated unions and object spreads. In Python 3.10+, `match / case` allows matching exact data shapes, inspecting types, and extracting variables in a single declarative block.
+
+#### Problem Statement
+Implement a state reducer `reduce(state: dict, action: dict) -> dict` that manages a shopping cart state:
+- Action `{"type": "ADD_ITEM", "item": {"id": int, "name": str, "price": float}}`
+- Action `{"type": "REMOVE_ITEM", "item_id": int}`
+- Action `{"type": "SET_DISCOUNT", "percent": float}` (guard: percent must be between 0 and 100)
+- Wildcard `_`: Raise `ValueError("Invalid action")`
+
+```python
+import copy
+from typing import Any
+
+def cart_reducer(state: dict[str, Any], action: dict[str, Any]) -> dict[str, Any]:
+    # Deep copy to ensure functional state immutability
+    new_state = copy.deepcopy(state)
+
+    match action:
+        case {"type": "ADD_ITEM", "item": {"id": int(item_id), "name": str(name), "price": (int() | float()) as price}}:
+            new_state["items"].append({"id": item_id, "name": name, "price": float(price)})
+            new_state["total"] += float(price) * (1.0 - new_state.get("discount", 0.0))
+            return new_state
+
+        case {"type": "REMOVE_ITEM", "item_id": int(target_id)}:
+            removed = [it for it in new_state["items"] if it["id"] == target_id]
+            if removed:
+                new_state["items"] = [it for it in new_state["items"] if it["id"] != target_id]
+                new_state["total"] -= sum(it["price"] for it in removed) * (1.0 - new_state.get("discount", 0.0))
+            return new_state
+
+        case {"type": "SET_DISCOUNT", "percent": float(pct)} if 0.0 <= pct <= 100.0:
+            new_state["discount"] = pct / 100.0
+            raw_subtotal = sum(item["price"] for item in new_state["items"])
+            new_state["total"] = raw_subtotal * (1.0 - new_state["discount"])
+            return new_state
+
+        case _:
+            raise ValueError(f"Unhandled or malformed action: {action}")
+
+# Test Cases
+initial_state = {"items": [], "total": 0.0, "discount": 0.0}
+
+# 1. Add items
+s1 = cart_reducer(initial_state, {
+    "type": "ADD_ITEM",
+    "item": {"id": 1, "name": "Mechanical Keyboard", "price": 100.0}
+})
+assert len(s1["items"]) == 1
+assert s1["total"] == 100.0
+
+# 2. Apply discount
+s2 = cart_reducer(s1, {"type": "SET_DISCOUNT", "percent": 20.0})
+assert s2["discount"] == 0.20
+assert s2["total"] == 80.0
+
+# 3. Remove item
+s3 = cart_reducer(s2, {"type": "REMOVE_ITEM", "item_id": 1})
+assert len(s3["items"]) == 0
+assert s3["total"] == 0.0
+
+# 4. Invalid discount guard test
+try:
+    cart_reducer(s2, {"type": "SET_DISCOUNT", "percent": 150.0})
+    assert False, "Should have raised ValueError"
+except ValueError:
+    pass
+
+print("Exercise 7 Passed!")
+```
+
+---
+
+### Exercise 8: Mathematical Vector2D (Dunders & Operator Overloading)
+- **Concepts Covered:** Dunder methods (`__init__`, `__repr__`, `__eq__`, `__hash__`, `__add__`, `__sub__`, `__mul__`, `__abs__`).
+- **JS vs. Python Mindset:** JavaScript explicitly forbids operator overloading. You cannot write `const v3 = v1 + v2`; you must create methods like `v1.add(v2)`. In Python, defining `__add__`, `__sub__`, and `__mul__` allows custom classes to seamlessly integrate with Python's arithmetic operators. Implementing `__hash__` and `__eq__` makes instances valid `set` members and `dict` keys.
+
+#### Problem Statement
+Build an immutable 2D vector class `Vector2D` that supports:
+- Vector addition: `v1 + v2`
+- Vector subtraction: `v1 - v2`
+- Scalar multiplication: `v * 3` and Dot product: `v1 * v2`
+- Vector magnitude: `abs(v)` ($\sqrt{x^2 + y^2}$)
+- Equality: `v1 == v2`
+- Usability inside Python `set()` and as dictionary keys (via `__hash__`).
+
+```python
+import math
+
+class Vector2D:
+    __slots__ = ("_x", "_y")
+
+    def __init__(self, x: float, y: float):
+        # Store as private attributes to ensure immutability
+        object.__setattr__(self, "_x", float(x))
+        object.__setattr__(self, "_y", float(y))
+
+    @property
+    def x(self) -> float:
+        return self._x
+
+    @property
+    def y(self) -> float:
+        return self._y
+
+    def __repr__(self) -> str:
+        return f"Vector2D({self.x}, {self.y})"
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Vector2D):
+            return False
+        return math.isclose(self.x, other.x) and math.isclose(self.y, other.y)
+
+    def __hash__(self) -> int:
+        return hash((self.x, self.y))
+
+    def __add__(self, other: "Vector2D") -> "Vector2D":
+        if not isinstance(other, Vector2D):
+            return NotImplemented
+        return Vector2D(self.x + other.x, self.y + other.y)
+
+    def __sub__(self, other: "Vector2D") -> "Vector2D":
+        if not isinstance(other, Vector2D):
+            return NotImplemented
+        return Vector2D(self.x - other.x, self.y - other.y)
+
+    def __mul__(self, other: float | "Vector2D") -> float | "Vector2D":
+        if isinstance(other, (int, float)):
+            # Scalar multiplication
+            return Vector2D(self.x * other, self.y * other)
+        elif isinstance(other, Vector2D):
+            # Dot product: x1*x2 + y1*y2
+            return self.x * other.x + self.y * other.y
+        return NotImplemented
+
+    def __abs__(self) -> float:
+        return math.hypot(self.x, self.y)
+
+# Test Cases
+v1 = Vector2D(3, 4)
+v2 = Vector2D(1, 2)
+
+# Vector math
+assert v1 + v2 == Vector2D(4, 6)
+assert v1 - v2 == Vector2D(2, 2)
+assert v1 * 2 == Vector2D(6, 8)
+assert v1 * v2 == (3 * 1) + (4 * 2) == 11.0  # Dot product
+assert abs(v1) == 5.0                        # Magnitude (3-4-5 triangle)
+
+# Hashability test (can be stored in set or used as dict key)
+vector_set = {Vector2D(3, 4), Vector2D(1, 2), Vector2D(3, 4)}
+assert len(vector_set) == 2, "Duplicates should be folded by set"
+print("Exercise 8 Passed!")
+```
+
+---
+
+### Exercise 9: Expiring Cache with Dataclass & Property
+- **Concepts Covered:** `@dataclass(slots=True)`, `@property`, setters, data validation, `time.monotonic()`.
+- **JS vs. Python Mindset:** In TypeScript, getters and setters are written with `get` and `set`. In Python, the `@property` decorator creates pythonic getters, and `@<name>.setter` handles validation. Using `slots=True` in modern Python 3.10 dataclasses bypasses the internal instance `__dict__`, reducing memory footprint by up to 60%.
+
+#### Problem Statement
+Create a `CacheEntry` dataclass and a `SimpleCache` class that holds key-value entries with a time-to-live (`ttl`) in seconds. Accessing a key via `cache.get(key)` returns the value if not expired, or `None` if expired.
+
+```python
+from dataclasses import dataclass, field
+import time
+from typing import Any
+
+@dataclass(slots=True)
+class CacheEntry:
+    value: Any
+    ttl_seconds: float
+    created_at: float = field(default_factory=time.monotonic)
+
+    @property
+    def is_expired(self) -> bool:
+        """Returns True if the TTL has elapsed."""
+        return (time.monotonic() - self.created_at) > self.ttl_seconds
+
+class SimpleCache:
+    def __init__(self):
+        self._store: dict[str, CacheEntry] = {}
+
+    def set(self, key: str, value: Any, ttl: float = 60.0) -> None:
+        if ttl <= 0:
+            raise ValueError("TTL must be positive")
+        self._store[key] = CacheEntry(value=value, ttl_seconds=ttl)
+
+    def get(self, key: str) -> Any | None:
+        entry = self._store.get(key)
+        if entry is None:
+            return None
+        
+        if entry.is_expired:
+            # Lazy eviction upon access
+            del self._store[key]
+            return None
+            
+        return entry.value
+
+    def __len__(self) -> int:
+        # Return count of active (non-expired) entries
+        return sum(1 for e in self._store.values() if not e.is_expired)
+
+# Test Cases
+cache = SimpleCache()
+cache.set("session_token", "xyz123", ttl=0.1)  # 100ms TTL
+cache.set("user_id", 42, ttl=10.0)             # 10s TTL
+
+assert cache.get("user_id") == 42
+assert cache.get("session_token") == "xyz123"
+
+# Wait for session_token to expire
+time.sleep(0.12)
+assert cache.get("session_token") is None
+assert cache.get("user_id") == 42
+assert len(cache) == 1
+print("Exercise 9 Passed!")
+```
+
+---
+
+### Exercise 10: Atomic Transaction Rollback Context Manager
+- **Concepts Covered:** Context Managers, `__enter__`, `__exit__`, exception swallowing vs propagation, transaction atomicity.
+- **JS vs. Python Mindset:** In JavaScript, transaction safety requires error-prone `try { ... } catch (e) { await rollback(); throw e; }` wrappers. In Python, the `with` statement encapsulates resource acquisition and cleanup natively. `__exit__` receives any active exception, enabling automatic rollbacks.
+
+#### Problem Statement
+Build an in-memory transactional database `SimpleDB` and a `Transaction` context manager. Any mutations executed inside the `with db.transaction():` block must be automatically committed on clean exit, or completely rolled back if an unhandled exception occurs inside the block.
+
+```python
+import copy
+from typing import Any
+
+class SimpleDB:
+    def __init__(self):
+        self._data: dict[str, Any] = {}
+
+    def get(self, key: str) -> Any:
+        return self._data.get(key)
+
+    def set(self, key: str, value: Any) -> None:
+        self._data[key] = value
+
+    def snapshot(self) -> dict[str, Any]:
+        return copy.deepcopy(self._data)
+
+    def restore(self, backup: dict[str, Any]) -> None:
+        self._data = backup
+
+    def transaction(self) -> "TransactionContext":
+        return TransactionContext(self)
+
+
+class TransactionContext:
+    def __init__(self, db: SimpleDB):
+        self.db = db
+        self.backup: dict[str, Any] = {}
+
+    def __enter__(self) -> SimpleDB:
+        # Save snapshot of DB state upon entering with block
+        self.backup = self.db.snapshot()
+        return self.db
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> bool:
+        if exc_type is not None:
+            # An error occurred inside the block -> ROLLBACK!
+            self.db.restore(self.backup)
+            # Returning False allows the exception to propagate naturally
+            return False
+        
+        # Clean exit -> commit is implicit
+        return True
+
+# Test Cases
+db = SimpleDB()
+db.set("balance:alice", 100)
+db.set("balance:bob", 50)
+
+# Test 1: Successful Transaction
+with db.transaction():
+    db.set("balance:alice", 70)
+    db.set("balance:bob", 80)
+
+assert db.get("balance:alice") == 70
+assert db.get("balance:bob") == 80
+
+# Test 2: Failed Transaction with Rollback
+try:
+    with db.transaction():
+        db.set("balance:alice", 0)
+        raise RuntimeError("Network failure mid-transfer!")
+except RuntimeError:
+    pass
+
+# Verify state was restored to pre-transaction values
+assert db.get("balance:alice") == 70, "Transaction should have rolled back balance:alice!"
+print("Exercise 10 Passed!")
+```
+
+---
+
+### Exercise 11: Memory-Efficient Batch Stream Paginator (Generators)
+- **Concepts Covered:** Generators, `yield`, `yield from`, memory-efficient iterators, infinite streams.
+- **JS vs. Python Mindset:** In Node.js, streaming huge datasets requires event emitters or async iterables (`for await (const chunk of stream)`). In Python, regular generator functions using `yield` provide a lightweight, pull-based stream. Generating 10,000,000 items with a Python generator uses less than 1KB of RAM!
+
+#### Problem Statement
+Write a generator function `paginate_stream(data_source: Iterable[T], page_size: int) -> Generator[list[T], None, None]` that lazily yields batches of `page_size`. Also write a generator `flatten(nested_iterable)` using `yield from`.
+
+```python
+from collections.abc import Generator, Iterable
+from typing import TypeVar
+
+T = TypeVar("T")
+
+def paginate_stream(data_source: Iterable[T], page_size: int) -> Generator[list[T], None, None]:
+    if page_size <= 0:
+        raise ValueError("page_size must be positive")
+
+    batch: list[T] = []
+    for item in data_source:
+        batch.append(item)
+        if len(batch) == page_size:
+            yield batch
+            batch = []  # Reset batch buffer
+
+    # Yield remaining tail items
+    if batch:
+        yield batch
+
+def flatten(nested: Iterable[Iterable[T]]) -> Generator[T, None, None]:
+    """Flattens a two-level nested iterable using yield from."""
+    for sublist in nested:
+        yield from sublist
+
+# Test Cases
+large_range = range(10)  # [0, 1, 2, ..., 9]
+pages = list(paginate_stream(large_range, page_size=4))
+assert pages == [
+    [0, 1, 2, 3],
+    [4, 5, 6, 7],
+    [8, 9]
+]
+
+# Verify flatten generator with yield from
+reconstructed = list(flatten(pages))
+assert reconstructed == list(range(10))
+
+# Verify lazy evaluation does not allocate memory for 1 million items
+million_stream = paginate_stream(range(1_000_000), page_size=100)
+first_page = next(million_stream)
+assert len(first_page) == 100
+assert first_page[0] == 0
+assert first_page[-1] == 99
+print("Exercise 11 Passed!")
+# Time Complexity: O(n) total iteration
+# Space Complexity: O(page_size) auxiliary memory
+```
+
+---
+
+### Exercise 12: Resilient Retry Decorator with Exponential Backoff
+- **Concepts Covered:** Decorators, closures, `functools.wraps`, higher-order functions, variable arguments (`*args`, `**kwargs`).
+- **JS vs. Python Mindset:** In JavaScript, wrapping an API call with retries is achieved with Higher-Order Functions: `withRetry(fetchData, { retries: 3 })`. In Python, we use the `@` decorator syntax. The `functools.wraps` helper is essential to preserve the original function's `__name__`, docstrings, and signature metadata.
+
+#### Problem Statement
+Create a decorator `@retry(max_retries=3, backoff_factor=2.0, exceptions=(Exception,))` that retries failing functions with exponential delay ($delay = \text{backoff\_factor} \times 2^{\text{attempt}}$). If all retries fail, raise the last encountered exception.
+
+```python
+import functools
+import time
+from typing import Callable, TypeVar, Any
+
+F = TypeVar("F", bound=Callable[..., Any])
+
+def retry(
+    max_retries: int = 3,
+    backoff_factor: float = 0.01,  # Short default for tests
+    exceptions: tuple[type[Exception], ...] = (Exception,)
+) -> Callable[[F], F]:
+    def decorator(func: F) -> F:
+        @functools.wraps(func)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            last_exception: Exception | None = None
+            
+            for attempt in range(max_retries):
+                try:
+                    return func(*args, **kwargs)
+                except exceptions as err:
+                    last_exception = err
+                    if attempt == max_retries - 1:
+                        # Out of attempts: re-raise the final exception
+                        break
+                    
+                    sleep_time = backoff_factor * (2 ** attempt)
+                    time.sleep(sleep_time)
+
+            assert last_exception is not None
+            raise last_exception
+
+        return wrapper  # type: ignore[return-value]
+    return decorator
+
+# Test Cases
+call_count = 0
+
+@retry(max_retries=3, backoff_factor=0.01, exceptions=(ConnectionError,))
+def unstable_network_call(success_on_attempt: int) -> str:
+    """Simulates an API request with transient failures."""
+    global call_count
+    call_count += 1
+    if call_count < success_on_attempt:
+        raise ConnectionError("Server unavailable")
+    return "SUCCESS"
+
+# 1. Test successful retry on 2nd attempt
+call_count = 0
+result = unstable_network_call(success_on_attempt=2)
+assert result == "SUCCESS"
+assert call_count == 2
+
+# 2. Test metadata preservation via functools.wraps
+assert unstable_network_call.__name__ == "unstable_network_call"
+assert "Simulates an API request" in unstable_network_call.__doc__
+
+# 3. Test failure after exhausting retries
+call_count = 0
+try:
+    unstable_network_call(success_on_attempt=10)  # Requires 10 attempts, max is 3
+    assert False, "Should have raised ConnectionError"
+except ConnectionError:
+    pass
+assert call_count == 3, f"Expected 3 attempts, got {call_count}"
+
+print("Exercise 12 Passed!")
+```
+
+---
+
 
